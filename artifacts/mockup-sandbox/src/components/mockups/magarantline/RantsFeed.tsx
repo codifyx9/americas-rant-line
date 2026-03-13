@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Share2, DollarSign, Flame, Clock } from 'lucide-react';
+import { Play, Share2, Flame, Clock } from 'lucide-react';
 
 export default function RantsFeed() {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -206,10 +206,6 @@ export default function RantsFeed() {
                 <div className="flex gap-2">
                   <button className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
                     <Share2 className="w-4 h-4" />
-                  </button>
-                  <button className="flex items-center justify-center px-4 h-10 rounded-full bg-green-900/40 text-green-400 border border-green-800 hover:bg-green-800 hover:text-white transition-colors font-bold">
-                    <DollarSign className="w-4 h-4 mr-1" />
-                    Tip
                   </button>
                 </div>
               </div>

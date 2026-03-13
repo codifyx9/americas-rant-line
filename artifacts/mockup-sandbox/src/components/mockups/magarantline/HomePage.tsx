@@ -166,9 +166,6 @@ export default function MagaRantLineHome() {
                    <MessageCircle className="w-4 h-4 mr-2" /> 142
                  </Button>
               </div>
-              <Button variant="ghost" size="sm" className="text-[#FFFFFF] hover:text-white hover:bg-[#FFFFFF]/10 font-bold">
-                <Zap className="w-4 h-4 mr-2" /> Tip $1
-              </Button>
             </CardFooter>
           </Card>
         </div>
@@ -241,9 +238,6 @@ export default function MagaRantLineHome() {
                         <Flame className="w-3.5 h-3.5 mr-1 fill-red-400" />
                         {rant.votes}
                       </div>
-                      <Button variant="ghost" size="sm" className="h-7 text-xs text-[#FFFFFF] hover:bg-[#FFFFFF]/10 px-2">
-                        Tip
-                      </Button>
                     </div>
                   </div>
                 </CardContent>
