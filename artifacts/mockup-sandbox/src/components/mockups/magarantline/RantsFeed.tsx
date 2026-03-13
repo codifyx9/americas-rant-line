@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { Mic, Play, Share2, DollarSign, Flame, Menu } from 'lucide-react';
+import { Mic, Play, Share2, DollarSign, Flame } from 'lucide-react';
 
 export default function RantsFeed() {
-  const [activeFilter, setActiveFilter] = useState('All');
+  const [activeFilter, setActiveFilter] = useState('ALL');
 
   const filters = [
-    'All',
-    'Inflation',
-    'Politics',
-    'War Concerns',
-    'Work Frustrations',
-    'Dating Stories',
-    'Everyday Life',
+    { label: 'ALL', icon: '' },
+    { label: 'INFLATION', icon: '📈' },
+    { label: 'POLITICS', icon: '🏛' },
+    { label: 'WAR CONCERNS', icon: '⚔️' },
+    { label: 'WORK FRUSTRATIONS', icon: '💼' },
+    { label: 'DATING STORIES', icon: '❤️' },
+    { label: 'EVERYDAY LIFE', icon: '🌱' },
   ];
 
   const rants = [
@@ -21,8 +21,8 @@ export default function RantsFeed() {
       category: 'Inflation',
       duration: '2:34',
       votes: '2,847',
-      caller: 'Anonymous from Texas',
-      progress: 35,
+      state: 'Texas',
+      progress: 38,
     },
     {
       id: 2,
@@ -30,17 +30,17 @@ export default function RantsFeed() {
       category: 'Politics',
       duration: '4:12',
       votes: '1,923',
-      caller: 'Anonymous from Ohio',
-      progress: 35,
+      state: 'Ohio',
+      progress: 38,
     },
     {
       id: 3,
-      title: 'My Son Came Home from Overseas Changed',
+      title: 'My Son Came Home from Overseas Changed Forever',
       category: 'War Concerns',
       duration: '3:45',
       votes: '1,456',
-      caller: 'Anonymous from Georgia',
-      progress: 35,
+      state: 'Georgia',
+      progress: 38,
     },
     {
       id: 4,
@@ -48,8 +48,8 @@ export default function RantsFeed() {
       category: 'Work Frustrations',
       duration: '2:18',
       votes: '987',
-      caller: 'Anonymous from Florida',
-      progress: 35,
+      state: 'Florida',
+      progress: 38,
     },
     {
       id: 5,
@@ -57,161 +57,173 @@ export default function RantsFeed() {
       category: 'Dating Stories',
       duration: '5:02',
       votes: '876',
-      caller: 'Anonymous from Michigan',
-      progress: 35,
+      state: 'Michigan',
+      progress: 38,
     },
     {
       id: 6,
-      title: 'Grocery Store Lines Are Getting Ridiculous',
+      title: 'Grocery Store Lines Are Completely Out of Control',
       category: 'Everyday Life',
       duration: '1:57',
       votes: '654',
-      caller: 'Anonymous from Arizona',
-      progress: 35,
+      state: 'Arizona',
+      progress: 38,
     },
   ];
 
   return (
-    <div className="min-h-screen bg-[#0B1E3A] text-white font-sans">
-      {/* Navigation Bar */}
-      <nav className="sticky top-0 z-50 bg-[#D61F1F] shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Left */}
-            <div className="flex items-center gap-2">
-              <Mic className="w-6 h-6 text-white" />
-              <span className="font-['Bebas_Neue'] text-white text-2xl tracking-widest mt-1">
-                MAGARANTLINE
-              </span>
-            </div>
-
-            {/* Center (Desktop) */}
-            <div className="hidden md:flex items-center space-x-8">
-              <button className="text-white hover:text-white/80 font-bold text-sm uppercase tracking-wider transition-colors">
-                Home
-              </button>
-              <button className="text-white font-bold text-sm uppercase tracking-wider underline underline-offset-8 decoration-2 decoration-white">
-                Rant Wall
-              </button>
-              <button className="text-white hover:text-white/80 font-bold text-sm uppercase tracking-wider transition-colors">
-                Leaderboard
-              </button>
-            </div>
-
-            {/* Right */}
-            <div className="flex items-center gap-4">
-              <button className="hidden md:block bg-[#F59E0B] hover:bg-[#F59E0B]/90 text-black px-6 py-2 rounded-full font-bold text-sm uppercase tracking-wider transition-colors shadow-md">
-                LEAVE A RANT
-              </button>
-              <button className="md:hidden text-white">
-                <Menu className="w-6 h-6" />
-              </button>
-            </div>
+    <div className="min-h-screen bg-[#080e1f] font-sans text-white">
+      {/* HERO BANNER */}
+      <div className="bg-[#0B1E3A] relative overflow-hidden py-5 px-6 flex items-center justify-between">
+        <div className="z-10 flex flex-col items-start">
+          <img
+            src="/__mockup/images/logo-reference.png"
+            className="h-14 object-contain"
+            alt="MAGA RANT LINE"
+          />
+          <div className="text-white text-xs uppercase tracking-widest mt-1 font-bold">
+            ★ AMERICA'S VOICE. <span style={{ color: '#D61F1F' }}>UNFILTERED.</span> REAL. ★
           </div>
         </div>
-      </nav>
 
-      {/* Page Header */}
-      <div className="relative bg-[#0B1E3A] overflow-hidden">
-        {/* Subtle Star Texture */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none select-none overflow-hidden flex flex-wrap content-start">
-          {Array.from({ length: 150 }).map((_, i) => (
-            <span
-              key={i}
-              className="text-white text-xs p-4"
-              style={{
-                transform: `translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px)`,
-              }}
-            >
-              ★
-            </span>
-          ))}
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-4">
-          <h1 className="font-['Bebas_Neue'] text-white text-6xl text-center mb-1 tracking-wide">
-            RANT WALL
-          </h1>
-          <p className="text-[#F59E0B] text-center italic text-lg mb-8">
-            Unfiltered. Unscripted. Uncensored.
-          </p>
-
-          {/* Filters */}
-          <div className="flex overflow-x-auto hide-scrollbar -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap md:justify-center gap-2 pb-4">
-            {filters.map((filter) => (
-              <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm transition-colors ${
-                  activeFilter === filter
-                    ? 'bg-[#D61F1F] text-white'
-                    : 'border border-white/30 text-white hover:bg-white/10'
-                }`}
-              >
-                {filter}
-              </button>
+        {/* RIGHT (flag corner) */}
+        <div className="absolute top-0 right-0 w-40 h-full pointer-events-none overflow-hidden opacity-50">
+          <div
+            className="absolute inset-0"
+            style={{
+              background: 'repeating-linear-gradient(0deg, #B22234 0px, #B22234 18px, #FFFFFF 18px, #FFFFFF 36px)',
+              transform: 'rotate(-10deg) scale(1.5)',
+              transformOrigin: 'top right'
+            }}
+          ></div>
+          <div className="absolute top-0 left-0 w-20 h-24 bg-[#0B1E3A] flex flex-wrap content-start p-1" style={{ transform: 'rotate(-10deg) scale(1.5)', transformOrigin: 'top right' }}>
+            {Array.from({ length: 9 }).map((_, i) => (
+              <span key={i} className="text-white text-[8px] mx-0.5">★</span>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        {/* Rants Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      {/* NAVBAR */}
+      <nav className="sticky top-0 z-50 bg-[#D61F1F] h-14 flex items-center px-4 gap-3 shadow-lg">
+        {/* LEFT */}
+        <div className="flex items-center gap-2">
+          <Mic className="w-5 h-5 text-white" />
+          <span className="font-['Black_Ops_One'] text-white text-xl tracking-wide mt-1">
+            MAGARANTLINE
+          </span>
+        </div>
+
+        {/* CENTER */}
+        <div className="hidden md:flex items-center gap-3 ml-8">
+          <button className="bg-[#0B1E3A] hover:bg-[#0B1E3A]/80 transition-colors rounded-full px-4 py-1 text-white text-sm font-semibold flex items-center gap-2">
+            <span>🏠</span> HOME
+          </button>
+          <button className="bg-[#0B1E3A] hover:bg-[#0B1E3A]/80 transition-colors rounded-full px-4 py-1 text-white text-sm font-semibold flex items-center gap-2 border border-white/20">
+            <span>📻</span> RANT WALL
+          </button>
+          <button className="bg-[#0B1E3A] hover:bg-[#0B1E3A]/80 transition-colors rounded-full px-4 py-1 text-white text-sm font-semibold flex items-center gap-2">
+            <span>🏆</span> LEADERBOARD
+          </button>
+        </div>
+
+        {/* RIGHT */}
+        <button className="bg-[#F59E0B] hover:bg-[#F59E0B]/90 transition-colors text-black font-bold rounded-full px-5 py-2 text-sm ml-auto flex items-center gap-1">
+          LEAVE A RANT <span className="ml-1">→</span>
+        </button>
+      </nav>
+
+      {/* RANT WALL PAGE CONTENT */}
+      
+      {/* PAGE HEADER SECTION */}
+      <section className="bg-[#0B1E3A] py-8 px-6">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="font-['Black_Ops_One'] text-white text-6xl text-center mb-2">
+            RANT WALL
+          </h1>
+          <p className="text-[#F59E0B] italic text-center text-sm mb-6">
+            Unfiltered. Unscripted. Uncensored.
+          </p>
+          
+          {/* CATEGORY FILTER PILLS */}
+          <div className="flex flex-wrap justify-center gap-2">
+            {filters.map((filter) => {
+              const isActive = activeFilter === filter.label;
+              return (
+                <button
+                  key={filter.label}
+                  onClick={() => setActiveFilter(filter.label)}
+                  className={`rounded-full px-4 py-2 text-sm font-bold uppercase transition-colors flex items-center gap-1.5 ${
+                    isActive
+                      ? 'bg-[#D61F1F] text-white'
+                      : 'bg-[#1a1a2e] text-white border border-white/20 hover:bg-[#1a1a2e]/80'
+                  }`}
+                >
+                  {filter.icon && <span>{filter.icon}</span>}
+                  {filter.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* RANT CARDS GRID */}
+      <section className="px-6 py-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {rants.map((rant) => (
             <div
               key={rant.id}
-              className="bg-[#0B1E3A] border border-[#D61F1F]/50 rounded-2xl p-5 hover:border-[#D61F1F] transition-colors flex flex-col group"
+              className="bg-[#0d1530] border border-[#D61F1F]/40 rounded-2xl p-5 hover:border-[#D61F1F]/80 transition-colors flex flex-col"
             >
-              {/* TOP: Play & Title & Duration */}
-              <div className="flex items-start gap-4 mb-3">
-                <button className="flex-shrink-0 w-10 h-10 rounded-full border-2 border-[#F59E0B] flex items-center justify-center bg-transparent group-hover:bg-[#F59E0B]/10 transition-colors">
-                  <Play className="w-4 h-4 text-[#F59E0B] ml-1" fill="currentColor" />
+              {/* TOP ROW */}
+              <div className="flex gap-3 items-start">
+                <button className="w-11 h-11 min-w-[44px] rounded-full bg-[#D61F1F] flex items-center justify-center text-white hover:bg-[#D61F1F]/90 transition-colors flex-shrink-0">
+                  <Play className="w-5 h-5 ml-0.5" fill="currentColor" />
                 </button>
-                <h3 className="text-lg font-bold text-white leading-snug flex-1">
+                <h3 className="text-white font-bold flex-1 leading-tight text-lg mt-0.5">
                   {rant.title}
                 </h3>
-                <span className="flex-shrink-0 bg-black/40 text-gray-300 text-xs px-2 py-1 rounded-md">
+                <span className="bg-black/40 text-gray-300 text-xs px-2 py-1 rounded flex-shrink-0 font-medium whitespace-nowrap">
                   {rant.duration}
                 </span>
               </div>
 
-              {/* Row 2: Category badge + caller */}
-              <div className="flex items-center gap-2 mb-4">
-                <span className="bg-[#D61F1F] text-white text-xs rounded-full px-2 py-0.5 whitespace-nowrap">
+              {/* ROW 2 */}
+              <div className="flex gap-2 items-center mt-3">
+                <span className="bg-[#D61F1F]/20 text-[#D61F1F] border border-[#D61F1F]/40 rounded-full px-3 py-0.5 text-xs font-bold whitespace-nowrap">
                   {rant.category}
                 </span>
-                <span className="text-sm text-gray-400">
-                  {rant.caller}
+                <span className="text-gray-400 text-sm truncate">
+                  Anonymous from {rant.state}
                 </span>
               </div>
 
-              {/* Row 3: Progress Bar */}
-              <div className="mb-4">
-                <div className="h-1 w-full bg-white/10 rounded overflow-hidden">
-                  <div
-                    className="h-full bg-[#F59E0B] rounded-full"
-                    style={{ width: `${rant.progress}%` }}
-                  />
-                </div>
+              {/* PROGRESS BAR */}
+              <div className="h-1 bg-white/10 rounded-full mt-4 w-full overflow-hidden">
+                <div
+                  className="bg-[#F59E0B] rounded-full h-full"
+                  style={{ width: `${rant.progress}%` }}
+                />
               </div>
 
-              {/* Row 4: Votes & Actions */}
-              <div className="flex items-center mt-auto">
+              {/* BOTTOM ROW */}
+              <div className="flex items-center mt-4">
                 <div className="flex items-center gap-1.5 text-[#F59E0B]">
-                  <Flame className="w-5 h-5" fill="currentColor" />
-                  <span className="font-bold">{rant.votes} votes</span>
+                  <Flame className="w-4 h-4" fill="currentColor" />
+                  <span className="font-bold text-sm">{rant.votes}</span>
                 </div>
                 
                 <div className="flex-1"></div>
 
-                <div className="flex items-center gap-3 text-gray-400">
-                  <button className="hover:text-white transition-colors p-1.5 rounded-full hover:bg-white/10">
-                    <Share2 className="w-5 h-5" />
+                <div className="flex items-center gap-2">
+                  <button className="flex items-center gap-1.5 border border-white/10 text-gray-400 rounded-lg px-3 py-1.5 text-xs hover:bg-white/10 hover:text-white transition-colors font-medium">
+                    <Share2 className="w-3.5 h-3.5" />
+                    SHARE
                   </button>
-                  <button className="hover:text-[#4ADE80] transition-colors p-1.5 rounded-full hover:bg-white/10">
-                    <DollarSign className="w-5 h-5" />
+                  <button className="flex items-center gap-1.5 bg-[#F59E0B]/10 text-[#F59E0B] border border-[#F59E0B]/30 rounded-lg px-3 py-1.5 text-xs hover:bg-[#F59E0B]/20 transition-colors font-bold">
+                    <DollarSign className="w-3.5 h-3.5" />
+                    TIP
                   </button>
                 </div>
               </div>
@@ -219,20 +231,14 @@ export default function RantsFeed() {
           ))}
         </div>
 
-        {/* Load More Button */}
-        <div className="flex justify-center">
-          <button className="border border-[#D61F1F] text-[#D61F1F] hover:bg-[#D61F1F] hover:text-white px-8 py-3 rounded-full font-bold transition-colors">
-            Load More
+        {/* LOAD MORE BUTTON */}
+        <div className="flex justify-center mt-8">
+          <button className="border-2 border-[#D61F1F] text-[#D61F1F] font-bold rounded-full px-10 py-3 hover:bg-[#D61F1F] hover:text-white transition-colors tracking-wide">
+            LOAD MORE
           </button>
         </div>
-      </main>
-      
-      {/* Mobile Sticky Action */}
-      <div className="md:hidden fixed bottom-6 right-6 z-40">
-        <button className="bg-[#F59E0B] text-black w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 transition-transform">
-          <Mic className="w-6 h-6" />
-        </button>
-      </div>
+      </section>
+
     </div>
   );
 }
