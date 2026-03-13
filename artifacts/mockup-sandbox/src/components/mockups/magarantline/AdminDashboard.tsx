@@ -1,48 +1,26 @@
 import React, { useState } from "react";
 import {
-  Play,
-  Check,
-  X,
-  Star,
-  RefreshCw,
-  Users,
   Mic,
-  Settings,
   List,
-  BarChart2,
+  Star,
   Trophy,
+  BarChart2,
+  Settings,
   LogOut,
-  Radio,
-  Clock,
-  ThumbsUp,
-  AlertCircle
+  User,
+  Check,
+  RefreshCw,
+  Play,
+  X,
+  Eye,
+  CircleDot
 } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const RANTS_DATA = [
   {
     id: "#2847",
     caller: "+1(512)***-4892",
-    timestamp: "Today 2:34 PM",
+    time: "2:34 PM",
     duration: "2:34",
     category: "",
     status: "Pending",
@@ -51,7 +29,7 @@ const RANTS_DATA = [
   {
     id: "#2846",
     caller: "+1(614)***-7723",
-    timestamp: "Today 1:18 PM",
+    time: "1:18 PM",
     duration: "4:12",
     category: "Inflation",
     status: "Pending",
@@ -60,7 +38,7 @@ const RANTS_DATA = [
   {
     id: "#2845",
     caller: "+1(404)***-2291",
-    timestamp: "Today 11:45 AM",
+    time: "11:45 AM",
     duration: "3:45",
     category: "Politics",
     status: "Approved",
@@ -69,16 +47,16 @@ const RANTS_DATA = [
   {
     id: "#2844",
     caller: "+1(305)***-9918",
-    timestamp: "Today 9:22 AM",
+    time: "9:22 AM",
     duration: "2:18",
     category: "Work",
     status: "Approved",
-    featured: false,
+    featured: true,
   },
   {
     id: "#2843",
     caller: "+1(734)***-5507",
-    timestamp: "Yesterday",
+    time: "Yesterday",
     duration: "5:02",
     category: "Dating",
     status: "Rejected",
@@ -87,284 +65,258 @@ const RANTS_DATA = [
   {
     id: "#2842",
     caller: "+1(602)***-1134",
-    timestamp: "Yesterday",
+    time: "Yesterday",
     duration: "1:57",
     category: "Everyday Life",
     status: "Approved",
-    featured: true,
+    featured: false,
   },
 ];
+
+const Waveform = () => (
+  <div className="flex items-center gap-[2px] h-4 mx-2">
+    {[30, 60, 40, 80, 50, 30, 70, 90].map((h, i) => (
+      <div
+        key={i}
+        className="w-[2px] bg-white/40 rounded-full"
+        style={{ height: `${h}%` }}
+      />
+    ))}
+  </div>
+);
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("all");
 
-  const Waveform = () => (
-    <div className="flex items-center gap-0.5 h-6 mx-2">
-      {[40, 70, 40, 100, 60, 30, 80, 50, 90, 40].map((h, i) => (
-        <div
-          key={i}
-          className="w-1 bg-[#FFD700]/70 rounded-full"
-          style={{ height: `${h}%` }}
-        />
-      ))}
-    </div>
-  );
-
   return (
-    <div className="min-h-screen text-white font-sans flex flex-col" style={{ backgroundColor: "#0a0e1a" }}>
-      {/* Top Navigation */}
-      <header
-        className="flex items-center justify-between px-6 py-4 border-b border-gray-800"
-        style={{ backgroundColor: "#05070d" }}
-      >
-        <div className="flex items-center gap-3">
-          <Radio className="w-6 h-6 text-[#FFD700]" />
-          <h1 className="text-xl font-bold tracking-tight">
-            MagaRantLine <span className="text-gray-500 font-normal">— Admin</span>
+    <div className="min-h-screen text-white font-sans flex flex-col bg-[#0B1E3A]">
+      {/* Top Nav Bar */}
+      <header className="h-14 bg-[#0B1E3A] border-b border-white/10 flex items-center justify-between px-6 shrink-0">
+        <div className="flex items-center gap-2">
+          <Mic className="w-5 h-5 text-[#D61F1F]" />
+          <h1 className="font-['Bebas_Neue'] text-[#D61F1F] text-2xl tracking-wide flex items-center gap-2">
+            MAGARANTLINE <span className="text-white text-xl tracking-normal">— Admin Panel</span>
           </h1>
         </div>
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center border border-gray-700">
-              👤
-            </div>
-            <span className="text-sm font-medium">Admin User</span>
+          <div className="flex items-center gap-2 text-gray-300 text-sm">
+            <User className="w-4 h-4" />
+            <span>Admin</span>
           </div>
-          <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white hover:bg-gray-800">
-            <LogOut className="w-5 h-5" />
-          </Button>
+          <button className="text-xs text-gray-400 hover:text-white flex items-center gap-1 transition-colors">
+            <LogOut className="w-3 h-3" />
+            Logout
+          </button>
         </div>
       </header>
 
-      <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
-        <aside
-          className="w-[240px] border-r border-gray-800 flex flex-col py-6"
-          style={{ backgroundColor: "#0d1326" }}
-        >
-          <nav className="flex-1 space-y-1 px-3">
-            <a href="#" className="flex items-center justify-between px-3 py-2.5 rounded-lg bg-[#FFD700]/10 text-[#FFD700] font-medium transition-colors">
-              <div className="flex items-center gap-3">
-                <List className="w-5 h-5" />
-                Incoming Rants
+      <div className="flex flex-1 overflow-hidden bg-black/20">
+        {/* Left Sidebar */}
+        <aside className="w-52 bg-black/40 border-r border-white/10 flex flex-col shrink-0">
+          <nav className="flex-1 py-4">
+            <div className="px-4 py-3 text-sm cursor-pointer bg-[#D61F1F]/20 border-l-2 border-[#D61F1F] flex items-center justify-between">
+              <div className="flex items-center gap-2 text-white">
+                <List className="w-4 h-4" />
+                <span>Incoming Rants</span>
               </div>
-              <Badge className="bg-[#FFD700] text-black hover:bg-[#FFD700]">12</Badge>
-            </a>
-            <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors">
-              <Star className="w-5 h-5" />
-              Featured Mgmt
-            </a>
-            <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors">
-              <Trophy className="w-5 h-5" />
-              Leaderboard
-            </a>
-            <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors">
-              <BarChart2 className="w-5 h-5" />
-              Analytics
-            </a>
+              <span className="bg-[#F59E0B] text-black text-[10px] font-bold rounded-full px-2 py-0.5">
+                8 pending
+              </span>
+            </div>
+            <div className="px-4 py-3 text-sm cursor-pointer hover:bg-[#D61F1F]/20 flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
+              <Star className="w-4 h-4" />
+              <span>Featured Mgmt</span>
+            </div>
+            <div className="px-4 py-3 text-sm cursor-pointer hover:bg-[#D61F1F]/20 flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
+              <Trophy className="w-4 h-4" />
+              <span>Leaderboard</span>
+            </div>
+            <div className="px-4 py-3 text-sm cursor-pointer hover:bg-[#D61F1F]/20 flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
+              <BarChart2 className="w-4 h-4" />
+              <span>Analytics</span>
+            </div>
+            <div className="px-4 py-3 text-sm cursor-pointer hover:bg-[#D61F1F]/20 flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
+              <Settings className="w-4 h-4" />
+              <span>Settings</span>
+            </div>
           </nav>
-          <div className="px-3 mt-auto">
-            <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors">
-              <Settings className="w-5 h-5" />
-              Settings
-            </a>
-          </div>
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto p-8">
-          <div className="max-w-7xl mx-auto space-y-8">
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="bg-gray-800/50 border-gray-700">
-                <CardContent className="p-6 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
-                    <Mic className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-400">Total Today</p>
-                    <h3 className="text-2xl font-bold text-white">12</h3>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="bg-gray-800/50 border-gray-700">
-                <CardContent className="p-6 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
-                    <ThumbsUp className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-400">Approved</p>
-                    <h3 className="text-2xl font-bold text-white">8</h3>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="bg-gray-800/50 border-gray-700">
-                <CardContent className="p-6 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400">
-                    <Clock className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-400">Pending</p>
-                    <h3 className="text-2xl font-bold text-white">3</h3>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="bg-gray-800/50 border-gray-700">
-                <CardContent className="p-6 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-[#FFD700]/20 flex items-center justify-center text-[#FFD700]">
-                    <Star className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-400">Featured</p>
-                    <h3 className="text-2xl font-bold text-white">1</h3>
-                  </div>
-                </CardContent>
-              </Card>
+        <main className="flex-1 overflow-y-auto p-6">
+          <div className="max-w-[1400px] mx-auto">
+            {/* Header Row */}
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="font-['Bebas_Neue'] text-white text-3xl tracking-wide">INCOMING VOICEMAILS</h2>
+              <div className="flex items-center gap-2">
+                <button className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1.5 rounded flex items-center gap-1.5 transition-colors font-medium">
+                  <Check className="w-3 h-3" />
+                  Approve All Pending
+                </button>
+                <button className="bg-[#0B1E3A] hover:bg-[#0B1E3A]/80 border border-white/20 text-white text-xs px-3 py-1.5 rounded flex items-center gap-1.5 transition-colors">
+                  <RefreshCw className="w-3 h-3" />
+                  Refresh
+                </button>
+              </div>
             </div>
 
-            {/* Table Section */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <h2 className="text-xl font-semibold">Incoming Voicemails — Pending Review</h2>
-                  <Badge className="bg-gray-800 text-gray-300 border-gray-700 hover:bg-gray-700">12 Total</Badge>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Button className="bg-green-600 hover:bg-green-700 text-white">
-                    <Check className="w-4 h-4 mr-2" />
-                    Approve All Pending
-                  </Button>
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                    <RefreshCw className="w-4 h-4 mr-2" />
-                    Refresh
-                  </Button>
-                </div>
+            {/* Stats Cards */}
+            <div className="grid grid-cols-4 gap-4 mb-6">
+              <div className="bg-[#0B1E3A] border border-white/10 rounded-lg p-3 text-center">
+                <div className="text-gray-400 text-xs uppercase font-medium mb-1">Total Today</div>
+                <div className="text-white text-2xl font-bold">12</div>
               </div>
+              <div className="bg-[#0B1E3A] border border-white/10 rounded-lg p-3 text-center">
+                <div className="text-gray-400 text-xs uppercase font-medium mb-1">Approved</div>
+                <div className="text-green-400 text-2xl font-bold">8</div>
+              </div>
+              <div className="bg-[#0B1E3A] border border-white/10 rounded-lg p-3 text-center">
+                <div className="text-gray-400 text-xs uppercase font-medium mb-1">Pending</div>
+                <div className="text-yellow-400 text-2xl font-bold">3</div>
+              </div>
+              <div className="bg-[#0B1E3A] border border-white/10 rounded-lg p-3 text-center">
+                <div className="text-gray-400 text-xs uppercase font-medium mb-1">Featured</div>
+                <div className="text-[#F59E0B] text-2xl font-bold">1</div>
+              </div>
+            </div>
 
-              <div className="bg-gray-900/50 rounded-xl border border-gray-800 flex flex-col">
-                <div className="p-4 border-b border-gray-800 flex items-center justify-between">
-                  <Tabs value={activeTab} onValueChange={setActiveTab} className="w-[400px]">
-                    <TabsList className="bg-gray-800/50 border border-gray-700 p-1">
-                      <TabsTrigger value="all" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">All (12)</TabsTrigger>
-                      <TabsTrigger value="pending" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">Pending (8)</TabsTrigger>
-                      <TabsTrigger value="approved" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">Approved (3)</TabsTrigger>
-                      <TabsTrigger value="rejected" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">Rejected (1)</TabsTrigger>
-                    </TabsList>
-                  </Tabs>
-                </div>
-                
-                <div className="overflow-x-auto">
-                  <Table>
-                    <TableHeader className="bg-gray-800/30">
-                      <TableRow className="border-gray-800 hover:bg-transparent">
-                        <TableHead className="text-gray-400 font-medium w-[80px]">#</TableHead>
-                        <TableHead className="text-gray-400 font-medium w-[160px]">Caller</TableHead>
-                        <TableHead className="text-gray-400 font-medium w-[160px]">Timestamp</TableHead>
-                        <TableHead className="text-gray-400 font-medium w-[100px]">Duration</TableHead>
-                        <TableHead className="text-gray-400 font-medium w-[200px]">Audio</TableHead>
-                        <TableHead className="text-gray-400 font-medium w-[180px]">Category</TableHead>
-                        <TableHead className="text-gray-400 font-medium w-[120px]">Status</TableHead>
-                        <TableHead className="text-gray-400 font-medium text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {RANTS_DATA.map((rant, i) => (
-                        <TableRow key={i} className="border-gray-800 hover:bg-gray-800/30 transition-colors">
-                          <TableCell className="font-mono text-gray-400">{rant.id}</TableCell>
-                          <TableCell className="font-medium">{rant.caller}</TableCell>
-                          <TableCell className="text-gray-400">{rant.timestamp}</TableCell>
-                          <TableCell className="text-gray-400">{rant.duration}</TableCell>
-                          <TableCell>
-                            <div className="flex items-center">
-                              <Button size="icon" variant="ghost" className="h-8 w-8 rounded-full bg-[#FFD700]/10 text-[#FFD700] hover:bg-[#FFD700]/20 hover:text-[#FFD700]">
-                                <Play className="h-4 w-4 fill-current" />
-                              </Button>
-                              <Waveform />
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            {rant.category ? (
-                              <Select defaultValue={rant.category.toLowerCase()}>
-                                <SelectTrigger className="h-8 bg-gray-800/50 border-gray-700 text-sm w-[140px]">
-                                  <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent className="bg-gray-800 border-gray-700 text-white">
-                                  <SelectItem value="inflation">Inflation</SelectItem>
-                                  <SelectItem value="politics">Politics</SelectItem>
-                                  <SelectItem value="work">Work</SelectItem>
-                                  <SelectItem value="dating">Dating</SelectItem>
-                                  <SelectItem value="everyday life">Everyday Life</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            ) : (
-                              <Select>
-                                <SelectTrigger className="h-8 bg-gray-800/50 border-gray-700 text-sm w-[140px] text-gray-400">
-                                  <SelectValue placeholder="Select..." />
-                                </SelectTrigger>
-                                <SelectContent className="bg-gray-800 border-gray-700 text-white">
-                                  <SelectItem value="inflation">Inflation</SelectItem>
-                                  <SelectItem value="politics">Politics</SelectItem>
-                                  <SelectItem value="work">Work</SelectItem>
-                                  <SelectItem value="dating">Dating</SelectItem>
-                                  <SelectItem value="everyday life">Everyday Life</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            )}
-                          </TableCell>
-                          <TableCell>
-                            {rant.status === "Pending" && (
-                              <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20 hover:bg-yellow-500/20 flex w-fit items-center gap-1.5 font-medium">
-                                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" /> Pending
-                              </Badge>
-                            )}
-                            {rant.status === "Approved" && (
-                              <Badge className="bg-green-500/10 text-green-500 border-green-500/20 hover:bg-green-500/20 flex w-fit items-center gap-1.5 font-medium">
-                                <span className="w-1.5 h-1.5 rounded-full bg-green-500" /> Approved
-                              </Badge>
-                            )}
-                            {rant.status === "Rejected" && (
-                              <Badge className="bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500/20 flex w-fit items-center gap-1.5 font-medium">
-                                <span className="w-1.5 h-1.5 rounded-full bg-red-500" /> Rejected
-                              </Badge>
-                            )}
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <div className="flex items-center justify-end gap-1.5">
-                              {rant.status === "Pending" ? (
-                                <>
-                                  <Button size="icon" variant="outline" className="h-8 w-8 bg-green-500/10 border-green-500/20 text-green-500 hover:bg-green-500/20 hover:text-green-400 rounded-md" title="Approve">
-                                    <Check className="h-4 w-4" />
-                                  </Button>
-                                  <Button size="icon" variant="outline" className="h-8 w-8 bg-red-500/10 border-red-500/20 text-red-500 hover:bg-red-500/20 hover:text-red-400 rounded-md" title="Reject">
-                                    <X className="h-4 w-4" />
-                                  </Button>
-                                  <Button size="icon" variant="outline" className="h-8 w-8 bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-[#FFD700] rounded-md" title="Feature">
-                                    <Star className="h-4 w-4" />
-                                  </Button>
-                                </>
-                              ) : rant.status === "Approved" ? (
-                                <>
-                                  <Button size="sm" variant="outline" className={`h-8 px-2 text-xs border-gray-700 hover:bg-gray-800 rounded-md ${rant.featured ? 'bg-[#FFD700]/10 text-[#FFD700] border-[#FFD700]/30 hover:bg-[#FFD700]/20' : 'bg-gray-800 text-gray-400 hover:text-[#FFD700]'}`}>
-                                    <Star className={`h-3.5 w-3.5 mr-1.5 ${rant.featured ? 'fill-current' : ''}`} />
-                                    {rant.featured ? 'Featured ✓' : 'Feature'}
-                                  </Button>
-                                  <Button size="sm" variant="outline" className="h-8 px-3 bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                                    View
-                                  </Button>
-                                </>
+            {/* Filter Tabs */}
+            <div className="flex border-b border-white/10 mb-4">
+              <button
+                onClick={() => setActiveTab("all")}
+                className={`pb-2 px-4 text-sm font-medium ${activeTab === "all" ? "border-b-2 border-[#D61F1F] text-[#D61F1F]" : "text-gray-400 hover:text-white"}`}
+              >
+                All (12)
+              </button>
+              <button
+                onClick={() => setActiveTab("pending")}
+                className={`pb-2 px-4 text-sm font-medium ${activeTab === "pending" ? "border-b-2 border-[#D61F1F] text-[#D61F1F]" : "text-gray-400 hover:text-white"}`}
+              >
+                Pending (8)
+              </button>
+              <button
+                onClick={() => setActiveTab("approved")}
+                className={`pb-2 px-4 text-sm font-medium ${activeTab === "approved" ? "border-b-2 border-[#D61F1F] text-[#D61F1F]" : "text-gray-400 hover:text-white"}`}
+              >
+                Approved (3)
+              </button>
+              <button
+                onClick={() => setActiveTab("rejected")}
+                className={`pb-2 px-4 text-sm font-medium ${activeTab === "rejected" ? "border-b-2 border-[#D61F1F] text-[#D61F1F]" : "text-gray-400 hover:text-white"}`}
+              >
+                Rejected (1)
+              </button>
+            </div>
+
+            {/* Table */}
+            <div className="bg-[#0B1E3A] border border-white/10 rounded-lg overflow-hidden">
+              <table className="w-full text-sm text-left">
+                <thead className="text-xs uppercase text-gray-400 bg-black/40 border-b border-white/10">
+                  <tr>
+                    <th className="px-4 py-3 font-medium w-16">#</th>
+                    <th className="px-4 py-3 font-medium">Caller</th>
+                    <th className="px-4 py-3 font-medium">Time</th>
+                    <th className="px-4 py-3 font-medium">Dur</th>
+                    <th className="px-4 py-3 font-medium">Audio</th>
+                    <th className="px-4 py-3 font-medium w-40">Category</th>
+                    <th className="px-4 py-3 font-medium">Status</th>
+                    <th className="px-4 py-3 font-medium text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  {RANTS_DATA.map((rant, idx) => (
+                    <tr 
+                      key={idx} 
+                      className={`hover:bg-[#D61F1F]/10 transition-colors ${idx % 2 === 0 ? "bg-[#0B1E3A]" : "bg-black/20"}`}
+                    >
+                      <td className="px-4 py-3 text-gray-400 font-mono">{rant.id}</td>
+                      <td className="px-4 py-3 font-medium">{rant.caller}</td>
+                      <td className="px-4 py-3 text-gray-300">{rant.time}</td>
+                      <td className="px-4 py-3 text-gray-300">{rant.duration}</td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center">
+                          <button className="text-white hover:text-[#D61F1F] transition-colors p-1">
+                            <Play className="w-4 h-4 fill-current" />
+                          </button>
+                          <Waveform />
+                        </div>
+                      </td>
+                      <td className="px-4 py-3">
+                        <select 
+                          className="bg-black/30 border border-white/10 text-white text-xs rounded px-2 py-1.5 w-full focus:outline-none focus:border-[#D61F1F]"
+                          defaultValue={rant.category || ""}
+                        >
+                          <option value="" disabled>Select...</option>
+                          <option value="Inflation">Inflation</option>
+                          <option value="Politics">Politics</option>
+                          <option value="Work">Work</option>
+                          <option value="Dating">Dating</option>
+                          <option value="Everyday Life">Everyday Life</option>
+                        </select>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-1.5">
+                          {rant.status === "Pending" && (
+                            <>
+                              <CircleDot className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                              <span className="text-yellow-400">Pending</span>
+                            </>
+                          )}
+                          {rant.status === "Approved" && (
+                            <>
+                              <Check className="w-3 h-3 text-green-400" />
+                              <span className="text-green-400">Approved</span>
+                            </>
+                          )}
+                          {rant.status === "Rejected" && (
+                            <>
+                              <X className="w-3 h-3 text-red-400" />
+                              <span className="text-red-400">Rejected</span>
+                            </>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <div className="flex items-center justify-end gap-1.5">
+                          {rant.status === "Pending" ? (
+                            <>
+                              <button className="bg-green-600/20 text-green-400 hover:bg-green-600 hover:text-white border border-green-600/30 text-xs px-2 py-1 rounded flex items-center gap-1 transition-colors" title="Approve">
+                                <Check className="w-3 h-3" />
+                              </button>
+                              <button className="bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white border border-red-600/30 text-xs px-2 py-1 rounded flex items-center gap-1 transition-colors" title="Reject">
+                                <X className="w-3 h-3" />
+                              </button>
+                              <button className="bg-[#F59E0B]/20 text-[#F59E0B] hover:bg-[#F59E0B] hover:text-black border border-[#F59E0B]/30 text-xs px-2 py-1 rounded flex items-center gap-1 transition-colors" title="Feature">
+                                <Star className="w-3 h-3" />
+                              </button>
+                            </>
+                          ) : rant.status === "Approved" ? (
+                            <>
+                              {rant.featured ? (
+                                <button className="bg-[#F59E0B] text-black text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1">
+                                  <Star className="w-3 h-3 fill-current" />
+                                  Featured ✓
+                                </button>
                               ) : (
-                                <Button size="sm" variant="outline" className="h-8 px-3 bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                                  View
-                                </Button>
+                                <button className="bg-[#F59E0B]/10 text-[#F59E0B] hover:bg-[#F59E0B]/20 border border-[#F59E0B]/30 text-xs px-2 py-1 rounded flex items-center gap-1 transition-colors" title="Feature">
+                                  <Star className="w-3 h-3" />
+                                </button>
                               )}
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-              </div>
+                              <button className="bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white border border-white/10 text-xs px-2 py-1 rounded flex items-center gap-1 transition-colors" title="View">
+                                <Eye className="w-3 h-3" />
+                              </button>
+                            </>
+                          ) : (
+                            <button className="bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white border border-white/10 text-xs px-2 py-1 rounded flex items-center gap-1 transition-colors" title="View">
+                              <Eye className="w-3 h-3" />
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </main>

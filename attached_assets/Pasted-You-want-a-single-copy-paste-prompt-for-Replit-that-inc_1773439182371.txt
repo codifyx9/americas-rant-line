@@ -1,0 +1,381 @@
+You want a **single copy-paste prompt for Replit** that incorporates:
+
+* the **clean hat logo style (product brand)**
+* the **rally poster style (marketing hero)**
+* your **full site structure**
+* the **Twilio + rant feed structure**
+
+This prompt is designed so **Replit AI builds ~80% of the app immediately**.
+
+Paste this **exactly into Replit AI**.
+
+---
+
+# Replit AI Build Prompt (Copy + Paste)
+
+Build a modern web app called **MagaRantLine**.
+
+This is a viral voicemail platform where people call a hotline, leave a rant, and the best rants appear on a public rant wall where users can listen, vote, and share.
+
+The design must combine **two visual identities**:
+
+1. **Primary Brand Style (Hat Logo Style)**
+
+* bright red background
+* bold white lettering
+* navy outline accents
+* clean wordmark logo
+
+2. **Campaign / Hero Style (Rally Poster Style)**
+
+* dramatic patriotic textures
+* navy to red gradients
+* subtle star textures
+* bold headline typography
+
+The result should feel like a mix of:
+
+* talk radio hotline
+* viral meme platform
+* Americana rally poster
+* modern media website
+
+---
+
+# Tech Stack
+
+Use:
+
+React + Vite
+Node.js backend
+Express API
+Supabase or PostgreSQL database
+Stripe payments
+Twilio voice recording
+TailwindCSS styling
+
+---
+
+# Global Brand Theme
+
+Primary color:
+#D61F1F (red)
+
+Secondary color:
+#0B1E3A (navy)
+
+Text color:
+#FFFFFF
+
+Accent color:
+#F59E0B (gold)
+
+Typography:
+
+Headlines: Bebas Neue or Anton
+Body text: Inter
+
+---
+
+# Logo
+
+Create a bold wordmark:
+
+MAGARANTLINE
+
+White letters with navy outline on a red background.
+
+Use a microphone icon next to the logo.
+
+---
+
+# Navbar
+
+Red navigation bar.
+
+Left side:
+
+Microphone icon
+MAGARANTLINE logo
+
+Navigation links:
+
+Home
+Rant Wall
+Leaderboard
+
+Right side button:
+
+Gold button:
+
+LEAVE A RANT
+
+---
+
+# Home Page
+
+Hero section with rally poster style.
+
+Background:
+
+navy to red gradient with subtle stars.
+
+Headline:
+
+GOT SOMETHING TO SAY?
+
+Second line:
+
+LEAVE YOUR RANT.
+
+Below headline add banner:
+
+LIVE HOTLINE — Calls are being recorded
+
+Add featured rant audio player.
+
+Audio player should show:
+
+Rant title
+Category tag
+Duration
+Play button
+Progress bar
+
+Example rant:
+
+"Rent just went up $600"
+
+---
+
+# Call To Action
+
+Two buttons:
+
+CALL THE HOTLINE (red button)
+
+VIEW LEADERBOARD (dark navy button)
+
+Below buttons display:
+
+1,284 RANTS AND COUNTING
+
+---
+
+# Category Section
+
+Title:
+
+WHAT PEOPLE ARE TALKING ABOUT
+
+Category buttons:
+
+Inflation
+War Concerns
+Politics
+Work Frustrations
+Dating Stories
+Everyday Life
+
+Style:
+
+White text with red hover background.
+
+---
+
+# Latest Rants Section
+
+Create grid of rant cards.
+
+Each card contains:
+
+Play button
+Rant title
+Category tag
+Duration
+Vote button
+Share button
+Tip button
+
+Card style:
+
+Navy background
+Red border
+White text
+
+---
+
+# Weekly Challenge Section
+
+Create a large banner:
+
+TOP RANT OF THE WEEK WINS $100
+
+Include button:
+
+ENTER THE CHALLENGE
+
+---
+
+# Leaderboard Page
+
+Title:
+
+TOP RANTS TODAY
+
+Display ranked list.
+
+Use medal icons:
+
+Gold for #1
+Silver for #2
+Red for #3
+
+Each row shows:
+
+Play button
+Rant title
+Vote count
+Category tag
+
+---
+
+# Leave A Rant Page
+
+Pricing cards:
+
+Leave a rant — $1.99
+Skip the line — $5
+Featured rant — $25
+
+After Stripe payment show:
+
+CALL THE HOTLINE NOW
+
+Display phone number.
+
+---
+
+# Rant Database
+
+Create table:
+
+rants
+
+Fields:
+
+id
+phone_number
+audio_url
+title
+category
+duration
+votes
+tips
+created_at
+approved
+
+---
+
+# API Endpoints
+
+Create routes:
+
+GET /rants/latest
+GET /rants/featured
+GET /leaderboard
+POST /vote
+POST /tip
+
+---
+
+# Twilio Integration
+
+Create webhook:
+
+POST /twilio-recording
+
+When Twilio receives a voicemail:
+
+Save:
+
+caller phone number
+recording URL
+duration
+timestamp
+
+Create new rant entry.
+
+Default status:
+
+approved = false
+
+---
+
+# Admin Dashboard
+
+Create admin page showing incoming rants.
+
+Columns:
+
+Caller number
+Timestamp
+Audio player
+Approve button
+Reject button
+Feature toggle
+Category selector
+
+---
+
+# UI Components
+
+Create reusable components:
+
+Navbar
+HeroSection
+RantCard
+AudioPlayer
+LeaderboardRow
+CategoryTag
+VoteButton
+TipButton
+
+---
+
+# Deployment
+
+Prepare environment variables:
+
+TWILIO_ACCOUNT_SID
+TWILIO_AUTH_TOKEN
+STRIPE_SECRET_KEY
+DATABASE_URL
+
+App should run locally and deploy on:
+
+Replit
+Railway
+or Vercel
+
+---
+
+# Final Design Goal
+
+The app should feel like:
+
+a patriotic hotline
+a viral rant wall
+a modern talk radio platform
+
+Bold, loud, simple, and highly shareable.
+
+---
+
+# Important
+
+Optimize UI for **mobile first**, since most traffic will come from TikTok and social media.
+
+---
+
+If you want, I can also show you **3 small features that could 10x the chance this goes viral once it launches** (they're simple but extremely powerful).
