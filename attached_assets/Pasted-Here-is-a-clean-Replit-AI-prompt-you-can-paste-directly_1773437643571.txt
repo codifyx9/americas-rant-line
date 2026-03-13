@@ -1,0 +1,207 @@
+Here is a **clean Replit AI prompt** you can paste directly into the Replit AI builder to generate the initial app from your Figma concept. This focuses only on **building the interface and structure**, not persuasion or messaging.
+
+---
+
+## Replit App Builder Prompt
+
+Build a responsive web application called **MagaRantLine**.
+This is a public voicemail platform where users can listen to recorded rants and optionally leave their own voicemail through a hotline number.
+
+The app should feel like a **talk-radio hotline mixed with a viral audio feed**.
+
+### Stack
+
+Use:
+
+* **Next.js or Express + React**
+* **Node.js backend**
+* **PostgreSQL or Supabase database**
+* **Twilio for voicemail recording**
+* **Stripe for payments**
+* **TailwindCSS for styling**
+
+---
+
+## Core Pages
+
+### 1. Home Page
+
+Hero section with:
+
+Headline
+**“Got Something To Say? Leave Your Rant.”**
+
+Subtext explaining that users can call a hotline and leave a recorded rant.
+
+Show:
+
+* Live hotline banner
+* Featured rant audio player
+* Buttons:
+
+  * Leave a Rant ($1.99)
+  * Skip the Line ($5)
+  * Featured Rant ($25)
+
+Audio player must support:
+
+* play / pause
+* progress bar
+* duration
+
+---
+
+### 2. Latest Rants Feed
+
+Create a grid of rant cards.
+
+Each card contains:
+
+* Play button
+* Rant title
+* Category tag
+* Duration
+* Vote count
+* Share button
+* Tip button
+
+Example categories:
+
+* Inflation
+* Politics
+* War Concerns
+* Work Frustrations
+* Dating Stories
+* Everyday Life
+
+Audio should stream directly from stored files.
+
+---
+
+### 3. Leaderboard Page
+
+Show the **Top Rants Today** ranked by votes.
+
+Display:
+
+1st place
+2nd place
+3rd place
+
+Include:
+
+* medal icons
+* rant title
+* vote count
+* audio player
+
+---
+
+### 4. Leave a Rant Page
+
+Display pricing cards:
+
+* Leave a rant — $1.99
+* Skip the line — $5
+* Featured rant — $25
+
+After successful Stripe payment:
+
+Show instructions:
+
+“Call the hotline and record your rant.”
+
+Display the phone number prominently.
+
+---
+
+### 5. Admin Dashboard
+
+Private page for moderation.
+
+Table showing incoming voicemails with:
+
+* caller number
+* timestamp
+* audio player
+* approve button
+* reject button
+* feature toggle
+* category selector
+
+---
+
+## Backend Features
+
+Create API endpoints:
+
+GET /rants/latest
+GET /rants/featured
+GET /leaderboard
+POST /vote
+POST /tip
+
+Create Twilio webhook:
+
+POST /twilio-recording
+
+When a call recording is completed:
+
+* Save recording URL
+* Save caller number
+* Save duration
+* Create new rant entry
+
+Default status should be **pending approval**.
+
+---
+
+## UI Design
+
+Style should feel like:
+
+* talk radio
+* hotline
+* viral media platform
+
+Colors:
+
+* deep navy background
+* red navigation bar
+* white text
+* gold accent buttons
+
+Use bold typography for headlines and clean readable body text.
+
+---
+
+## Components
+
+Create reusable components:
+
+* RantCard
+* AudioPlayer
+* LeaderboardRow
+* CategoryTag
+* VoteButton
+* TipButton
+
+---
+
+## Deployment
+
+Prepare for deployment on:
+
+* Replit
+* Railway
+* or Vercel
+
+Include environment variables for:
+
+TWILIO
+STRIPE
+DATABASE
+
+---
+
+If you want, I can also give you a **much stronger Replit prompt that will generate 80–90% of the working product automatically** (including Twilio call flow and database schema) so your Upwork dev only has to tweak things instead of building from scratch.
