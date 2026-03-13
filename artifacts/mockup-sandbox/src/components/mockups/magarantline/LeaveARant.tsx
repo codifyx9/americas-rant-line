@@ -30,7 +30,7 @@ export default function LeaveARant() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer">
-              <Radio className="h-6 w-6 text-white" />
+              <img src="/__mockup/images/hat.jpg" alt="hat" className="h-10 w-auto object-contain" style={{mixBlendMode:'multiply'}} />
               <span className="font-bold text-xl tracking-tight">MagaRantLine</span>
             </div>
             <div className="hidden md:block">

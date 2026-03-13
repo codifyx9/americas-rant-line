@@ -85,7 +85,8 @@ export default function RantsFeed() {
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center space-x-2">
               <span className="text-2xl font-black tracking-tight flex items-center gap-2">
-                📻 MagaRantLine
+                <img src="/__mockup/images/hat.jpg" alt="hat" className="h-10 w-auto object-contain" style={{mixBlendMode:'multiply'}} />
+                MagaRantLine
               </span>
             </div>
             <div className="hidden md:flex space-x-1">

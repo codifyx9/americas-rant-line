@@ -118,7 +118,7 @@ export default function AdminDashboard() {
         style={{ backgroundColor: "#05070d" }}
       >
         <div className="flex items-center gap-3">
-          <Radio className="w-6 h-6 text-[#FFFFFF]" />
+          <img src="/__mockup/images/hat.jpg" alt="hat" className="h-9 w-auto object-contain" style={{mixBlendMode:'multiply'}} />
           <h1 className="text-xl font-bold tracking-tight">
             MagaRantLine <span className="text-gray-500 font-normal">— Admin</span>
           </h1>

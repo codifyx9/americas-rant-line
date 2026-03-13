@@ -66,7 +66,7 @@ export default function Leaderboard() {
       <nav className="bg-[#cc0000] border-b border-red-900 sticky top-0 z-50 shadow-md">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Radio className="h-6 w-6 text-white" />
+            <img src="/__mockup/images/hat.jpg" alt="hat" className="h-10 w-auto object-contain" style={{mixBlendMode:'multiply'}} />
             <span className="font-bold text-xl tracking-tight uppercase">MagaRantLine</span>
           </div>
           
