@@ -1,24 +1,48 @@
 import React, { useState } from "react";
 import {
-  Mic,
-  List,
-  Star,
-  Trophy,
-  BarChart2,
-  Settings,
-  Check,
-  RefreshCw,
   Play,
+  Check,
   X,
-  Eye,
-  CircleDot
+  Star,
+  RefreshCw,
+  Users,
+  Mic,
+  Settings,
+  List,
+  BarChart2,
+  Trophy,
+  LogOut,
+  Radio,
+  Clock,
+  ThumbsUp,
+  AlertCircle
 } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const RANTS_DATA = [
   {
     id: "#2847",
     caller: "+1(512)***-4892",
-    time: "2:34 PM",
+    timestamp: "Today 2:34 PM",
     duration: "2:34",
     category: "",
     status: "Pending",
@@ -27,7 +51,7 @@ const RANTS_DATA = [
   {
     id: "#2846",
     caller: "+1(614)***-7723",
-    time: "1:18 PM",
+    timestamp: "Today 1:18 PM",
     duration: "4:12",
     category: "Inflation",
     status: "Pending",
@@ -36,7 +60,7 @@ const RANTS_DATA = [
   {
     id: "#2845",
     caller: "+1(404)***-2291",
-    time: "11:45 AM",
+    timestamp: "Today 11:45 AM",
     duration: "3:45",
     category: "Politics",
     status: "Approved",
@@ -45,16 +69,16 @@ const RANTS_DATA = [
   {
     id: "#2844",
     caller: "+1(305)***-9918",
-    time: "9:22 AM",
+    timestamp: "Today 9:22 AM",
     duration: "2:18",
     category: "Work",
     status: "Approved",
-    featured: true,
+    featured: false,
   },
   {
     id: "#2843",
     caller: "+1(734)***-5507",
-    time: "Yesterday",
+    timestamp: "Yesterday",
     duration: "5:02",
     category: "Dating",
     status: "Rejected",
@@ -63,275 +87,284 @@ const RANTS_DATA = [
   {
     id: "#2842",
     caller: "+1(602)***-1134",
-    time: "Yesterday",
+    timestamp: "Yesterday",
     duration: "1:57",
     category: "Everyday Life",
     status: "Approved",
-    featured: false,
+    featured: true,
   },
 ];
-
-const Waveform = () => (
-  <div className="inline-flex gap-[2px] items-end h-[18px]">
-    {[8, 14, 10, 18, 12, 16, 9, 13].map((h, i) => (
-      <div
-        key={i}
-        className="w-[3px] bg-gray-600 rounded-sm"
-        style={{ height: `${h}px` }}
-      />
-    ))}
-  </div>
-);
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("all");
 
+  const Waveform = () => (
+    <div className="flex items-center gap-0.5 h-6 mx-2">
+      {[40, 70, 40, 100, 60, 30, 80, 50, 90, 40].map((h, i) => (
+        <div
+          key={i}
+          className="w-1 bg-[#FFD700]/70 rounded-full"
+          style={{ height: `${h}%` }}
+        />
+      ))}
+    </div>
+  );
+
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-[#080e1f] font-sans">
-      {/* HERO BANNER */}
-      <div className="bg-[#0B1E3A] relative overflow-hidden py-5 px-6 flex items-center justify-between shrink-0">
-        <div className="relative z-10 flex flex-col items-start">
-          <img 
-            src="/__mockup/images/logo-reference.png" 
-            className="h-14 object-contain" 
-            alt="MAGA RANT LINE" 
-            onError={(e) => {
-              // Fallback if image not found
-              (e.target as HTMLImageElement).style.display = 'none';
-            }}
-          />
-          <div className="text-white text-xs uppercase tracking-widest mt-1 font-bold flex items-center gap-1">
-            ★ ADMIN PANEL ★
+    <div className="min-h-screen text-white font-sans flex flex-col" style={{ backgroundColor: "#0a0e1a" }}>
+      {/* Top Navigation */}
+      <header
+        className="flex items-center justify-between px-6 py-4 border-b border-gray-800"
+        style={{ backgroundColor: "#05070d" }}
+      >
+        <div className="flex items-center gap-3">
+          <Radio className="w-6 h-6 text-[#FFD700]" />
+          <h1 className="text-xl font-bold tracking-tight">
+            MagaRantLine <span className="text-gray-500 font-normal">— Admin</span>
+          </h1>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center border border-gray-700">
+              👤
+            </div>
+            <span className="text-sm font-medium">Admin User</span>
           </div>
+          <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white hover:bg-gray-800">
+            <LogOut className="w-5 h-5" />
+          </Button>
         </div>
-        <div className="absolute top-0 right-0 w-40 h-full pointer-events-none overflow-hidden opacity-50 flex">
-          <div className="w-full h-full" style={{ background: "repeating-linear-gradient(0deg, #B22234 0px, #B22234 18px, #FFFFFF 18px, #FFFFFF 36px)" }}></div>
-          <div className="absolute top-0 left-0 w-16 h-full bg-[#0B1E3A] flex flex-wrap content-start p-2 gap-1.5">
-            {Array.from({length: 12}).map((_,i) => <span key={i} className="text-white text-[10px] leading-none">★</span>)}
-          </div>
-        </div>
-      </div>
+      </header>
 
-      {/* NAVBAR */}
-      <nav className="h-14 bg-[#D61F1F] flex items-center px-4 gap-3 shrink-0 relative z-10 shadow-md border-b border-black/20">
-        <div className="flex items-center gap-2">
-          <Mic className="text-white w-5 h-5" />
-          <span className="font-['Black_Ops_One'] text-white text-xl tracking-wide">MAGARANTLINE</span>
-        </div>
-        <div className="hidden md:flex items-center gap-2 ml-4">
-          <button className="bg-[#0B1E3A] rounded-full px-4 py-1 text-white text-sm font-semibold hover:bg-opacity-90 transition-opacity">🏠 HOME</button>
-          <button className="bg-[#0B1E3A] rounded-full px-4 py-1 text-white text-sm font-semibold hover:bg-opacity-90 transition-opacity">📻 RANT WALL</button>
-          <button className="bg-[#0B1E3A] rounded-full px-4 py-1 text-white text-sm font-semibold hover:bg-opacity-90 transition-opacity">🏆 LEADERBOARD</button>
-        </div>
-        <button className="ml-auto bg-[#F59E0B] text-black font-bold rounded-full px-5 py-2 text-sm hover:bg-opacity-90 transition-all shadow-sm">
-          LEAVE A RANT →
-        </button>
-      </nav>
-
-      {/* MAIN LAYOUT */}
       <div className="flex flex-1 overflow-hidden">
-        {/* LEFT SIDEBAR */}
-        <aside className="w-52 bg-[#0a0d1a] border-r border-white/10 flex flex-col shrink-0">
-          <div className="text-gray-500 text-xs uppercase tracking-widest px-4 py-3 border-b border-white/10 font-bold">
-            ADMIN PANEL
-          </div>
-          <nav className="flex-1 py-2">
-            <div className="group py-3 px-4 text-sm flex items-center gap-2 cursor-pointer bg-[#D61F1F]/10 border-l-2 border-[#D61F1F] text-white">
-              <span>📋</span> Incoming Rants
-              <span className="bg-[#F59E0B] text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center ml-auto">
-                8
-              </span>
-            </div>
-            <div className="group py-3 px-4 text-sm flex items-center gap-2 cursor-pointer hover:bg-[#D61F1F]/10 text-gray-400 hover:text-white transition-colors">
-              <span>⭐</span> Featured Management
-            </div>
-            <div className="group py-3 px-4 text-sm flex items-center gap-2 cursor-pointer hover:bg-[#D61F1F]/10 text-gray-400 hover:text-white transition-colors">
-              <span>🏆</span> Leaderboard Control
-            </div>
-            <div className="group py-3 px-4 text-sm flex items-center gap-2 cursor-pointer hover:bg-[#D61F1F]/10 text-gray-400 hover:text-white transition-colors">
-              <span>📊</span> Analytics
-            </div>
-            <div className="group py-3 px-4 text-sm flex items-center gap-2 cursor-pointer hover:bg-[#D61F1F]/10 text-gray-400 hover:text-white transition-colors">
-              <span>⚙️</span> Settings
-            </div>
+        {/* Sidebar */}
+        <aside
+          className="w-[240px] border-r border-gray-800 flex flex-col py-6"
+          style={{ backgroundColor: "#0d1326" }}
+        >
+          <nav className="flex-1 space-y-1 px-3">
+            <a href="#" className="flex items-center justify-between px-3 py-2.5 rounded-lg bg-[#FFD700]/10 text-[#FFD700] font-medium transition-colors">
+              <div className="flex items-center gap-3">
+                <List className="w-5 h-5" />
+                Incoming Rants
+              </div>
+              <Badge className="bg-[#FFD700] text-black hover:bg-[#FFD700]">12</Badge>
+            </a>
+            <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors">
+              <Star className="w-5 h-5" />
+              Featured Mgmt
+            </a>
+            <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors">
+              <Trophy className="w-5 h-5" />
+              Leaderboard
+            </a>
+            <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors">
+              <BarChart2 className="w-5 h-5" />
+              Analytics
+            </a>
           </nav>
+          <div className="px-3 mt-auto">
+            <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors">
+              <Settings className="w-5 h-5" />
+              Settings
+            </a>
+          </div>
         </aside>
 
-        {/* MAIN CONTENT */}
-        <main className="flex-1 overflow-y-auto p-6">
-          <div className="max-w-6xl mx-auto">
-            {/* STATS ROW */}
-            <div className="grid grid-cols-4 gap-4 mb-6">
-              <div className="bg-[#0d1530] border border-white/10 rounded-xl p-4 text-center">
-                <div className="text-white text-3xl font-bold">12</div>
-                <div className="text-gray-400 text-xs mt-1 uppercase tracking-wider">Total Today</div>
-              </div>
-              <div className="bg-[#0d1530] border border-white/10 rounded-xl p-4 text-center">
-                <div className="text-green-400 text-3xl font-bold">8</div>
-                <div className="text-gray-400 text-xs mt-1 uppercase tracking-wider">Approved</div>
-              </div>
-              <div className="bg-[#0d1530] border border-white/10 rounded-xl p-4 text-center">
-                <div className="text-[#F59E0B] text-3xl font-bold">3</div>
-                <div className="text-gray-400 text-xs mt-1 uppercase tracking-wider">Pending</div>
-              </div>
-              <div className="bg-[#0d1530] border border-white/10 rounded-xl p-4 text-center">
-                <div className="text-[#D61F1F] text-3xl font-bold">1</div>
-                <div className="text-gray-400 text-xs mt-1 uppercase tracking-wider">Featured</div>
-              </div>
+        {/* Main Content */}
+        <main className="flex-1 overflow-y-auto p-8">
+          <div className="max-w-7xl mx-auto space-y-8">
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <Card className="bg-gray-800/50 border-gray-700">
+                <CardContent className="p-6 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
+                    <Mic className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-400">Total Today</p>
+                    <h3 className="text-2xl font-bold text-white">12</h3>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="bg-gray-800/50 border-gray-700">
+                <CardContent className="p-6 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
+                    <ThumbsUp className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-400">Approved</p>
+                    <h3 className="text-2xl font-bold text-white">8</h3>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="bg-gray-800/50 border-gray-700">
+                <CardContent className="p-6 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400">
+                    <Clock className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-400">Pending</p>
+                    <h3 className="text-2xl font-bold text-white">3</h3>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="bg-gray-800/50 border-gray-700">
+                <CardContent className="p-6 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-[#FFD700]/20 flex items-center justify-center text-[#FFD700]">
+                    <Star className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-400">Featured</p>
+                    <h3 className="text-2xl font-bold text-white">1</h3>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
-            {/* SECTION HEADER */}
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="font-['Black_Ops_One'] text-white text-2xl tracking-wide">INCOMING VOICEMAILS</h2>
-              <div className="flex items-center">
-                <button className="bg-green-700 hover:bg-green-600 text-white text-xs px-3 py-1.5 rounded mr-2 transition-colors flex items-center gap-1 font-medium">
-                  ✅ Approve All Pending
-                </button>
-                <button className="bg-[#0B1E3A] hover:bg-[#0B1E3A]/80 border border-white/20 text-white text-xs px-3 py-1.5 rounded transition-colors flex items-center gap-1">
-                  🔄 Refresh
-                </button>
+            {/* Table Section */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <h2 className="text-xl font-semibold">Incoming Voicemails — Pending Review</h2>
+                  <Badge className="bg-gray-800 text-gray-300 border-gray-700 hover:bg-gray-700">12 Total</Badge>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Button className="bg-green-600 hover:bg-green-700 text-white">
+                    <Check className="w-4 h-4 mr-2" />
+                    Approve All Pending
+                  </Button>
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                    <RefreshCw className="w-4 h-4 mr-2" />
+                    Refresh
+                  </Button>
+                </div>
               </div>
-            </div>
 
-            {/* FILTER TABS */}
-            <div className="flex border-b border-white/10 mb-4 text-sm font-medium">
-              <button
-                onClick={() => setActiveTab("all")}
-                className={`pb-2 px-4 ${activeTab === "all" ? "text-[#D61F1F] border-b-2 border-[#D61F1F]" : "text-gray-400 hover:text-white"}`}
-              >
-                All (12)
-              </button>
-              <button
-                onClick={() => setActiveTab("pending")}
-                className={`pb-2 px-4 ${activeTab === "pending" ? "text-[#D61F1F] border-b-2 border-[#D61F1F]" : "text-gray-400 hover:text-white"}`}
-              >
-                Pending (8)
-              </button>
-              <button
-                onClick={() => setActiveTab("approved")}
-                className={`pb-2 px-4 ${activeTab === "approved" ? "text-[#D61F1F] border-b-2 border-[#D61F1F]" : "text-gray-400 hover:text-white"}`}
-              >
-                Approved (3)
-              </button>
-              <button
-                onClick={() => setActiveTab("rejected")}
-                className={`pb-2 px-4 ${activeTab === "rejected" ? "text-[#D61F1F] border-b-2 border-[#D61F1F]" : "text-gray-400 hover:text-white"}`}
-              >
-                Rejected (1)
-              </button>
-            </div>
-
-            {/* TABLE */}
-            <div className="rounded-lg overflow-hidden border border-white/10">
-              <table className="w-full text-sm text-left whitespace-nowrap">
-                <thead className="text-xs uppercase text-gray-400 bg-[#0B1E3A]">
-                  <tr>
-                    <th className="px-4 py-3 font-medium">#</th>
-                    <th className="px-4 py-3 font-medium">Caller</th>
-                    <th className="px-4 py-3 font-medium">Time</th>
-                    <th className="px-4 py-3 font-medium">Dur</th>
-                    <th className="px-4 py-3 font-medium">Audio</th>
-                    <th className="px-4 py-3 font-medium">Category</th>
-                    <th className="px-4 py-3 font-medium">Status</th>
-                    <th className="px-4 py-3 font-medium text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="text-white">
-                  {RANTS_DATA.map((rant, idx) => (
-                    <tr 
-                      key={idx} 
-                      className={`hover:bg-[#D61F1F]/5 transition-colors ${idx % 2 === 0 ? "bg-[#0d1530]" : "bg-black/20"} border-b border-white/5 last:border-0`}
-                    >
-                      <td className="px-4 py-3 text-gray-400 font-mono text-xs">{rant.id}</td>
-                      <td className="px-4 py-3 font-medium">{rant.caller}</td>
-                      <td className="px-4 py-3 text-gray-300 text-xs">{rant.time}</td>
-                      <td className="px-4 py-3 text-gray-300 text-xs">{rant.duration}</td>
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-2">
-                          <button className="w-7 h-7 rounded-full bg-[#D61F1F] text-white flex items-center justify-center text-xs hover:bg-[#B22234] transition-colors shrink-0">
-                            ▶
-                          </button>
-                          <Waveform />
-                        </div>
-                      </td>
-                      <td className="px-4 py-3">
-                        <select 
-                          className="bg-[#0B1E3A] border border-white/20 text-white text-xs rounded px-2 py-1 focus:outline-none focus:border-[#D61F1F] appearance-none cursor-pointer pr-6 relative min-w-[120px]"
-                          defaultValue={rant.category || ""}
-                          style={{
-                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                            backgroundRepeat: 'no-repeat',
-                            backgroundPosition: 'right 0.5rem center',
-                            backgroundSize: '1em 1em',
-                          }}
-                        >
-                          <option value="" disabled>Select...</option>
-                          <option value="Inflation">Inflation</option>
-                          <option value="Politics">Politics</option>
-                          <option value="Work">Work</option>
-                          <option value="Dating">Dating</option>
-                          <option value="Everyday Life">Everyday Life</option>
-                        </select>
-                      </td>
-                      <td className="px-4 py-3">
-                        {rant.status === "Pending" && (
-                          <span className="bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 rounded-full px-2 py-0.5 text-xs inline-flex items-center gap-1">
-                            Pending
-                          </span>
-                        )}
-                        {rant.status === "Approved" && (
-                          <span className="bg-green-500/20 text-green-400 border border-green-500/30 rounded-full px-2 py-0.5 text-xs inline-flex items-center gap-1">
-                            Approved
-                          </span>
-                        )}
-                        {rant.status === "Rejected" && (
-                          <span className="bg-red-500/20 text-red-400 border border-red-500/30 rounded-full px-2 py-0.5 text-xs inline-flex items-center gap-1">
-                            Rejected
-                          </span>
-                        )}
-                      </td>
-                      <td className="px-4 py-3">
-                        <div className="flex items-center justify-end gap-1">
-                          {rant.status === "Pending" && (
-                            <>
-                              <button className="bg-green-700 hover:bg-green-600 text-white rounded px-2 py-1 text-xs transition-colors" title="Approve">
-                                ✅
-                              </button>
-                              <button className="bg-red-700 hover:bg-red-600 text-white rounded px-2 py-1 text-xs transition-colors" title="Reject">
-                                ❌
-                              </button>
-                              <button className="bg-[#F59E0B]/20 hover:bg-[#F59E0B]/30 text-[#F59E0B] border border-[#F59E0B]/30 rounded px-2 py-1 text-xs transition-colors" title="Feature">
-                                ⭐
-                              </button>
-                            </>
-                          )}
-                          {rant.status === "Approved" && (
-                            <>
-                              {rant.featured ? (
-                                <button className="bg-[#F59E0B] text-black border border-[#F59E0B] rounded px-2 py-1 text-xs font-bold" title="Featured">
-                                  ⭐✓
-                                </button>
+              <div className="bg-gray-900/50 rounded-xl border border-gray-800 flex flex-col">
+                <div className="p-4 border-b border-gray-800 flex items-center justify-between">
+                  <Tabs value={activeTab} onValueChange={setActiveTab} className="w-[400px]">
+                    <TabsList className="bg-gray-800/50 border border-gray-700 p-1">
+                      <TabsTrigger value="all" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">All (12)</TabsTrigger>
+                      <TabsTrigger value="pending" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">Pending (8)</TabsTrigger>
+                      <TabsTrigger value="approved" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">Approved (3)</TabsTrigger>
+                      <TabsTrigger value="rejected" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">Rejected (1)</TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                </div>
+                
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader className="bg-gray-800/30">
+                      <TableRow className="border-gray-800 hover:bg-transparent">
+                        <TableHead className="text-gray-400 font-medium w-[80px]">#</TableHead>
+                        <TableHead className="text-gray-400 font-medium w-[160px]">Caller</TableHead>
+                        <TableHead className="text-gray-400 font-medium w-[160px]">Timestamp</TableHead>
+                        <TableHead className="text-gray-400 font-medium w-[100px]">Duration</TableHead>
+                        <TableHead className="text-gray-400 font-medium w-[200px]">Audio</TableHead>
+                        <TableHead className="text-gray-400 font-medium w-[180px]">Category</TableHead>
+                        <TableHead className="text-gray-400 font-medium w-[120px]">Status</TableHead>
+                        <TableHead className="text-gray-400 font-medium text-right">Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {RANTS_DATA.map((rant, i) => (
+                        <TableRow key={i} className="border-gray-800 hover:bg-gray-800/30 transition-colors">
+                          <TableCell className="font-mono text-gray-400">{rant.id}</TableCell>
+                          <TableCell className="font-medium">{rant.caller}</TableCell>
+                          <TableCell className="text-gray-400">{rant.timestamp}</TableCell>
+                          <TableCell className="text-gray-400">{rant.duration}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center">
+                              <Button size="icon" variant="ghost" className="h-8 w-8 rounded-full bg-[#FFD700]/10 text-[#FFD700] hover:bg-[#FFD700]/20 hover:text-[#FFD700]">
+                                <Play className="h-4 w-4 fill-current" />
+                              </Button>
+                              <Waveform />
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            {rant.category ? (
+                              <Select defaultValue={rant.category.toLowerCase()}>
+                                <SelectTrigger className="h-8 bg-gray-800/50 border-gray-700 text-sm w-[140px]">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent className="bg-gray-800 border-gray-700 text-white">
+                                  <SelectItem value="inflation">Inflation</SelectItem>
+                                  <SelectItem value="politics">Politics</SelectItem>
+                                  <SelectItem value="work">Work</SelectItem>
+                                  <SelectItem value="dating">Dating</SelectItem>
+                                  <SelectItem value="everyday life">Everyday Life</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            ) : (
+                              <Select>
+                                <SelectTrigger className="h-8 bg-gray-800/50 border-gray-700 text-sm w-[140px] text-gray-400">
+                                  <SelectValue placeholder="Select..." />
+                                </SelectTrigger>
+                                <SelectContent className="bg-gray-800 border-gray-700 text-white">
+                                  <SelectItem value="inflation">Inflation</SelectItem>
+                                  <SelectItem value="politics">Politics</SelectItem>
+                                  <SelectItem value="work">Work</SelectItem>
+                                  <SelectItem value="dating">Dating</SelectItem>
+                                  <SelectItem value="everyday life">Everyday Life</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            )}
+                          </TableCell>
+                          <TableCell>
+                            {rant.status === "Pending" && (
+                              <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20 hover:bg-yellow-500/20 flex w-fit items-center gap-1.5 font-medium">
+                                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" /> Pending
+                              </Badge>
+                            )}
+                            {rant.status === "Approved" && (
+                              <Badge className="bg-green-500/10 text-green-500 border-green-500/20 hover:bg-green-500/20 flex w-fit items-center gap-1.5 font-medium">
+                                <span className="w-1.5 h-1.5 rounded-full bg-green-500" /> Approved
+                              </Badge>
+                            )}
+                            {rant.status === "Rejected" && (
+                              <Badge className="bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500/20 flex w-fit items-center gap-1.5 font-medium">
+                                <span className="w-1.5 h-1.5 rounded-full bg-red-500" /> Rejected
+                              </Badge>
+                            )}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <div className="flex items-center justify-end gap-1.5">
+                              {rant.status === "Pending" ? (
+                                <>
+                                  <Button size="icon" variant="outline" className="h-8 w-8 bg-green-500/10 border-green-500/20 text-green-500 hover:bg-green-500/20 hover:text-green-400 rounded-md" title="Approve">
+                                    <Check className="h-4 w-4" />
+                                  </Button>
+                                  <Button size="icon" variant="outline" className="h-8 w-8 bg-red-500/10 border-red-500/20 text-red-500 hover:bg-red-500/20 hover:text-red-400 rounded-md" title="Reject">
+                                    <X className="h-4 w-4" />
+                                  </Button>
+                                  <Button size="icon" variant="outline" className="h-8 w-8 bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-[#FFD700] rounded-md" title="Feature">
+                                    <Star className="h-4 w-4" />
+                                  </Button>
+                                </>
+                              ) : rant.status === "Approved" ? (
+                                <>
+                                  <Button size="sm" variant="outline" className={`h-8 px-2 text-xs border-gray-700 hover:bg-gray-800 rounded-md ${rant.featured ? 'bg-[#FFD700]/10 text-[#FFD700] border-[#FFD700]/30 hover:bg-[#FFD700]/20' : 'bg-gray-800 text-gray-400 hover:text-[#FFD700]'}`}>
+                                    <Star className={`h-3.5 w-3.5 mr-1.5 ${rant.featured ? 'fill-current' : ''}`} />
+                                    {rant.featured ? 'Featured ✓' : 'Feature'}
+                                  </Button>
+                                  <Button size="sm" variant="outline" className="h-8 px-3 bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
+                                    View
+                                  </Button>
+                                </>
                               ) : (
-                                <button className="bg-[#F59E0B]/20 hover:bg-[#F59E0B]/30 text-[#F59E0B] border border-[#F59E0B]/30 rounded px-2 py-1 text-xs transition-colors" title="Feature">
-                                  ⭐
-                                </button>
+                                <Button size="sm" variant="outline" className="h-8 px-3 bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
+                                  View
+                                </Button>
                               )}
-                              <button className="bg-[#0B1E3A] hover:bg-white/10 text-gray-300 border border-white/20 rounded px-2 py-1 text-xs transition-colors" title="View">
-                                👁
-                              </button>
-                            </>
-                          )}
-                          {rant.status === "Rejected" && (
-                            <button className="bg-[#0B1E3A] hover:bg-white/10 text-gray-300 border border-white/20 rounded px-2 py-1 text-xs transition-colors" title="View">
-                              👁
-                            </button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </div>
             </div>
           </div>
         </main>

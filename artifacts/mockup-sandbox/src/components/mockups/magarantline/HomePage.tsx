@@ -1,321 +1,290 @@
 import React, { useState } from 'react';
-import { Mic, Play, Pause, Phone, Trophy, Flame, Share2, MessageCircle, Heart, Star, Home, Radio, Award } from 'lucide-react';
+import { Radio, Phone, Zap, Star, Play, Pause, Flame, Heart, Share2, MessageCircle, MoreVertical, Volume2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Slider } from '@/components/ui/slider';
 
 export default function MagaRantLineHome() {
-  const [playingRantId, setPlayingRantId] = useState<number | null>(null);
+  const [isPlayingFeatured, setIsPlayingFeatured] = useState(false);
 
-  const togglePlayRant = (id: number) => {
-    if (playingRantId === id) {
-      setPlayingRantId(null);
-    } else {
-      setPlayingRantId(id);
-    }
-  };
+  const togglePlayFeatured = () => setIsPlayingFeatured(!isPlayingFeatured);
 
-  const categories = [
-    { name: "ALL", icon: null, active: true },
-    { name: "INFLATION", icon: "📈", active: false },
-    { name: "POLITICS", icon: "🏛", active: false },
-    { name: "WAR", icon: "⚔️", active: false },
-    { name: "WORK", icon: "💼", active: false },
-    { name: "EVERYDAY LIFE", icon: "❤️", active: false }
-  ];
-
-  const sidebarRants = [
-    { id: 101, title: "Rent just went up $600", votes: "1,247" },
-    { id: 102, title: "Politicians don't get it", votes: "1,982" },
-    { id: 103, title: "Groceries are insane", votes: "823" }
-  ];
-
-  const gridRants = [
+  const recentRants = [
     {
       id: 1,
-      title: "Gas Prices Are Destroying My Family Budget",
-      category: "Inflation",
-      caller: "Patriot_TX",
+      title: "Biden Can't Find His Way Out of the Oval Office",
+      category: "Politics",
       duration: "2:34",
-      votes: "2,847",
+      votes: "1,203",
+      caller: "PatriotPete",
     },
     {
       id: 2,
-      title: "The Government Doesn't Hear Us Anymore",
-      category: "Politics",
-      caller: "FreedomEagle",
-      duration: "4:12",
-      votes: "1,923",
+      title: "My Boss Made Me Work on My Day Off AGAIN",
+      category: "Work Frustrations",
+      duration: "1:47",
+      votes: "876",
+      caller: "TiredInTampa",
     },
     {
       id: 3,
-      title: "My Boss Gave My Raise to His Nephew",
-      category: "Work",
-      caller: "WorkingMan99",
-      duration: "2:18",
-      votes: "987",
-    },
-    {
-      id: 4,
-      title: "Why Are We Sending Money Overseas?",
-      category: "War",
-      caller: "AmericaFirst1",
-      duration: "3:07",
-      votes: "3,456",
+      title: "Dating Apps Are a Total Scam",
+      category: "Dating Stories",
+      duration: "3:12",
+      votes: "654",
+      caller: "SingleInSeattle",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-[#0B1E3A] text-white font-sans selection:bg-[#D61F1F] selection:text-white pb-0 flex flex-col">
-      
-      {/* 1. HERO BANNER */}
-      <div className="relative bg-[#0B1E3A] bg-gradient-to-br from-[#0B1E3A] to-[#061121] py-8 px-6 overflow-hidden">
-        {/* Flag accent top-right */}
-        <div 
-          className="absolute top-0 right-0 w-48 h-full opacity-50 pointer-events-none z-0"
-          style={{
-            background: 'repeating-linear-gradient(0deg, #B22234 0px, #B22234 20px, white 20px, white 40px)',
-          }}
-        >
-          {/* Canton (blue square with stars) */}
-          <div className="absolute top-0 left-0 w-24 h-24 bg-[#0B1E3A] flex flex-wrap content-start p-1 gap-1 overflow-hidden">
-             {[...Array(9)].map((_, i) => (
-                <span key={i} className="text-white text-xs leading-none">★</span>
-             ))}
-          </div>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="flex flex-col items-start">
-            <div className="relative group flex items-center mb-2">
-              <img 
-                src="/__mockup/images/logo-reference.png" 
-                className="h-16 md:h-24 object-contain relative z-10" 
-                alt="MAGA RANT LINE"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                  (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
-                }}
-              />
-              <div className="hidden absolute top-0 left-0 h-16 md:h-24 flex items-center bg-[#D61F1F] px-4 rounded border-2 border-[#0B1E3A]">
-                 <span className="font-['Black_Ops_One'] text-white text-3xl md:text-5xl">MAGA★RANTLINE</span>
-              </div>
-            </div>
-            
-            <div className="text-sm tracking-[0.2em] font-bold uppercase mt-2 drop-shadow-md">
-              <span className="text-white">★ AMERICA'S VOICE. </span>
-              <span className="text-[#D61F1F]">UNFILTERED.</span>
-              <span className="text-white"> REAL. ★</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. NAVBAR */}
-      <nav className="bg-[#D61F1F] sticky top-0 z-50 h-14 shadow-[0_4px_10px_rgba(0,0,0,0.3)]">
-        <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between gap-3">
-          
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <Mic className="w-5 h-5 text-white fill-white" />
-            <span className="font-['Black_Ops_One'] text-white text-xl tracking-wide pt-1">MAGARANTLINE</span>
+    <div className="min-h-screen bg-[#0a0e1a] text-white font-sans selection:bg-[#cc0000] selection:text-white">
+      {/* 1. RED NAVIGATION BAR */}
+      <nav className="bg-[#cc0000] sticky top-0 z-50 shadow-lg shadow-red-900/20 border-b border-red-800">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Radio className="w-6 h-6 text-white" />
+            <span className="font-extrabold text-xl tracking-tight">MagaRantLine</span>
           </div>
           
-          <div className="hidden md:flex items-center gap-3 justify-center flex-1">
-            <button className="bg-[#0B1E3A] hover:bg-[#061121] rounded-full px-4 py-1.5 text-white text-sm font-semibold flex items-center gap-1.5 transition-colors">
-              <Home className="w-4 h-4" /> HOME
-            </button>
-            <button className="bg-[#0B1E3A] hover:bg-[#061121] rounded-full px-4 py-1.5 text-white text-sm font-semibold flex items-center gap-1.5 transition-colors">
-              <Radio className="w-4 h-4" /> RANT WALL
-            </button>
-            <button className="bg-[#0B1E3A] hover:bg-[#061121] rounded-full px-4 py-1.5 text-white text-sm font-semibold flex items-center gap-1.5 transition-colors">
-              <Award className="w-4 h-4" /> LEADERBOARD
-            </button>
+          <div className="hidden md:flex items-center gap-6 font-semibold text-sm tracking-wide">
+            <a href="#" className="hover:text-[#FFD700] transition-colors">HOME</a>
+            <a href="#" className="hover:text-[#FFD700] transition-colors">RANTS</a>
+            <a href="#" className="hover:text-[#FFD700] transition-colors">LEADERBOARD</a>
           </div>
 
-          <div className="flex items-center flex-shrink-0">
-            <button className="bg-[#F59E0B] hover:bg-[#e69500] text-black font-bold rounded-full px-5 py-2 text-sm uppercase tracking-wide transition-colors shadow-sm whitespace-nowrap">
-              LEAVE A RANT →
-            </button>
+          <div className="flex items-center">
+            <Button className="bg-[#FFD700] hover:bg-yellow-500 text-black font-bold rounded-full px-6">
+              LEAVE A RANT
+            </Button>
           </div>
         </div>
       </nav>
 
-      {/* 3. MAIN CONTENT AREA */}
-      <main className="flex-grow bg-[#0B1E3A] py-8 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {/* 2. HERO SECTION */}
+      <section className="relative pt-20 pb-16 px-4 text-center overflow-hidden">
+        {/* Abstract background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-900/20 rounded-full blur-[100px] pointer-events-none"></div>
+        
+        <div className="relative z-10 max-w-4xl mx-auto">
+          {/* Live Banner */}
+          <div className="inline-flex items-center gap-2 bg-red-950/50 border border-red-900 text-red-400 px-4 py-1.5 rounded-full text-sm font-bold mb-8 uppercase tracking-widest">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+            Live Hotline: 1-800-RANT-NOW
+          </div>
+
+          <h1 className="text-6xl md:text-8xl font-black mb-6 tracking-tighter uppercase leading-[0.9]">
+            Got Something <br className="hidden md:block"/>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">To Say?</span>
+          </h1>
           
-          {/* LEFT COLUMN */}
-          <div className="lg:col-span-2 flex flex-col justify-center">
-            <div className="mb-6">
-              <h1 className="text-white font-black text-3xl md:text-5xl uppercase leading-tight mb-2 tracking-tight">
-                GOT SOMETHING TO SAY?
-              </h1>
-              <h2 
-                className="text-[#D61F1F] font-['Black_Ops_One'] text-4xl md:text-6xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
-                style={{ fontStyle: 'italic' }}
-              >
-                LEAVE YOUR RANT.
-              </h2>
-            </div>
+          <p className="text-2xl md:text-3xl font-medium text-[#FFD700] mb-12 drop-shadow-sm">
+            Leave your rant. The world is listening.
+          </p>
 
-            <div className="flex flex-wrap gap-4 mt-6">
-              <button className="bg-[#D61F1F] hover:bg-red-700 text-white font-bold rounded px-6 py-3 text-lg flex items-center gap-2 shadow-lg transition-transform hover:scale-[1.02]">
-                <Phone className="w-5 h-5 fill-white" /> CALL THE HOTLINE
-              </button>
-              <button className="bg-[#0B1E3A] hover:bg-[#0f284c] text-white border border-white/40 font-bold rounded px-6 py-3 text-lg flex items-center gap-2 shadow-lg transition-transform hover:scale-[1.02]">
-                <Trophy className="w-5 h-5" /> VIEW LEADERBOARD
-              </button>
-            </div>
-
-            <div className="text-[#F59E0B] font-bold uppercase tracking-wider text-sm mt-4 flex items-center gap-1.5">
-              <span>⏱</span> 1,284 RANTS AND COUNTING
-            </div>
-
-            <div className="mt-10">
-              <div className="flex flex-wrap gap-2">
-                {categories.map((cat, idx) => (
-                  <button 
-                    key={idx}
-                    className={`rounded-lg px-4 py-2 font-bold text-sm uppercase flex items-center gap-2 transition-colors ${
-                      cat.active 
-                        ? 'bg-[#D61F1F] text-white' 
-                        : 'bg-[#1a1a2e] text-white border border-white/20 hover:bg-white/10'
-                    }`}
-                  >
-                    {cat.icon && <span>{cat.icon}</span>}
-                    {cat.name}
-                  </button>
-                ))}
-              </div>
-            </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button size="lg" className="w-full sm:w-auto bg-[#FFD700] hover:bg-yellow-500 text-black font-black text-lg h-14 px-8 border-2 border-[#FFD700] shadow-[0_0_20px_rgba(255,215,0,0.3)] hover:shadow-[0_0_30px_rgba(255,215,0,0.5)] transition-all">
+              <Phone className="w-5 h-5 mr-2" />
+              Leave a Rant — $1.99
+            </Button>
+            
+            <Button size="lg" className="w-full sm:w-auto bg-[#cc0000] hover:bg-red-700 text-white font-bold text-lg h-14 px-8 border-2 border-[#cc0000] shadow-[0_0_20px_rgba(204,0,0,0.3)]">
+              <Zap className="w-5 h-5 mr-2 fill-white" />
+              Skip the Line — $5
+            </Button>
+            
+            <Button size="lg" variant="outline" className="w-full sm:w-auto bg-transparent hover:bg-[#FFD700]/10 text-[#FFD700] border-2 border-[#FFD700] font-bold text-lg h-14 px-8">
+              <Star className="w-5 h-5 mr-2" />
+              Featured Rant — $25
+            </Button>
           </div>
-
-          {/* RIGHT COLUMN */}
-          <div className="lg:col-span-1">
-            <div className="bg-[#0d1530] border border-[#D61F1F]/40 rounded-xl overflow-hidden shadow-2xl flex flex-col h-full">
-              
-              <div className="bg-[#D61F1F] px-4 py-3 flex justify-between items-center border-b border-[#D61F1F]">
-                <h3 className="font-['Black_Ops_One'] text-white text-lg pt-1">LATEST RANTS</h3>
-                <div className="opacity-70 text-lg">🇺🇸</div>
-              </div>
-              
-              <div className="flex-1 divide-y divide-white/10">
-                {sidebarRants.map((rant) => (
-                  <div key={rant.id} className="flex items-center gap-3 px-4 py-4 hover:bg-white/5 transition-colors cursor-pointer group">
-                    <button 
-                      onClick={() => togglePlayRant(rant.id)}
-                      className="w-10 h-10 rounded-full bg-[#D61F1F] flex items-center justify-center text-white text-sm flex-shrink-0 group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(214,31,31,0.5)]"
-                    >
-                      {playingRantId === rant.id ? (
-                         <Pause className="w-4 h-4 fill-white" />
-                      ) : (
-                         <Play className="w-4 h-4 fill-white ml-0.5" />
-                      )}
-                    </button>
-                    <div className="flex-1 min-w-0">
-                       <h4 className="text-white font-semibold text-sm truncate group-hover:text-gray-200">
-                         "{rant.title}"
-                       </h4>
-                    </div>
-                    <div className="flex items-center gap-1 text-[#F59E0B] text-xs font-bold whitespace-nowrap bg-[#F59E0B]/10 px-2 py-1 rounded">
-                       <Flame className="w-3 h-3 fill-[#F59E0B]" />
-                       {rant.votes}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </main>
-
-      {/* 4. WEEKLY CHALLENGE BANNER */}
-      <section className="bg-[#F59E0B] py-8 px-6 w-full border-y-4 border-[#D61F1F]">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
-          <h2 className="font-['Black_Ops_One'] text-black text-3xl md:text-4xl uppercase tracking-wide drop-shadow-sm pt-1">
-            TOP RANT OF THE WEEK WINS $100
-          </h2>
-          <button className="bg-black hover:bg-gray-900 text-white font-bold px-8 py-3 rounded text-lg uppercase tracking-wider shadow-lg transition-transform hover:scale-105 flex-shrink-0 border-2 border-black hover:border-white/20">
-            ENTER THE CHALLENGE
-          </button>
         </div>
       </section>
 
-      {/* 5. LATEST RANTS GRID */}
-      <section className="bg-[#080e1f] py-12 px-6 flex-grow">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="font-['Black_Ops_One'] text-white text-4xl mb-8 tracking-wide drop-shadow-md flex items-center gap-3">
-             <Flame className="w-8 h-8 text-[#D61F1F] fill-[#D61F1F]" />
-             LATEST RANTS
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {gridRants.map((rant) => (
-              <div key={rant.id} className="bg-[#0d1530] border border-[#D61F1F]/40 hover:border-[#D61F1F] rounded-xl p-5 transition-all shadow-lg group flex flex-col gap-4 relative overflow-hidden">
-                {/* Subtle gradient behind */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#D61F1F]/5 rounded-full blur-3xl pointer-events-none"></div>
-
-                <div className="flex gap-4 items-start relative z-10">
-                  <button 
-                    onClick={() => togglePlayRant(rant.id + 1000)}
-                    className="w-12 h-12 rounded-full bg-[#D61F1F] flex items-center justify-center text-white flex-shrink-0 shadow-[0_0_15px_rgba(214,31,31,0.4)] group-hover:scale-105 transition-transform"
-                  >
-                    {playingRantId === (rant.id + 1000) ? (
-                      <Pause className="w-5 h-5 fill-white" />
-                    ) : (
-                      <Play className="w-5 h-5 fill-white ml-1" />
-                    )}
-                  </button>
-                  <div className="flex-1 pt-1">
-                    <h3 className="text-lg font-bold text-white leading-snug group-hover:text-gray-200 transition-colors line-clamp-2">
-                      "{rant.title}"
-                    </h3>
-                  </div>
-                  <div className="text-gray-400 font-mono text-sm font-bold bg-black/30 px-2 py-1 rounded">
-                    {rant.duration}
-                  </div>
+      {/* 3. FEATURED RANT AUDIO PLAYER */}
+      <section className="py-12 px-4">
+        <div className="container mx-auto max-w-3xl">
+          <Card className="bg-[#0f1423] border-[#FFD700]/30 border-2 overflow-hidden shadow-[0_10px_40px_-10px_rgba(255,215,0,0.15)] relative">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFD700]/5 rounded-bl-full pointer-events-none"></div>
+            
+            <CardHeader className="pb-4 border-b border-white/5">
+              <div className="flex justify-between items-start mb-2">
+                <Badge className="bg-[#cc0000] text-white hover:bg-red-700 border-none font-bold uppercase tracking-wider">
+                  Inflation
+                </Badge>
+                <div className="flex items-center text-[#FFD700] font-bold bg-[#FFD700]/10 px-3 py-1 rounded-full">
+                  <Flame className="w-4 h-4 mr-1.5 fill-[#FFD700]" />
+                  2,847 votes
                 </div>
-
-                <div className="flex justify-between items-center relative z-10">
-                  <div className="flex items-center gap-2">
-                     <Badge className="bg-transparent border border-[#D61F1F] text-[#D61F1F] hover:bg-[#D61F1F] hover:text-white font-bold uppercase tracking-wider text-[10px] px-2 py-0.5">
-                       {rant.category}
-                     </Badge>
-                     <span className="text-gray-400 text-xs font-semibold">by @{rant.caller}</span>
+              </div>
+              <CardTitle className="text-3xl font-black text-white leading-tight">
+                FEATURED RANT: The Gas Prices Are Killing Me!
+              </CardTitle>
+              <p className="text-gray-400 font-medium mt-1 text-sm">
+                By Anonymous from Texas • Today at 2:30 PM
+              </p>
+            </CardHeader>
+            
+            <CardContent className="pt-8 pb-8">
+              <div className="flex items-center gap-6">
+                <button 
+                  onClick={togglePlayFeatured}
+                  className="w-20 h-20 rounded-full bg-[#FFD700] flex items-center justify-center text-black hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,215,0,0.4)] flex-shrink-0"
+                >
+                  {isPlayingFeatured ? (
+                    <Pause className="w-8 h-8 fill-black" />
+                  ) : (
+                    <Play className="w-8 h-8 fill-black ml-2" />
+                  )}
+                </button>
+                
+                <div className="flex-1 space-y-3">
+                  {/* Waveform visual mockup */}
+                  <div className="h-12 flex items-center justify-between gap-1">
+                    {[...Array(40)].map((_, i) => (
+                      <div 
+                        key={i} 
+                        className={`w-full rounded-full transition-all duration-300 ${i < 15 ? 'bg-[#FFD700]' : 'bg-white/20'}`}
+                        style={{ height: `${Math.max(10, Math.random() * 100)}%` }}
+                      ></div>
+                    ))}
                   </div>
-                </div>
-
-                {/* Progress bar simulation */}
-                <div className="w-full bg-black/40 h-2 rounded-full overflow-hidden relative z-10">
-                  <div className="bg-[#F59E0B] h-full rounded-full w-[0%] group-hover:w-[30%] transition-all duration-1000 ease-out"></div>
-                </div>
-
-                <div className="flex items-center justify-between pt-2 border-t border-white/10 relative z-10">
-                  <div className="flex items-center text-[#F59E0B] text-sm font-bold bg-[#F59E0B]/10 px-3 py-1.5 rounded-full">
-                    <Flame className="w-4 h-4 mr-1.5 fill-[#F59E0B]" />
-                    {rant.votes} votes
-                  </div>
-                  <div className="flex gap-2">
-                    <button className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded transition-colors">
-                      <Share2 className="w-3.5 h-3.5" /> SHARE
-                    </button>
-                    <button className="flex items-center gap-1.5 text-xs font-bold text-green-400 hover:text-green-300 bg-green-400/10 hover:bg-green-400/20 px-3 py-1.5 rounded transition-colors">
-                      <span className="text-base leading-none mb-0.5">$</span> TIP
-                    </button>
+                  
+                  <div className="flex justify-between text-xs font-bold text-gray-400">
+                    <span className="text-[#FFD700]">0:45</span>
+                    <span>3:12</span>
                   </div>
                 </div>
               </div>
+            </CardContent>
+            <CardFooter className="bg-black/20 border-t border-white/5 py-3 px-6 flex justify-between">
+              <div className="flex gap-4">
+                 <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white hover:bg-white/10">
+                   <Heart className="w-4 h-4 mr-2" /> Like
+                 </Button>
+                 <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white hover:bg-white/10">
+                   <MessageCircle className="w-4 h-4 mr-2" /> 142
+                 </Button>
+              </div>
+              <Button variant="ghost" size="sm" className="text-[#FFD700] hover:text-yellow-400 hover:bg-[#FFD700]/10 font-bold">
+                <Zap className="w-4 h-4 mr-2" /> Tip $1
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+      </section>
+
+      {/* 4. STATS BAR */}
+      <section className="bg-[#cc0000] py-8 border-y-2 border-red-900">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-red-800">
+            <div className="text-center pt-4 md:pt-0">
+              <div className="text-4xl md:text-5xl font-black text-[#FFD700] tracking-tight mb-1">12,459</div>
+              <div className="text-white/90 font-bold tracking-widest uppercase text-sm">Total Rants</div>
+            </div>
+            <div className="text-center pt-8 md:pt-0">
+              <div className="text-4xl md:text-5xl font-black text-[#FFD700] tracking-tight mb-1">89,234</div>
+              <div className="text-white/90 font-bold tracking-widest uppercase text-sm">Listeners</div>
+            </div>
+            <div className="text-center pt-8 md:pt-0">
+              <div className="text-4xl md:text-5xl font-black text-[#FFD700] tracking-tight mb-1">847</div>
+              <div className="text-white/90 font-bold tracking-widest uppercase text-sm">Rants Today</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. RECENT RANTS PREVIEW */}
+      <section className="py-20 px-4 bg-[#070a14]">
+        <div className="container mx-auto max-w-6xl">
+          <div className="flex justify-between items-end mb-10">
+            <div>
+              <h2 className="text-4xl font-black uppercase tracking-tight mb-2">Recent Rants</h2>
+              <p className="text-gray-400 font-medium">The latest raw opinions from around the country.</p>
+            </div>
+            <Button variant="link" className="text-[#FFD700] hidden sm:flex items-center">
+              View All <span className="ml-1">→</span>
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {recentRants.map((rant) => (
+              <Card key={rant.id} className="bg-[#0f1423] border-white/10 hover:border-[#FFD700]/50 transition-colors group">
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-start mb-4">
+                    <Badge variant="outline" className="text-gray-300 border-gray-600 font-semibold">
+                      {rant.category}
+                    </Badge>
+                    <button className="text-gray-500 hover:text-white">
+                      <MoreVertical className="w-5 h-5" />
+                    </button>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 leading-snug group-hover:text-[#FFD700] transition-colors">
+                    "{rant.title}"
+                  </h3>
+                  
+                  <p className="text-sm text-gray-500 mb-6 font-medium">
+                    By {rant.caller}
+                  </p>
+
+                  <div className="flex items-center justify-between mt-auto">
+                    <div className="flex items-center gap-3">
+                      <button className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#FFD700] hover:text-black transition-colors">
+                        <Play className="w-5 h-5 ml-1 fill-current" />
+                      </button>
+                      <span className="text-sm font-bold text-gray-400">{rant.duration}</span>
+                    </div>
+                    
+                    <div className="flex flex-col items-end gap-1">
+                      <div className="flex items-center text-red-400 text-sm font-bold">
+                        <Flame className="w-3.5 h-3.5 mr-1 fill-red-400" />
+                        {rant.votes}
+                      </div>
+                      <Button variant="ghost" size="sm" className="h-7 text-xs text-[#FFD700] hover:bg-[#FFD700]/10 px-2">
+                        Tip
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
           
-          <div className="mt-10 text-center">
-             <button className="bg-transparent border border-white/20 text-white font-bold py-3 px-8 rounded hover:bg-white/5 hover:border-white/40 transition-colors uppercase tracking-wider text-sm">
-               Load More Rants ↓
-             </button>
-          </div>
+          <Button variant="outline" className="w-full mt-8 border-white/20 text-white hover:bg-white/5 sm:hidden">
+            View All Rants
+          </Button>
         </div>
       </section>
 
+      {/* 6. FOOTER */}
+      <footer className="bg-black py-12 border-t border-white/10">
+        <div className="container mx-auto px-4 max-w-6xl flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-2">
+            <Radio className="w-8 h-8 text-red-600" />
+            <span className="font-extrabold text-2xl tracking-tight text-white">MagaRantLine</span>
+          </div>
+          
+          <div className="text-center md:text-left">
+            <p className="text-gray-500 font-medium mb-1">The world is listening. Are you speaking?</p>
+            <p className="text-red-500 font-bold text-lg">Call 1-800-RANT-NOW</p>
+          </div>
+          
+          <div className="flex gap-4">
+            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors">
+              <span className="sr-only">Twitter</span>
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+            </a>
+            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors">
+              <span className="sr-only">Facebook</span>
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div className="container mx-auto px-4 max-w-6xl mt-8 pt-8 border-t border-white/5 text-center md:text-left text-sm text-gray-600">
+          <p>© {new Date().getFullYear()} MagaRantLine. All rights reserved. Rates may apply.</p>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { Mic, Play, Share2, DollarSign, Flame } from 'lucide-react';
+import { Play, Share2, DollarSign, Flame, Clock } from 'lucide-react';
 
 export default function RantsFeed() {
-  const [activeFilter, setActiveFilter] = useState('ALL');
+  const [activeFilter, setActiveFilter] = useState('All');
 
   const filters = [
-    { label: 'ALL', icon: '' },
-    { label: 'INFLATION', icon: '📈' },
-    { label: 'POLITICS', icon: '🏛' },
-    { label: 'WAR CONCERNS', icon: '⚔️' },
-    { label: 'WORK FRUSTRATIONS', icon: '💼' },
-    { label: 'DATING STORIES', icon: '❤️' },
-    { label: 'EVERYDAY LIFE', icon: '🌱' },
+    'All',
+    'Inflation',
+    'Politics',
+    'War Concerns',
+    'Work Frustrations',
+    'Dating Stories',
+    'Everyday Life',
   ];
 
   const rants = [
@@ -19,211 +19,197 @@ export default function RantsFeed() {
       id: 1,
       title: 'Gas Prices Are Destroying My Family Budget',
       category: 'Inflation',
+      categoryColor: 'bg-red-600',
       duration: '2:34',
       votes: '2,847',
-      state: 'Texas',
-      progress: 38,
+      caller: 'Anonymous from Texas',
+      progress: 30,
     },
     {
       id: 2,
-      title: "The Government Doesn't Hear Us Anymore",
+      title: "The Government Doesn't Care About Us Anymore",
       category: 'Politics',
+      categoryColor: 'bg-blue-600',
       duration: '4:12',
       votes: '1,923',
-      state: 'Ohio',
-      progress: 38,
+      caller: 'Anonymous from Ohio',
+      progress: 60,
     },
     {
       id: 3,
-      title: 'My Son Came Home from Overseas Changed Forever',
+      title: 'My Son Came Home from Overseas — CHANGED FOREVER',
       category: 'War Concerns',
+      categoryColor: 'bg-green-600',
       duration: '3:45',
       votes: '1,456',
-      state: 'Georgia',
-      progress: 38,
+      caller: 'Anonymous from Georgia',
+      progress: 15,
     },
     {
       id: 4,
       title: 'My Boss Gave My Raise to His Nephew',
       category: 'Work Frustrations',
+      categoryColor: 'bg-orange-600',
       duration: '2:18',
       votes: '987',
-      state: 'Florida',
-      progress: 38,
+      caller: 'Anonymous from Florida',
+      progress: 80,
     },
     {
       id: 5,
-      title: 'Dating Apps Are Built to Keep You Single',
+      title: 'Why Do Women Only Date Rich Guys Now?',
       category: 'Dating Stories',
+      categoryColor: 'bg-pink-600',
       duration: '5:02',
       votes: '876',
-      state: 'Michigan',
-      progress: 38,
+      caller: 'Anonymous from Michigan',
+      progress: 45,
     },
     {
       id: 6,
-      title: 'Grocery Store Lines Are Completely Out of Control',
+      title: 'Grocery Store Checkout Lines Are Getting Out of Hand',
       category: 'Everyday Life',
+      categoryColor: 'bg-purple-600',
       duration: '1:57',
       votes: '654',
-      state: 'Arizona',
-      progress: 38,
+      caller: 'Anonymous from Arizona',
+      progress: 10,
     },
   ];
 
   return (
-    <div className="min-h-screen bg-[#080e1f] font-sans text-white">
-      {/* HERO BANNER */}
-      <div className="bg-[#0B1E3A] relative overflow-hidden py-5 px-6 flex items-center justify-between">
-        <div className="z-10 flex flex-col items-start">
-          <img
-            src="/__mockup/images/logo-reference.png"
-            className="h-14 object-contain"
-            alt="MAGA RANT LINE"
-          />
-          <div className="text-white text-xs uppercase tracking-widest mt-1 font-bold">
-            ★ AMERICA'S VOICE. <span style={{ color: '#D61F1F' }}>UNFILTERED.</span> REAL. ★
+    <div className="min-h-screen bg-[#0a0e1a] text-white font-sans selection:bg-[#FFD700] selection:text-black">
+      {/* Navigation Bar */}
+      <nav className="bg-[#cc0000] sticky top-0 z-50 shadow-lg border-b border-red-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16 items-center">
+            <div className="flex items-center space-x-2">
+              <span className="text-2xl font-black tracking-tight flex items-center gap-2">
+                📻 MagaRantLine
+              </span>
+            </div>
+            <div className="hidden md:flex space-x-1">
+              {['Home', 'Rants', 'Leaderboard', 'Leave a Rant'].map((item) => (
+                <button
+                  key={item}
+                  className={`px-4 py-2 rounded-md text-sm font-bold uppercase tracking-wider transition-colors ${
+                    item === 'Rants'
+                      ? 'bg-[#FFD700] text-[#cc0000] shadow-[0_0_10px_rgba(255,215,0,0.5)]'
+                      : 'text-white hover:bg-white/10'
+                  }`}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+            {/* Mobile menu button placeholder */}
+            <div className="md:hidden flex items-center">
+              <button className="text-white hover:text-[#FFD700]">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
+      </nav>
 
-        {/* RIGHT (flag corner) */}
-        <div className="absolute top-0 right-0 w-40 h-full pointer-events-none overflow-hidden opacity-50">
-          <div
-            className="absolute inset-0"
-            style={{
-              background: 'repeating-linear-gradient(0deg, #B22234 0px, #B22234 18px, #FFFFFF 18px, #FFFFFF 36px)',
-              transform: 'rotate(-10deg) scale(1.5)',
-              transformOrigin: 'top right'
-            }}
-          ></div>
-          <div className="absolute top-0 left-0 w-20 h-24 bg-[#0B1E3A] flex flex-wrap content-start p-1" style={{ transform: 'rotate(-10deg) scale(1.5)', transformOrigin: 'top right' }}>
-            {Array.from({ length: 9 }).map((_, i) => (
-              <span key={i} className="text-white text-[8px] mx-0.5">★</span>
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        {/* Page Header */}
+        <div className="mb-10 text-center md:text-left">
+          <h1 className="text-4xl md:text-5xl font-black mb-3 text-white uppercase tracking-tight flex items-center justify-center md:justify-start gap-3">
+            <Flame className="w-10 h-10 text-[#FFD700]" />
+            Latest Rants
+          </h1>
+          <p className="text-xl text-gray-300 font-medium">
+            Fresh off the hotline — unfiltered, uncensored
+          </p>
+        </div>
+
+        {/* Filters */}
+        <div className="mb-8 overflow-x-auto pb-4 hide-scrollbar">
+          <div className="flex space-x-2 w-max">
+            {filters.map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-200 border-2 ${
+                  activeFilter === filter
+                    ? 'bg-[#FFD700] border-[#FFD700] text-black shadow-[0_0_15px_rgba(255,215,0,0.3)]'
+                    : 'bg-transparent border-gray-700 text-gray-300 hover:border-[#FFD700] hover:text-[#FFD700]'
+                }`}
+              >
+                {filter}
+              </button>
             ))}
           </div>
         </div>
-      </div>
 
-      {/* NAVBAR */}
-      <nav className="sticky top-0 z-50 bg-[#D61F1F] h-14 flex items-center px-4 gap-3 shadow-lg">
-        {/* LEFT */}
-        <div className="flex items-center gap-2">
-          <Mic className="w-5 h-5 text-white" />
-          <span className="font-['Black_Ops_One'] text-white text-xl tracking-wide mt-1">
-            MAGARANTLINE
-          </span>
-        </div>
-
-        {/* CENTER */}
-        <div className="hidden md:flex items-center gap-3 ml-8">
-          <button className="bg-[#0B1E3A] hover:bg-[#0B1E3A]/80 transition-colors rounded-full px-4 py-1 text-white text-sm font-semibold flex items-center gap-2">
-            <span>🏠</span> HOME
-          </button>
-          <button className="bg-[#0B1E3A] hover:bg-[#0B1E3A]/80 transition-colors rounded-full px-4 py-1 text-white text-sm font-semibold flex items-center gap-2 border border-white/20">
-            <span>📻</span> RANT WALL
-          </button>
-          <button className="bg-[#0B1E3A] hover:bg-[#0B1E3A]/80 transition-colors rounded-full px-4 py-1 text-white text-sm font-semibold flex items-center gap-2">
-            <span>🏆</span> LEADERBOARD
-          </button>
-        </div>
-
-        {/* RIGHT */}
-        <button className="bg-[#F59E0B] hover:bg-[#F59E0B]/90 transition-colors text-black font-bold rounded-full px-5 py-2 text-sm ml-auto flex items-center gap-1">
-          LEAVE A RANT <span className="ml-1">→</span>
-        </button>
-      </nav>
-
-      {/* RANT WALL PAGE CONTENT */}
-      
-      {/* PAGE HEADER SECTION */}
-      <section className="bg-[#0B1E3A] py-8 px-6">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="font-['Black_Ops_One'] text-white text-6xl text-center mb-2">
-            RANT WALL
-          </h1>
-          <p className="text-[#F59E0B] italic text-center text-sm mb-6">
-            Unfiltered. Unscripted. Uncensored.
-          </p>
-          
-          {/* CATEGORY FILTER PILLS */}
-          <div className="flex flex-wrap justify-center gap-2">
-            {filters.map((filter) => {
-              const isActive = activeFilter === filter.label;
-              return (
-                <button
-                  key={filter.label}
-                  onClick={() => setActiveFilter(filter.label)}
-                  className={`rounded-full px-4 py-2 text-sm font-bold uppercase transition-colors flex items-center gap-1.5 ${
-                    isActive
-                      ? 'bg-[#D61F1F] text-white'
-                      : 'bg-[#1a1a2e] text-white border border-white/20 hover:bg-[#1a1a2e]/80'
-                  }`}
-                >
-                  {filter.icon && <span>{filter.icon}</span>}
-                  {filter.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* RANT CARDS GRID */}
-      <section className="px-6 py-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {/* Rants Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {rants.map((rant) => (
             <div
               key={rant.id}
-              className="bg-[#0d1530] border border-[#D61F1F]/40 rounded-2xl p-5 hover:border-[#D61F1F]/80 transition-colors flex flex-col"
+              className="bg-[#111827] rounded-xl border border-gray-800 p-5 hover:border-[#FFD700]/50 transition-all duration-300 shadow-lg group relative overflow-hidden flex flex-col h-full"
             >
-              {/* TOP ROW */}
-              <div className="flex gap-3 items-start">
-                <button className="w-11 h-11 min-w-[44px] rounded-full bg-[#D61F1F] flex items-center justify-center text-white hover:bg-[#D61F1F]/90 transition-colors flex-shrink-0">
-                  <Play className="w-5 h-5 ml-0.5" fill="currentColor" />
+              {/* Top Row: Play & Title & Duration */}
+              <div className="flex items-start gap-4 mb-4">
+                <button className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-[#FFD700] flex items-center justify-center bg-transparent hover:bg-[#FFD700]/10 transition-colors group-hover:scale-105 duration-300">
+                  <Play className="w-5 h-5 text-[#FFD700] ml-1" fill="currentColor" />
                 </button>
-                <h3 className="text-white font-bold flex-1 leading-tight text-lg mt-0.5">
-                  {rant.title}
-                </h3>
-                <span className="bg-black/40 text-gray-300 text-xs px-2 py-1 rounded flex-shrink-0 font-medium whitespace-nowrap">
-                  {rant.duration}
-                </span>
-              </div>
-
-              {/* ROW 2 */}
-              <div className="flex gap-2 items-center mt-3">
-                <span className="bg-[#D61F1F]/20 text-[#D61F1F] border border-[#D61F1F]/40 rounded-full px-3 py-0.5 text-xs font-bold whitespace-nowrap">
-                  {rant.category}
-                </span>
-                <span className="text-gray-400 text-sm truncate">
-                  Anonymous from {rant.state}
-                </span>
-              </div>
-
-              {/* PROGRESS BAR */}
-              <div className="h-1 bg-white/10 rounded-full mt-4 w-full overflow-hidden">
-                <div
-                  className="bg-[#F59E0B] rounded-full h-full"
-                  style={{ width: `${rant.progress}%` }}
-                />
-              </div>
-
-              {/* BOTTOM ROW */}
-              <div className="flex items-center mt-4">
-                <div className="flex items-center gap-1.5 text-[#F59E0B]">
-                  <Flame className="w-4 h-4" fill="currentColor" />
-                  <span className="font-bold text-sm">{rant.votes}</span>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-xl font-bold text-white mb-2 leading-tight group-hover:text-[#FFD700] transition-colors line-clamp-2">
+                    {rant.title}
+                  </h3>
+                  <div className="flex items-center flex-wrap gap-2">
+                    <span className={`text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded ${rant.categoryColor} text-white`}>
+                      {rant.category}
+                    </span>
+                    <span className="flex items-center text-xs text-gray-400 font-medium bg-black/30 px-2 py-0.5 rounded">
+                      <Clock className="w-3 h-3 mr-1" />
+                      {rant.duration}
+                    </span>
+                  </div>
                 </div>
-                
-                <div className="flex-1"></div>
+              </div>
 
-                <div className="flex items-center gap-2">
-                  <button className="flex items-center gap-1.5 border border-white/10 text-gray-400 rounded-lg px-3 py-1.5 text-xs hover:bg-white/10 hover:text-white transition-colors font-medium">
-                    <Share2 className="w-3.5 h-3.5" />
-                    SHARE
+              {/* Caller Info */}
+              <div className="mb-4">
+                <p className="text-sm text-gray-400 italic font-medium">
+                  {rant.caller}
+                </p>
+              </div>
+
+              {/* Audio Progress Bar */}
+              <div className="mt-auto mb-5">
+                <div className="h-2 w-full bg-gray-800 rounded-full overflow-hidden cursor-pointer">
+                  <div
+                    className="h-full bg-[#FFD700] relative transition-all duration-300 ease-linear"
+                    style={{ width: `${rant.progress}%` }}
+                  >
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-white rounded-full shadow-sm" />
+                  </div>
+                </div>
+                <div className="flex justify-between text-xs text-gray-500 mt-1.5 font-mono">
+                  <span>0:{(rant.progress / 100 * 200).toFixed(0).padStart(2, '0')}</span>
+                  <span>{rant.duration}</span>
+                </div>
+              </div>
+
+              {/* Bottom Row */}
+              <div className="flex items-center justify-between pt-4 border-t border-gray-800/80">
+                <div className="flex items-center text-[#FFD700] font-bold">
+                  <Flame className="w-5 h-5 mr-1.5" fill="currentColor" />
+                  <span className="text-lg">{rant.votes}</span>
+                </div>
+                <div className="flex gap-2">
+                  <button className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                    <Share2 className="w-4 h-4" />
                   </button>
-                  <button className="flex items-center gap-1.5 bg-[#F59E0B]/10 text-[#F59E0B] border border-[#F59E0B]/30 rounded-lg px-3 py-1.5 text-xs hover:bg-[#F59E0B]/20 transition-colors font-bold">
-                    <DollarSign className="w-3.5 h-3.5" />
-                    TIP
+                  <button className="flex items-center justify-center px-4 h-10 rounded-full bg-green-900/40 text-green-400 border border-green-800 hover:bg-green-800 hover:text-white transition-colors font-bold">
+                    <DollarSign className="w-4 h-4 mr-1" />
+                    Tip
                   </button>
                 </div>
               </div>
@@ -231,14 +217,13 @@ export default function RantsFeed() {
           ))}
         </div>
 
-        {/* LOAD MORE BUTTON */}
-        <div className="flex justify-center mt-8">
-          <button className="border-2 border-[#D61F1F] text-[#D61F1F] font-bold rounded-full px-10 py-3 hover:bg-[#D61F1F] hover:text-white transition-colors tracking-wide">
-            LOAD MORE
+        {/* Load More Button */}
+        <div className="mt-12 text-center">
+          <button className="px-8 py-3 rounded-full border-2 border-[#FFD700] text-[#FFD700] font-bold uppercase tracking-widest hover:bg-[#FFD700] hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(255,215,0,0.1)] hover:shadow-[0_0_20px_rgba(255,215,0,0.4)]">
+            Load More Rants
           </button>
         </div>
-      </section>
-
+      </main>
     </div>
   );
 }

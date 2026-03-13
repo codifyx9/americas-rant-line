@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Mic, Check } from "lucide-react";
+import { Phone, Check, Star, Zap, ArrowRight, CreditCard, CheckCircle2, Radio } from "lucide-react";
 
 export default function LeaveARant() {
   const [paymentStatus, setPaymentStatus] = useState<"idle" | "processing" | "confirmed">("idle");
@@ -8,238 +8,280 @@ export default function LeaveARant() {
   const handlePayment = (plan: "standard" | "skip" | "featured") => {
     setSelectedPlan(plan);
     setPaymentStatus("processing");
+    // Simulate payment delay
     setTimeout(() => {
       setPaymentStatus("confirmed");
+      // Scroll to bottom
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }, 1500);
   };
 
   const getDeliveryTime = () => {
-    if (selectedPlan === "standard") return "24 hrs";
-    if (selectedPlan === "skip") return "2 hrs";
-    if (selectedPlan === "featured") return "2 hrs";
+    if (selectedPlan === "standard") return "24 hours";
+    if (selectedPlan === "skip") return "2 hours";
+    if (selectedPlan === "featured") return "2 hours (with featured placement)";
     return "";
   };
 
   return (
-    <div className="min-h-screen bg-[#080e1f] text-white font-sans selection:bg-[#D61F1F] selection:text-white pb-24">
-      {/* HERO BANNER */}
-      <div className="bg-[#0B1E3A] relative overflow-hidden py-5 px-6 flex items-center justify-between">
-        <div className="relative z-10">
-          <img src="/__mockup/images/logo-reference.png" className="h-14 object-contain" alt="MAGA RANT LINE" />
-          <div className="text-white text-xs uppercase tracking-widest mt-1">
-            ★ AMERICA'S VOICE. <span style={{ color: '#D61F1F' }}>UNFILTERED.</span> REAL. ★
+    <div className="min-h-screen bg-[#0a0e1a] text-white font-sans selection:bg-[#cc0000] selection:text-white pb-24">
+      {/* Navigation */}
+      <nav className="bg-[#cc0000] sticky top-0 z-50 shadow-md border-b border-red-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+              <Radio className="h-6 w-6 text-white" />
+              <span className="font-bold text-xl tracking-tight">MagaRantLine</span>
+            </div>
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-8">
+                <a href="#" className="text-red-100 hover:text-white hover:bg-red-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                <a href="#" className="text-red-100 hover:text-white hover:bg-red-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">Rants</a>
+                <a href="#" className="text-red-100 hover:text-white hover:bg-red-800 px-3 py-2 rounded-md text-sm font-medium transition-colors">Leaderboard</a>
+                <a href="#" className="bg-red-900 text-white px-4 py-2 rounded-md text-sm font-bold border border-red-500 shadow-inner">Leave a Rant</a>
+              </div>
+            </div>
           </div>
         </div>
-        
-        {/* RIGHT (flag corner) */}
-        <div className="absolute top-0 right-0 w-40 h-full pointer-events-none overflow-hidden opacity-50">
-          <div 
-            className="absolute inset-0 transform rotate-12 scale-150 origin-top-right"
-            style={{ background: "repeating-linear-gradient(0deg, #B22234 0px, #B22234 18px, #FFFFFF 18px, #FFFFFF 36px)" }}
-          />
-          <div className="absolute top-0 left-0 w-16 h-16 bg-[#0B1E3A] flex items-start justify-start p-2">
-            <span className="text-white text-xs leading-none">★ ★ ★<br/> ★ ★<br/>★ ★ ★</span>
-          </div>
-        </div>
-      </div>
-
-      {/* NAVBAR */}
-      <nav className="bg-[#D61F1F] sticky top-0 z-50 h-14 flex items-center px-4 gap-3 shadow-md">
-        <div className="flex items-center gap-2">
-          <Mic className="h-6 w-6 text-white" />
-          <span className="font-['Black_Ops_One'] text-white text-xl tracking-wide mt-1">MAGARANTLINE</span>
-        </div>
-        
-        <div className="hidden md:flex items-center gap-3 mx-auto">
-          <button className="bg-[#0B1E3A] rounded-full px-4 py-1 text-white text-sm font-semibold hover:bg-black transition-colors">🏠 HOME</button>
-          <button className="bg-[#0B1E3A] rounded-full px-4 py-1 text-white text-sm font-semibold hover:bg-black transition-colors">📻 RANT WALL</button>
-          <button className="bg-[#0B1E3A] rounded-full px-4 py-1 text-white text-sm font-semibold hover:bg-black transition-colors">🏆 LEADERBOARD</button>
-        </div>
-        
-        <button className="bg-[#F59E0B] text-black font-bold rounded-full px-5 py-2 text-sm ml-auto hover:bg-yellow-500 transition-colors whitespace-nowrap">
-          LEAVE A RANT →
-        </button>
       </nav>
 
-      {/* PAGE HEADER */}
-      <header className="bg-gradient-to-b from-[#0B1E3A] to-[#080e1f] py-10 px-6 text-center">
-        <h1 className="font-['Black_Ops_One'] text-white text-5xl md:text-6xl tracking-wide">
-          LEAVE YOUR RANT
-        </h1>
-        <p className="text-[#F59E0B] text-base mt-2">
-          Your voice matters. The country is listening.
-        </p>
-      </header>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="text-center mb-16 space-y-4">
+          <div className="inline-flex items-center justify-center p-3 bg-red-900/30 rounded-full mb-4 border border-red-500/30">
+            <Phone className="h-8 w-8 text-[#FFD700]" />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
+            Leave Your Rant
+          </h1>
+          <p className="text-xl text-blue-200 max-w-2xl mx-auto">
+            Your voice matters. Call the hotline and let it out. Choose your plan to get started.
+          </p>
+        </div>
 
-      {/* PRICING CARDS */}
-      <main className="max-w-6xl mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        {/* Pricing Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 max-w-6xl mx-auto">
           
           {/* Card 1: Standard */}
-          <div className="bg-[#0d1530] border border-white/20 rounded-2xl p-8 text-center flex flex-col">
-            <div className="font-['Black_Ops_One'] text-[#F59E0B] text-6xl mb-2">$1.99</div>
-            <h3 className="text-white font-bold text-2xl mb-4">Standard Rant</h3>
+          <div className="bg-[#111827] rounded-2xl border border-slate-800 p-8 flex flex-col relative overflow-hidden transition-transform hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-900/20">
+            <div className="mb-6">
+              <h3 className="text-xl font-bold text-slate-300 mb-2">Standard Rant</h3>
+              <div className="flex items-baseline gap-1">
+                <span className="text-4xl font-black text-[#FFD700]">$1.99</span>
+                <span className="text-slate-500 text-sm font-medium">/ rant</span>
+              </div>
+            </div>
             
-            <ul className="text-left text-gray-300 text-sm space-y-2 mb-8 flex-1">
-              <li className="flex items-start gap-2">
-                <span className="text-green-500">✓</span>
-                <span>Up to 3 minute recording</span>
+            <ul className="space-y-4 mb-8 flex-1">
+              <li className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-green-400 shrink-0 mt-0.5" />
+                <span className="text-slate-300">Up to 3 minute recording</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-500">✓</span>
-                <span>Published within 24 hrs</span>
+              <li className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-green-400 shrink-0 mt-0.5" />
+                <span className="text-slate-300">Published within 24 hours</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-500">✓</span>
-                <span>Community voting</span>
+              <li className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-green-400 shrink-0 mt-0.5" />
+                <span className="text-slate-300">Community voting</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-500">✓</span>
-                <span>Share button</span>
+              <li className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-green-400 shrink-0 mt-0.5" />
+                <span className="text-slate-300">Share button</span>
               </li>
             </ul>
             
             <button 
               onClick={() => handlePayment("standard")}
               disabled={paymentStatus === "processing"}
-              className="bg-[#F59E0B] hover:bg-yellow-500 text-black font-bold w-full rounded-full py-3 mt-6 disabled:opacity-70 disabled:cursor-not-allowed transition-colors"
+              className="w-full bg-[#FFD700] hover:bg-yellow-400 text-black font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-yellow-500/20 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              {paymentStatus === "processing" && selectedPlan === "standard" ? "PROCESSING..." : "GET STARTED"}
+              {paymentStatus === "processing" && selectedPlan === "standard" ? (
+                <span className="animate-pulse">Processing...</span>
+              ) : (
+                <>Get Started <ArrowRight className="h-4 w-4" /></>
+              )}
             </button>
           </div>
 
           {/* Card 2: Skip the Line */}
-          <div className="bg-[#D61F1F] border-2 border-[#F59E0B] rounded-2xl p-8 text-center relative overflow-hidden flex flex-col">
-            <div className="absolute top-0 right-4 bg-[#F59E0B] text-black text-xs font-bold px-4 py-1 rounded-b-lg">
-              MOST POPULAR
+          <div className="bg-[#161b2e] rounded-2xl border-2 border-[#cc0000] p-8 flex flex-col relative overflow-hidden transform md:-translate-y-4 shadow-2xl shadow-red-900/30">
+            <div className="absolute top-0 inset-x-0">
+              <div className="bg-[#cc0000] text-white text-xs font-bold uppercase tracking-wider py-1.5 text-center flex items-center justify-center gap-1">
+                <Zap className="h-3 w-3" fill="currentColor" /> Most Popular
+              </div>
+            </div>
+            <div className="mt-4 mb-6">
+              <h3 className="text-xl font-bold text-white mb-2">Skip the Line</h3>
+              <div className="flex items-baseline gap-1">
+                <span className="text-4xl font-black text-[#FFD700]">$5.00</span>
+                <span className="text-slate-400 text-sm font-medium">/ rant</span>
+              </div>
             </div>
             
-            <div className="font-['Black_Ops_One'] text-white text-6xl mb-2">$5.00</div>
-            <h3 className="text-white font-bold text-2xl mb-4">Skip the Line</h3>
-            
-            <ul className="text-left text-white text-sm space-y-2 mb-8 flex-1">
-              <li className="flex items-start gap-2">
-                <span className="text-green-300 font-bold">✓</span>
-                <span className="font-bold">Everything in Standard</span>
+            <ul className="space-y-4 mb-8 flex-1">
+              <li className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-[#cc0000] shrink-0 mt-0.5" />
+                <span className="text-white font-medium">Everything in Standard</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-300">✓</span>
-                <span>Published in 2 hrs</span>
+              <li className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-[#cc0000] shrink-0 mt-0.5" />
+                <span className="text-white">Published within 2 hours</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-300">✓</span>
-                <span>Priority feed position</span>
+              <li className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-[#cc0000] shrink-0 mt-0.5" />
+                <span className="text-white">Priority position in feed</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-300">✓</span>
-                <span>Bold title</span>
+              <li className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-[#cc0000] shrink-0 mt-0.5" />
+                <span className="text-white">Bold title styling</span>
               </li>
             </ul>
             
             <button 
               onClick={() => handlePayment("skip")}
               disabled={paymentStatus === "processing"}
-              className="bg-white hover:bg-gray-100 text-[#D61F1F] font-bold w-full rounded-full py-3 mt-6 disabled:opacity-70 disabled:cursor-not-allowed transition-colors"
+              className="w-full bg-[#cc0000] hover:bg-red-600 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-red-900/50 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              {paymentStatus === "processing" && selectedPlan === "skip" ? "PROCESSING..." : "SKIP THE LINE"}
+              {paymentStatus === "processing" && selectedPlan === "skip" ? (
+                <span className="animate-pulse">Processing...</span>
+              ) : (
+                <>Skip the Line <Zap className="h-4 w-4" fill="currentColor" /></>
+              )}
             </button>
           </div>
 
           {/* Card 3: Featured Rant */}
-          <div className="bg-gradient-to-b from-[#1a1200] to-[#080e1f] border-2 border-[#F59E0B] rounded-2xl p-8 text-center shadow-lg shadow-yellow-500/10 flex flex-col">
-            <div className="font-['Black_Ops_One'] text-[#F59E0B] text-6xl mb-2">$25.00</div>
-            <h3 className="text-white font-bold text-2xl mb-4">Featured Rant</h3>
+          <div className="bg-gradient-to-b from-[#1a1f35] to-[#0a0e1a] rounded-2xl border border-[#FFD700]/50 p-8 flex flex-col relative overflow-hidden transition-transform hover:-translate-y-1 shadow-lg shadow-[#FFD700]/10">
+            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-yellow-600 via-[#FFD700] to-yellow-600"></div>
+            <div className="mb-6">
+              <h3 className="text-xl font-bold text-[#FFD700] mb-2 flex items-center gap-2">
+                <Star className="h-5 w-5" fill="currentColor" /> Featured Rant
+              </h3>
+              <div className="flex items-baseline gap-1">
+                <span className="text-4xl font-black text-[#FFD700]">$25.00</span>
+                <span className="text-slate-500 text-sm font-medium">/ rant</span>
+              </div>
+            </div>
             
-            <ul className="text-left text-gray-300 text-sm space-y-2 mb-8 flex-1">
-              <li className="flex items-start gap-2">
-                <span className="text-green-500">✓</span>
-                <span>All above</span>
+            <ul className="space-y-4 mb-8 flex-1">
+              <li className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-[#FFD700] shrink-0 mt-0.5" />
+                <span className="text-slate-200 font-medium">Everything in Skip the Line</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-500">✓</span>
-                <span>Homepage featured placement</span>
+              <li className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-[#FFD700] shrink-0 mt-0.5" />
+                <span className="text-slate-200">Front page featured placement</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-500">✓</span>
-                <span>Pinned 24 hrs</span>
+              <li className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-[#FFD700] shrink-0 mt-0.5" />
+                <span className="text-slate-200">Pinned for 24 hours</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-500">✓</span>
-                <span>Promoted social</span>
+              <li className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-[#FFD700] shrink-0 mt-0.5" />
+                <span className="text-slate-200">Promoted on social media</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-500">✓</span>
-                <span>Personal intro</span>
+              <li className="flex items-start gap-3">
+                <Check className="h-5 w-5 text-[#FFD700] shrink-0 mt-0.5" />
+                <span className="text-slate-200">Personal shoutout intro</span>
               </li>
             </ul>
             
             <button 
               onClick={() => handlePayment("featured")}
               disabled={paymentStatus === "processing"}
-              className="bg-[#F59E0B] hover:bg-yellow-500 text-black font-bold w-full rounded-full py-3 mt-6 disabled:opacity-70 disabled:cursor-not-allowed transition-colors"
+              className="w-full bg-gradient-to-r from-yellow-500 to-[#FFD700] hover:from-yellow-400 hover:to-yellow-300 text-black font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#FFD700]/20 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              {paymentStatus === "processing" && selectedPlan === "featured" ? "PROCESSING..." : "GO FEATURED"}
+              {paymentStatus === "processing" && selectedPlan === "featured" ? (
+                <span className="animate-pulse">Processing...</span>
+              ) : (
+                <>Go Featured <Star className="h-4 w-4" fill="currentColor" /></>
+              )}
             </button>
           </div>
         </div>
-      </main>
 
-      {/* HOW IT WORKS */}
-      <div className="bg-[#0B1E3A] py-10 px-6">
-        <h2 className="font-['Black_Ops_One'] text-white text-5xl text-center mb-8">
-          HOW IT WORKS
-        </h2>
-        
-        <div className="flex flex-col md:flex-row gap-8 justify-center items-center md:items-start max-w-4xl mx-auto">
-          <div className="flex flex-col items-center text-center max-w-[250px]">
-            <div className="bg-[#D61F1F] text-white w-12 h-12 rounded-full font-bold text-xl flex items-center justify-center mb-4">1</div>
-            <p className="text-white">Choose your plan and pay securely</p>
-          </div>
+        {/* How It Works */}
+        <div className="max-w-4xl mx-auto bg-slate-900/50 rounded-3xl border border-slate-800 p-8 md:p-12 mb-12 backdrop-blur-sm">
+          <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
           
-          <div className="flex flex-col items-center text-center max-w-[250px]">
-            <div className="bg-[#D61F1F] text-white w-12 h-12 rounded-full font-bold text-xl flex items-center justify-center mb-4">2</div>
-            <p className="text-white">Call the hotline number shown after payment</p>
-          </div>
-          
-          <div className="flex flex-col items-center text-center max-w-[250px]">
-            <div className="bg-[#D61F1F] text-white w-12 h-12 rounded-full font-bold text-xl flex items-center justify-center mb-4">3</div>
-            <p className="text-white">Record your rant — speak freely!</p>
-          </div>
-        </div>
-        
-        <div className="text-center mt-12">
-          <div className="bg-[#F59E0B] rounded-2xl px-8 py-6 inline-block shadow-lg">
-            <div className="font-['Black_Ops_One'] text-black text-4xl tracking-wider">
-              📞 1-800-RANT-NOW
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="text-center relative">
+              <div className="w-16 h-16 bg-blue-900/50 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-700/50 relative z-10">
+                <CreditCard className="h-8 w-8 text-blue-400" />
+                <div className="absolute -top-3 -right-3 w-8 h-8 bg-[#cc0000] rounded-full flex items-center justify-center font-bold text-white border-2 border-[#0a0e1a]">1</div>
+              </div>
+              <p className="text-slate-300 font-medium">Choose your plan and pay securely with Stripe</p>
+              <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-slate-800 -z-0"></div>
+            </div>
+            
+            <div className="text-center relative">
+              <div className="w-16 h-16 bg-red-900/50 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-red-700/50 relative z-10">
+                <Phone className="h-8 w-8 text-red-400" />
+                <div className="absolute -top-3 -right-3 w-8 h-8 bg-[#cc0000] rounded-full flex items-center justify-center font-bold text-white border-2 border-[#0a0e1a]">2</div>
+              </div>
+              <p className="text-slate-300 font-medium">Call the hotline number shown after payment</p>
+              <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-slate-800 -z-0"></div>
+            </div>
+            
+            <div className="text-center relative">
+              <div className="w-16 h-16 bg-yellow-900/30 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-yellow-700/50 relative z-10">
+                <Radio className="h-8 w-8 text-[#FFD700]" />
+                <div className="absolute -top-3 -right-3 w-8 h-8 bg-[#cc0000] rounded-full flex items-center justify-center font-bold text-white border-2 border-[#0a0e1a]">3</div>
+              </div>
+              <p className="text-slate-300 font-medium">Record your rant — speak freely!</p>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* PAYMENT CONFIRMED SECTION */}
-      {paymentStatus === "confirmed" && (
-        <div className="bg-[#080e1f] py-12 px-6 animate-in fade-in slide-in-from-bottom-8 duration-500">
-          <div className="bg-green-900/20 border border-green-500/30 rounded-2xl p-8 text-center max-w-md mx-auto shadow-2xl">
-            <div className="text-6xl mb-4">✅</div>
-            <h3 className="text-white font-bold text-xl mb-6">
-              Payment Confirmed! Ready to Rant.
-            </h3>
-            
-            <div className="font-['Black_Ops_One'] text-[#F59E0B] text-4xl mb-6 tracking-wide">
+          <div className="bg-black/50 border border-slate-800 rounded-xl p-6 text-center shadow-inner relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full duration-1000 ease-in-out"></div>
+            <p className="text-slate-400 mb-2 font-medium uppercase tracking-widest text-sm">Hotline Number</p>
+            <div className="text-4xl md:text-5xl font-black text-[#FFD700] tracking-wider animate-pulse">
               1-800-RANT-NOW
             </div>
-            
-            <div className="text-gray-400 mb-2 text-lg">
-              Call code: <span className="font-bold text-white">#RNT-2847</span>
-            </div>
-            
-            <div className="text-gray-400 text-sm">
-              Goes live within {getDeliveryTime()}
-            </div>
           </div>
         </div>
-      )}
+
+        {/* Payment Confirmed State */}
+        {paymentStatus === "confirmed" && (
+          <div className="max-w-3xl mx-auto mt-12 animate-in fade-in slide-in-from-bottom-8 duration-500">
+            <div className="bg-gradient-to-br from-green-900/40 to-slate-900 rounded-3xl border-2 border-green-500/50 p-8 md:p-12 text-center relative overflow-hidden shadow-2xl shadow-green-900/20">
+              <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+                <CheckCircle2 className="w-64 h-64 text-green-500" />
+              </div>
+              
+              <div className="relative z-10">
+                <div className="inline-flex items-center justify-center p-4 bg-green-500/20 rounded-full mb-6 text-green-400 border border-green-500/30">
+                  <CheckCircle2 className="h-12 w-12" />
+                </div>
+                
+                <h2 className="text-3xl font-bold text-white mb-4">
+                  Payment Confirmed! You're Ready to Rant.
+                </h2>
+                
+                <p className="text-xl text-slate-300 mb-10 max-w-xl mx-auto">
+                  Your payment was successful. Grab your phone and call the hotline right now.
+                </p>
+                
+                <div className="bg-black/60 border-2 border-[#FFD700] rounded-2xl p-8 mb-8 inline-block shadow-lg shadow-[#FFD700]/10">
+                  <div className="text-slate-400 mb-2 font-medium uppercase tracking-widest text-sm">Call Now</div>
+                  <div className="text-5xl md:text-6xl font-black text-[#FFD700] tracking-wider mb-6">
+                    1-800-RANT-NOW
+                  </div>
+                  <div className="bg-slate-800 text-white font-mono py-3 px-6 rounded-lg text-xl border border-slate-700 inline-block">
+                    Your call code: <span className="font-bold text-[#FFD700]">#RNT-2847</span>
+                  </div>
+                </div>
+                
+                <div className="bg-blue-900/30 border border-blue-800/50 rounded-xl p-4 text-blue-200 flex items-center justify-center gap-3 max-w-lg mx-auto">
+                  <Zap className="h-5 w-5 text-blue-400" />
+                  <span>Your rant will go live within <strong>{getDeliveryTime()}</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 }
