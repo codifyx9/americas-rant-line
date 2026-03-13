@@ -73,7 +73,7 @@ export default function Leaderboard() {
           <div className="hidden md:flex items-center space-x-1">
             <Button variant="ghost" className="text-white hover:bg-red-800 hover:text-white font-medium">Home</Button>
             <Button variant="ghost" className="text-white hover:bg-red-800 hover:text-white font-medium">Rants</Button>
-            <Button variant="ghost" className="bg-red-900 text-[#FFD700] hover:bg-red-950 hover:text-[#FFD700] font-bold shadow-inner">Leaderboard</Button>
+            <Button variant="ghost" className="bg-red-900 text-[#FFFFFF] hover:bg-red-950 hover:text-[#FFFFFF] font-bold shadow-inner">Leaderboard</Button>
             <Button variant="outline" className="ml-4 border-white text-black hover:bg-gray-100 font-bold uppercase tracking-wide border-2">Leave a Rant</Button>
           </div>
           
@@ -89,14 +89,14 @@ export default function Leaderboard() {
         {/* 2. PAGE HEADER */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-extrabold uppercase tracking-tight mb-4 flex items-center justify-center gap-3">
-            <Trophy className="h-10 w-10 md:h-14 md:w-14 text-[#FFD700]" />
+            <Trophy className="h-10 w-10 md:h-14 md:w-14 text-[#FFFFFF]" />
             Top Rants Today
-            <Trophy className="h-10 w-10 md:h-14 md:w-14 text-[#FFD700]" />
+            <Trophy className="h-10 w-10 md:h-14 md:w-14 text-[#FFFFFF]" />
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 font-medium mb-3">
             The most voted rants from the hotline — updated live
           </p>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1a2235] text-[#FFD700] text-sm border border-[#FFD700]/30 font-medium tracking-wide">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1a2235] text-[#FFFFFF] text-sm border border-[#FFFFFF]/30 font-medium tracking-wide">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
             Last updated: 2 minutes ago
           </div>
@@ -144,8 +144,8 @@ export default function Leaderboard() {
 
           {/* 🥇 1st Place */}
           <div className="w-full lg:w-[40%] order-1 lg:order-2 z-10">
-            <Card className="bg-[#1a0f0f] border-4 border-[#FFD700] shadow-[0_0_40px_rgba(255,215,0,0.3)] relative overflow-visible transform hover:scale-[1.02] transition-transform duration-300">
-              <div className="absolute -top-8 -left-6 w-20 h-20 rounded-full bg-[#FFD700] flex items-center justify-center text-4xl shadow-[0_0_20px_rgba(255,215,0,0.5)] border-4 border-[#fff] z-10 font-black text-amber-900">
+            <Card className="bg-[#1a0f0f] border-4 border-[#FFFFFF] shadow-[0_0_40px_rgba(255,215,0,0.3)] relative overflow-visible transform hover:scale-[1.02] transition-transform duration-300">
+              <div className="absolute -top-8 -left-6 w-20 h-20 rounded-full bg-[#FFFFFF] flex items-center justify-center text-4xl shadow-[0_0_20px_rgba(255,215,0,0.5)] border-4 border-[#fff] z-10 font-black text-white">
                 🥇
               </div>
               <CardHeader className="pt-10 pb-4">
@@ -160,10 +160,10 @@ export default function Leaderboard() {
                 <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-white uppercase tracking-tight">"{PODIUM_DATA[0].title}"</h2>
               </CardHeader>
               <CardContent className="pb-6">
-                <p className="text-base text-gray-400 italic mb-6 border-l-2 border-[#FFD700] pl-3">— {PODIUM_DATA[0].caller}</p>
-                <div className="flex items-center justify-center py-4 bg-gradient-to-r from-transparent via-[#FFD700]/10 to-transparent border-y border-[#FFD700]/20 mb-6">
-                  <div className="flex items-center gap-2 text-[#FFD700] font-black text-3xl tracking-tight text-shadow-sm">
-                    <Flame className="h-8 w-8 text-[#FFD700] animate-pulse" fill="#FFD700" />
+                <p className="text-base text-gray-400 italic mb-6 border-l-2 border-[#FFFFFF] pl-3">— {PODIUM_DATA[0].caller}</p>
+                <div className="flex items-center justify-center py-4 bg-gradient-to-r from-transparent via-[#FFFFFF]/10 to-transparent border-y border-[#FFFFFF]/20 mb-6">
+                  <div className="flex items-center gap-2 text-[#FFFFFF] font-black text-3xl tracking-tight text-shadow-sm">
+                    <Flame className="h-8 w-8 text-[#FFFFFF] animate-pulse" fill="#FFFFFF" />
                     {PODIUM_DATA[0].votes} VOTES
                   </div>
                 </div>
@@ -180,7 +180,7 @@ export default function Leaderboard() {
                         <span>{PODIUM_DATA[0].duration}</span>
                       </div>
                       <div className="h-2 bg-gray-800 rounded-full overflow-hidden relative group cursor-pointer">
-                        <div className="h-full bg-[#FFD700] w-0 relative rounded-full shadow-[0_0_10px_rgba(255,215,0,0.8)]">
+                        <div className="h-full bg-[#FFFFFF] w-0 relative rounded-full shadow-[0_0_10px_rgba(255,215,0,0.8)]">
                           <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full scale-0 group-hover:scale-100 transition-transform"></div>
                         </div>
                       </div>
@@ -196,13 +196,13 @@ export default function Leaderboard() {
 
           {/* 🥉 3rd Place */}
           <div className="w-full lg:w-1/3 order-3 transform lg:-translate-y-12">
-            <Card className="bg-[#111827] border-[3px] border-amber-700 shadow-[0_0_20px_rgba(180,83,9,0.15)] relative overflow-visible">
-              <div className="absolute -top-6 -left-4 w-14 h-14 rounded-full bg-amber-600 flex items-center justify-center text-2xl shadow-lg border-[3px] border-amber-800 z-10 font-bold text-amber-100">
+            <Card className="bg-[#111827] border-[3px] border-white shadow-[0_0_20px_rgba(180,83,9,0.15)] relative overflow-visible">
+              <div className="absolute -top-6 -left-4 w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl shadow-lg border-[3px] border-white z-10 font-bold text-white">
                 🥉
               </div>
               <CardHeader className="pt-8 pb-2">
                 <div className="flex justify-between items-start mb-2">
-                  <Badge className="bg-amber-900/50 text-amber-500 hover:bg-amber-900 border-none font-bold uppercase text-xs tracking-wider">
+                  <Badge className="bg-white/50 text-white hover:bg-white border-none font-bold uppercase text-xs tracking-wider">
                     {PODIUM_DATA[2].category}
                   </Badge>
                 </div>
@@ -210,19 +210,19 @@ export default function Leaderboard() {
               </CardHeader>
               <CardContent className="pb-4">
                 <p className="text-sm text-slate-400 italic mb-4">— {PODIUM_DATA[2].caller}</p>
-                <div className="flex items-center gap-2 text-amber-500 font-bold text-lg mb-4">
+                <div className="flex items-center gap-2 text-white font-bold text-lg mb-4">
                   <ThumbsUp className="h-5 w-5" />
                   {PODIUM_DATA[2].votes} VOTES
                 </div>
                 
                 {/* Compact Player */}
-                <div className="bg-[#0a0e1a] rounded-lg p-3 flex items-center gap-3 border border-amber-900/30">
-                  <Button size="icon" className="h-8 w-8 rounded-full bg-amber-700 hover:bg-amber-600 text-white shrink-0">
+                <div className="bg-[#0a0e1a] rounded-lg p-3 flex items-center gap-3 border border-white/30">
+                  <Button size="icon" className="h-8 w-8 rounded-full bg-white hover:bg-white text-white shrink-0">
                     <Play className="h-4 w-4 ml-0.5" />
                   </Button>
                   <div className="flex-1 space-y-1">
                     <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                      <div className="h-full bg-amber-500 w-1/4 rounded-full"></div>
+                      <div className="h-full bg-white w-1/4 rounded-full"></div>
                     </div>
                   </div>
                   <span className="text-xs text-slate-400 font-mono">{PODIUM_DATA[2].duration}</span>
@@ -269,7 +269,7 @@ export default function Leaderboard() {
                     <TableCell className="hidden lg:table-cell text-gray-400 italic text-sm">
                       {item.caller}
                     </TableCell>
-                    <TableCell className="text-right font-bold text-[#FFD700]">
+                    <TableCell className="text-right font-bold text-[#FFFFFF]">
                       {item.votes}
                     </TableCell>
                     <TableCell className="text-center">
@@ -290,9 +290,9 @@ export default function Leaderboard() {
         </div>
 
         {/* 5. DAILY RESET BANNER */}
-        <div className="bg-[#1a1100] border border-[#FFD700]/30 rounded-lg p-4 flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(255,215,0,0.1)]">
-          <Clock className="h-5 w-5 text-[#FFD700]" />
-          <span className="text-[#FFD700] font-bold tracking-wide uppercase text-sm md:text-base">
+        <div className="bg-[#1a1100] border border-[#FFFFFF]/30 rounded-lg p-4 flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(255,215,0,0.1)]">
+          <Clock className="h-5 w-5 text-[#FFFFFF]" />
+          <span className="text-[#FFFFFF] font-bold tracking-wide uppercase text-sm md:text-base">
             Leaderboard resets at midnight EST
           </span>
         </div>

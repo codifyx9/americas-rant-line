@@ -48,13 +48,13 @@ export default function MagaRantLineHome() {
           </div>
           
           <div className="hidden md:flex items-center gap-6 font-semibold text-sm tracking-wide">
-            <a href="#" className="hover:text-[#FFD700] transition-colors">HOME</a>
-            <a href="#" className="hover:text-[#FFD700] transition-colors">RANTS</a>
-            <a href="#" className="hover:text-[#FFD700] transition-colors">LEADERBOARD</a>
+            <a href="#" className="hover:text-[#FFFFFF] transition-colors">HOME</a>
+            <a href="#" className="hover:text-[#FFFFFF] transition-colors">RANTS</a>
+            <a href="#" className="hover:text-[#FFFFFF] transition-colors">LEADERBOARD</a>
           </div>
 
           <div className="flex items-center">
-            <Button className="bg-[#FFD700] hover:bg-yellow-500 text-black font-bold rounded-full px-6">
+            <Button className="bg-[#FFFFFF] hover:bg-white text-black font-bold rounded-full px-6">
               LEAVE A RANT
             </Button>
           </div>
@@ -78,12 +78,12 @@ export default function MagaRantLineHome() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">To Say?</span>
           </h1>
           
-          <p className="text-2xl md:text-3xl font-medium text-[#FFD700] mb-12 drop-shadow-sm">
+          <p className="text-2xl md:text-3xl font-medium text-[#FFFFFF] mb-12 drop-shadow-sm">
             Leave your rant. The world is listening.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" className="w-full sm:w-auto bg-[#FFD700] hover:bg-yellow-500 text-black font-black text-lg h-14 px-8 border-2 border-[#FFD700] shadow-[0_0_20px_rgba(255,215,0,0.3)] hover:shadow-[0_0_30px_rgba(255,215,0,0.5)] transition-all">
+            <Button size="lg" className="w-full sm:w-auto bg-[#FFFFFF] hover:bg-white text-black font-black text-lg h-14 px-8 border-2 border-[#FFFFFF] shadow-[0_0_20px_rgba(255,215,0,0.3)] hover:shadow-[0_0_30px_rgba(255,215,0,0.5)] transition-all">
               <Phone className="w-5 h-5 mr-2" />
               Leave a Rant — $1.99
             </Button>
@@ -93,7 +93,7 @@ export default function MagaRantLineHome() {
               Skip the Line — $5
             </Button>
             
-            <Button size="lg" variant="outline" className="w-full sm:w-auto bg-transparent hover:bg-[#FFD700]/10 text-[#FFD700] border-2 border-[#FFD700] font-bold text-lg h-14 px-8">
+            <Button size="lg" variant="outline" className="w-full sm:w-auto bg-transparent hover:bg-[#FFFFFF]/10 text-[#FFFFFF] border-2 border-[#FFFFFF] font-bold text-lg h-14 px-8">
               <Star className="w-5 h-5 mr-2" />
               Featured Rant — $25
             </Button>
@@ -104,16 +104,16 @@ export default function MagaRantLineHome() {
       {/* 3. FEATURED RANT AUDIO PLAYER */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-3xl">
-          <Card className="bg-[#0f1423] border-[#FFD700]/30 border-2 overflow-hidden shadow-[0_10px_40px_-10px_rgba(255,215,0,0.15)] relative">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFD700]/5 rounded-bl-full pointer-events-none"></div>
+          <Card className="bg-[#0f1423] border-[#FFFFFF]/30 border-2 overflow-hidden shadow-[0_10px_40px_-10px_rgba(255,215,0,0.15)] relative">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFFFFF]/5 rounded-bl-full pointer-events-none"></div>
             
             <CardHeader className="pb-4 border-b border-white/5">
               <div className="flex justify-between items-start mb-2">
                 <Badge className="bg-[#cc0000] text-white hover:bg-red-700 border-none font-bold uppercase tracking-wider">
                   Inflation
                 </Badge>
-                <div className="flex items-center text-[#FFD700] font-bold bg-[#FFD700]/10 px-3 py-1 rounded-full">
-                  <Flame className="w-4 h-4 mr-1.5 fill-[#FFD700]" />
+                <div className="flex items-center text-[#FFFFFF] font-bold bg-[#FFFFFF]/10 px-3 py-1 rounded-full">
+                  <Flame className="w-4 h-4 mr-1.5 fill-[#FFFFFF]" />
                   2,847 votes
                 </div>
               </div>
@@ -129,7 +129,7 @@ export default function MagaRantLineHome() {
               <div className="flex items-center gap-6">
                 <button 
                   onClick={togglePlayFeatured}
-                  className="w-20 h-20 rounded-full bg-[#FFD700] flex items-center justify-center text-black hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,215,0,0.4)] flex-shrink-0"
+                  className="w-20 h-20 rounded-full bg-[#FFFFFF] flex items-center justify-center text-black hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,215,0,0.4)] flex-shrink-0"
                 >
                   {isPlayingFeatured ? (
                     <Pause className="w-8 h-8 fill-black" />
@@ -144,14 +144,14 @@ export default function MagaRantLineHome() {
                     {[...Array(40)].map((_, i) => (
                       <div 
                         key={i} 
-                        className={`w-full rounded-full transition-all duration-300 ${i < 15 ? 'bg-[#FFD700]' : 'bg-white/20'}`}
+                        className={`w-full rounded-full transition-all duration-300 ${i < 15 ? 'bg-[#FFFFFF]' : 'bg-white/20'}`}
                         style={{ height: `${Math.max(10, Math.random() * 100)}%` }}
                       ></div>
                     ))}
                   </div>
                   
                   <div className="flex justify-between text-xs font-bold text-gray-400">
-                    <span className="text-[#FFD700]">0:45</span>
+                    <span className="text-[#FFFFFF]">0:45</span>
                     <span>3:12</span>
                   </div>
                 </div>
@@ -166,7 +166,7 @@ export default function MagaRantLineHome() {
                    <MessageCircle className="w-4 h-4 mr-2" /> 142
                  </Button>
               </div>
-              <Button variant="ghost" size="sm" className="text-[#FFD700] hover:text-yellow-400 hover:bg-[#FFD700]/10 font-bold">
+              <Button variant="ghost" size="sm" className="text-[#FFFFFF] hover:text-white hover:bg-[#FFFFFF]/10 font-bold">
                 <Zap className="w-4 h-4 mr-2" /> Tip $1
               </Button>
             </CardFooter>
@@ -179,15 +179,15 @@ export default function MagaRantLineHome() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-red-800">
             <div className="text-center pt-4 md:pt-0">
-              <div className="text-4xl md:text-5xl font-black text-[#FFD700] tracking-tight mb-1">12,459</div>
+              <div className="text-4xl md:text-5xl font-black text-[#FFFFFF] tracking-tight mb-1">12,459</div>
               <div className="text-white/90 font-bold tracking-widest uppercase text-sm">Total Rants</div>
             </div>
             <div className="text-center pt-8 md:pt-0">
-              <div className="text-4xl md:text-5xl font-black text-[#FFD700] tracking-tight mb-1">89,234</div>
+              <div className="text-4xl md:text-5xl font-black text-[#FFFFFF] tracking-tight mb-1">89,234</div>
               <div className="text-white/90 font-bold tracking-widest uppercase text-sm">Listeners</div>
             </div>
             <div className="text-center pt-8 md:pt-0">
-              <div className="text-4xl md:text-5xl font-black text-[#FFD700] tracking-tight mb-1">847</div>
+              <div className="text-4xl md:text-5xl font-black text-[#FFFFFF] tracking-tight mb-1">847</div>
               <div className="text-white/90 font-bold tracking-widest uppercase text-sm">Rants Today</div>
             </div>
           </div>
@@ -202,14 +202,14 @@ export default function MagaRantLineHome() {
               <h2 className="text-4xl font-black uppercase tracking-tight mb-2">Recent Rants</h2>
               <p className="text-gray-400 font-medium">The latest raw opinions from around the country.</p>
             </div>
-            <Button variant="link" className="text-[#FFD700] hidden sm:flex items-center">
+            <Button variant="link" className="text-[#FFFFFF] hidden sm:flex items-center">
               View All <span className="ml-1">→</span>
             </Button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {recentRants.map((rant) => (
-              <Card key={rant.id} className="bg-[#0f1423] border-white/10 hover:border-[#FFD700]/50 transition-colors group">
+              <Card key={rant.id} className="bg-[#0f1423] border-white/10 hover:border-[#FFFFFF]/50 transition-colors group">
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <Badge variant="outline" className="text-gray-300 border-gray-600 font-semibold">
@@ -220,7 +220,7 @@ export default function MagaRantLineHome() {
                     </button>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 leading-snug group-hover:text-[#FFD700] transition-colors">
+                  <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 leading-snug group-hover:text-[#FFFFFF] transition-colors">
                     "{rant.title}"
                   </h3>
                   
@@ -230,7 +230,7 @@ export default function MagaRantLineHome() {
 
                   <div className="flex items-center justify-between mt-auto">
                     <div className="flex items-center gap-3">
-                      <button className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#FFD700] hover:text-black transition-colors">
+                      <button className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#FFFFFF] hover:text-black transition-colors">
                         <Play className="w-5 h-5 ml-1 fill-current" />
                       </button>
                       <span className="text-sm font-bold text-gray-400">{rant.duration}</span>
@@ -241,7 +241,7 @@ export default function MagaRantLineHome() {
                         <Flame className="w-3.5 h-3.5 mr-1 fill-red-400" />
                         {rant.votes}
                       </div>
-                      <Button variant="ghost" size="sm" className="h-7 text-xs text-[#FFD700] hover:bg-[#FFD700]/10 px-2">
+                      <Button variant="ghost" size="sm" className="h-7 text-xs text-[#FFFFFF] hover:bg-[#FFFFFF]/10 px-2">
                         Tip
                       </Button>
                     </div>

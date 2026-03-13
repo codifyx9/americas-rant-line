@@ -49,7 +49,7 @@ export default function LeaveARant() {
         {/* Header */}
         <div className="text-center mb-16 space-y-4">
           <div className="inline-flex items-center justify-center p-3 bg-red-900/30 rounded-full mb-4 border border-red-500/30">
-            <Phone className="h-8 w-8 text-[#FFD700]" />
+            <Phone className="h-8 w-8 text-[#FFFFFF]" />
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
             Leave Your Rant
@@ -67,7 +67,7 @@ export default function LeaveARant() {
             <div className="mb-6">
               <h3 className="text-xl font-bold text-slate-300 mb-2">Standard Rant</h3>
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-black text-[#FFD700]">$1.99</span>
+                <span className="text-4xl font-black text-[#FFFFFF]">$1.99</span>
                 <span className="text-slate-500 text-sm font-medium">/ rant</span>
               </div>
             </div>
@@ -94,7 +94,7 @@ export default function LeaveARant() {
             <button 
               onClick={() => handlePayment("standard")}
               disabled={paymentStatus === "processing"}
-              className="w-full bg-[#FFD700] hover:bg-yellow-400 text-black font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-yellow-500/20 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full bg-[#FFFFFF] hover:bg-white text-black font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/10 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {paymentStatus === "processing" && selectedPlan === "standard" ? (
                 <span className="animate-pulse">Processing...</span>
@@ -114,7 +114,7 @@ export default function LeaveARant() {
             <div className="mt-4 mb-6">
               <h3 className="text-xl font-bold text-white mb-2">Skip the Line</h3>
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-black text-[#FFD700]">$5.00</span>
+                <span className="text-4xl font-black text-[#FFFFFF]">$5.00</span>
                 <span className="text-slate-400 text-sm font-medium">/ rant</span>
               </div>
             </div>
@@ -152,37 +152,37 @@ export default function LeaveARant() {
           </div>
 
           {/* Card 3: Featured Rant */}
-          <div className="bg-gradient-to-b from-[#1a1f35] to-[#0a0e1a] rounded-2xl border border-[#FFD700]/50 p-8 flex flex-col relative overflow-hidden transition-transform hover:-translate-y-1 shadow-lg shadow-[#FFD700]/10">
-            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-yellow-600 via-[#FFD700] to-yellow-600"></div>
+          <div className="bg-gradient-to-b from-[#1a1f35] to-[#0a0e1a] rounded-2xl border border-[#FFFFFF]/50 p-8 flex flex-col relative overflow-hidden transition-transform hover:-translate-y-1 shadow-lg shadow-[#FFFFFF]/10">
+            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-white/20 via-white/60 to-white/20"></div>
             <div className="mb-6">
-              <h3 className="text-xl font-bold text-[#FFD700] mb-2 flex items-center gap-2">
+              <h3 className="text-xl font-bold text-[#FFFFFF] mb-2 flex items-center gap-2">
                 <Star className="h-5 w-5" fill="currentColor" /> Featured Rant
               </h3>
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-black text-[#FFD700]">$25.00</span>
+                <span className="text-4xl font-black text-[#FFFFFF]">$25.00</span>
                 <span className="text-slate-500 text-sm font-medium">/ rant</span>
               </div>
             </div>
             
             <ul className="space-y-4 mb-8 flex-1">
               <li className="flex items-start gap-3">
-                <Check className="h-5 w-5 text-[#FFD700] shrink-0 mt-0.5" />
+                <Check className="h-5 w-5 text-[#FFFFFF] shrink-0 mt-0.5" />
                 <span className="text-slate-200 font-medium">Everything in Skip the Line</span>
               </li>
               <li className="flex items-start gap-3">
-                <Check className="h-5 w-5 text-[#FFD700] shrink-0 mt-0.5" />
+                <Check className="h-5 w-5 text-[#FFFFFF] shrink-0 mt-0.5" />
                 <span className="text-slate-200">Front page featured placement</span>
               </li>
               <li className="flex items-start gap-3">
-                <Check className="h-5 w-5 text-[#FFD700] shrink-0 mt-0.5" />
+                <Check className="h-5 w-5 text-[#FFFFFF] shrink-0 mt-0.5" />
                 <span className="text-slate-200">Pinned for 24 hours</span>
               </li>
               <li className="flex items-start gap-3">
-                <Check className="h-5 w-5 text-[#FFD700] shrink-0 mt-0.5" />
+                <Check className="h-5 w-5 text-[#FFFFFF] shrink-0 mt-0.5" />
                 <span className="text-slate-200">Promoted on social media</span>
               </li>
               <li className="flex items-start gap-3">
-                <Check className="h-5 w-5 text-[#FFD700] shrink-0 mt-0.5" />
+                <Check className="h-5 w-5 text-[#FFFFFF] shrink-0 mt-0.5" />
                 <span className="text-slate-200">Personal shoutout intro</span>
               </li>
             </ul>
@@ -190,7 +190,7 @@ export default function LeaveARant() {
             <button 
               onClick={() => handlePayment("featured")}
               disabled={paymentStatus === "processing"}
-              className="w-full bg-gradient-to-r from-yellow-500 to-[#FFD700] hover:from-yellow-400 hover:to-yellow-300 text-black font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#FFD700]/20 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-white/20 to-[#FFFFFF] hover:from-white/20 hover:to-white/20 text-black font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#FFFFFF]/20 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {paymentStatus === "processing" && selectedPlan === "featured" ? (
                 <span className="animate-pulse">Processing...</span>
@@ -225,8 +225,8 @@ export default function LeaveARant() {
             </div>
             
             <div className="text-center relative">
-              <div className="w-16 h-16 bg-yellow-900/30 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-yellow-700/50 relative z-10">
-                <Radio className="h-8 w-8 text-[#FFD700]" />
+              <div className="w-16 h-16 bg-white/30 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-white/50 relative z-10">
+                <Radio className="h-8 w-8 text-[#FFFFFF]" />
                 <div className="absolute -top-3 -right-3 w-8 h-8 bg-[#cc0000] rounded-full flex items-center justify-center font-bold text-white border-2 border-[#0a0e1a]">3</div>
               </div>
               <p className="text-slate-300 font-medium">Record your rant — speak freely!</p>
@@ -236,7 +236,7 @@ export default function LeaveARant() {
           <div className="bg-black/50 border border-slate-800 rounded-xl p-6 text-center shadow-inner relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full duration-1000 ease-in-out"></div>
             <p className="text-slate-400 mb-2 font-medium uppercase tracking-widest text-sm">Hotline Number</p>
-            <div className="text-4xl md:text-5xl font-black text-[#FFD700] tracking-wider animate-pulse">
+            <div className="text-4xl md:text-5xl font-black text-[#FFFFFF] tracking-wider animate-pulse">
               1-800-RANT-NOW
             </div>
           </div>
@@ -263,13 +263,13 @@ export default function LeaveARant() {
                   Your payment was successful. Grab your phone and call the hotline right now.
                 </p>
                 
-                <div className="bg-black/60 border-2 border-[#FFD700] rounded-2xl p-8 mb-8 inline-block shadow-lg shadow-[#FFD700]/10">
+                <div className="bg-black/60 border-2 border-[#FFFFFF] rounded-2xl p-8 mb-8 inline-block shadow-lg shadow-[#FFFFFF]/10">
                   <div className="text-slate-400 mb-2 font-medium uppercase tracking-widest text-sm">Call Now</div>
-                  <div className="text-5xl md:text-6xl font-black text-[#FFD700] tracking-wider mb-6">
+                  <div className="text-5xl md:text-6xl font-black text-[#FFFFFF] tracking-wider mb-6">
                     1-800-RANT-NOW
                   </div>
                   <div className="bg-slate-800 text-white font-mono py-3 px-6 rounded-lg text-xl border border-slate-700 inline-block">
-                    Your call code: <span className="font-bold text-[#FFD700]">#RNT-2847</span>
+                    Your call code: <span className="font-bold text-[#FFFFFF]">#RNT-2847</span>
                   </div>
                 </div>
                 

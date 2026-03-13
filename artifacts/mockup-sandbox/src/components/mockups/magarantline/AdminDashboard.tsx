@@ -103,7 +103,7 @@ export default function AdminDashboard() {
       {[40, 70, 40, 100, 60, 30, 80, 50, 90, 40].map((h, i) => (
         <div
           key={i}
-          className="w-1 bg-[#FFD700]/70 rounded-full"
+          className="w-1 bg-[#FFFFFF]/70 rounded-full"
           style={{ height: `${h}%` }}
         />
       ))}
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
         style={{ backgroundColor: "#05070d" }}
       >
         <div className="flex items-center gap-3">
-          <Radio className="w-6 h-6 text-[#FFD700]" />
+          <Radio className="w-6 h-6 text-[#FFFFFF]" />
           <h1 className="text-xl font-bold tracking-tight">
             MagaRantLine <span className="text-gray-500 font-normal">— Admin</span>
           </h1>
@@ -143,12 +143,12 @@ export default function AdminDashboard() {
           style={{ backgroundColor: "#0d1326" }}
         >
           <nav className="flex-1 space-y-1 px-3">
-            <a href="#" className="flex items-center justify-between px-3 py-2.5 rounded-lg bg-[#FFD700]/10 text-[#FFD700] font-medium transition-colors">
+            <a href="#" className="flex items-center justify-between px-3 py-2.5 rounded-lg bg-[#FFFFFF]/10 text-[#FFFFFF] font-medium transition-colors">
               <div className="flex items-center gap-3">
                 <List className="w-5 h-5" />
                 Incoming Rants
               </div>
-              <Badge className="bg-[#FFD700] text-black hover:bg-[#FFD700]">12</Badge>
+              <Badge className="bg-[#FFFFFF] text-black hover:bg-[#FFFFFF]">12</Badge>
             </a>
             <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors">
               <Star className="w-5 h-5" />
@@ -200,7 +200,7 @@ export default function AdminDashboard() {
               </Card>
               <Card className="bg-gray-800/50 border-gray-700">
                 <CardContent className="p-6 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400">
+                  <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white">
                     <Clock className="w-6 h-6" />
                   </div>
                   <div>
@@ -211,7 +211,7 @@ export default function AdminDashboard() {
               </Card>
               <Card className="bg-gray-800/50 border-gray-700">
                 <CardContent className="p-6 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-[#FFD700]/20 flex items-center justify-center text-[#FFD700]">
+                  <div className="w-12 h-12 rounded-full bg-[#FFFFFF]/20 flex items-center justify-center text-[#FFFFFF]">
                     <Star className="w-6 h-6" />
                   </div>
                   <div>
@@ -276,7 +276,7 @@ export default function AdminDashboard() {
                           <TableCell className="text-gray-400">{rant.duration}</TableCell>
                           <TableCell>
                             <div className="flex items-center">
-                              <Button size="icon" variant="ghost" className="h-8 w-8 rounded-full bg-[#FFD700]/10 text-[#FFD700] hover:bg-[#FFD700]/20 hover:text-[#FFD700]">
+                              <Button size="icon" variant="ghost" className="h-8 w-8 rounded-full bg-[#FFFFFF]/10 text-[#FFFFFF] hover:bg-[#FFFFFF]/20 hover:text-[#FFFFFF]">
                                 <Play className="h-4 w-4 fill-current" />
                               </Button>
                               <Waveform />
@@ -313,8 +313,8 @@ export default function AdminDashboard() {
                           </TableCell>
                           <TableCell>
                             {rant.status === "Pending" && (
-                              <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20 hover:bg-yellow-500/20 flex w-fit items-center gap-1.5 font-medium">
-                                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" /> Pending
+                              <Badge className="bg-white/10 text-white border-white/20 hover:bg-white/20 flex w-fit items-center gap-1.5 font-medium">
+                                <span className="w-1.5 h-1.5 rounded-full bg-white" /> Pending
                               </Badge>
                             )}
                             {rant.status === "Approved" && (
@@ -338,13 +338,13 @@ export default function AdminDashboard() {
                                   <Button size="icon" variant="outline" className="h-8 w-8 bg-red-500/10 border-red-500/20 text-red-500 hover:bg-red-500/20 hover:text-red-400 rounded-md" title="Reject">
                                     <X className="h-4 w-4" />
                                   </Button>
-                                  <Button size="icon" variant="outline" className="h-8 w-8 bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-[#FFD700] rounded-md" title="Feature">
+                                  <Button size="icon" variant="outline" className="h-8 w-8 bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-[#FFFFFF] rounded-md" title="Feature">
                                     <Star className="h-4 w-4" />
                                   </Button>
                                 </>
                               ) : rant.status === "Approved" ? (
                                 <>
-                                  <Button size="sm" variant="outline" className={`h-8 px-2 text-xs border-gray-700 hover:bg-gray-800 rounded-md ${rant.featured ? 'bg-[#FFD700]/10 text-[#FFD700] border-[#FFD700]/30 hover:bg-[#FFD700]/20' : 'bg-gray-800 text-gray-400 hover:text-[#FFD700]'}`}>
+                                  <Button size="sm" variant="outline" className={`h-8 px-2 text-xs border-gray-700 hover:bg-gray-800 rounded-md ${rant.featured ? 'bg-[#FFFFFF]/10 text-[#FFFFFF] border-[#FFFFFF]/30 hover:bg-[#FFFFFF]/20' : 'bg-gray-800 text-gray-400 hover:text-[#FFFFFF]'}`}>
                                     <Star className={`h-3.5 w-3.5 mr-1.5 ${rant.featured ? 'fill-current' : ''}`} />
                                     {rant.featured ? 'Featured ✓' : 'Feature'}
                                   </Button>

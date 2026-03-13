@@ -78,7 +78,7 @@ export default function RantsFeed() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a] text-white font-sans selection:bg-[#FFD700] selection:text-black">
+    <div className="min-h-screen bg-[#0a0e1a] text-white font-sans selection:bg-[#FFFFFF] selection:text-black">
       {/* Navigation Bar */}
       <nav className="bg-[#cc0000] sticky top-0 z-50 shadow-lg border-b border-red-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -94,7 +94,7 @@ export default function RantsFeed() {
                   key={item}
                   className={`px-4 py-2 rounded-md text-sm font-bold uppercase tracking-wider transition-colors ${
                     item === 'Rants'
-                      ? 'bg-[#FFD700] text-[#cc0000] shadow-[0_0_10px_rgba(255,215,0,0.5)]'
+                      ? 'bg-[#FFFFFF] text-[#cc0000] shadow-[0_0_10px_rgba(255,215,0,0.5)]'
                       : 'text-white hover:bg-white/10'
                   }`}
                 >
@@ -104,7 +104,7 @@ export default function RantsFeed() {
             </div>
             {/* Mobile menu button placeholder */}
             <div className="md:hidden flex items-center">
-              <button className="text-white hover:text-[#FFD700]">
+              <button className="text-white hover:text-[#FFFFFF]">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -119,7 +119,7 @@ export default function RantsFeed() {
         {/* Page Header */}
         <div className="mb-10 text-center md:text-left">
           <h1 className="text-4xl md:text-5xl font-black mb-3 text-white uppercase tracking-tight flex items-center justify-center md:justify-start gap-3">
-            <Flame className="w-10 h-10 text-[#FFD700]" />
+            <Flame className="w-10 h-10 text-[#FFFFFF]" />
             Latest Rants
           </h1>
           <p className="text-xl text-gray-300 font-medium">
@@ -136,8 +136,8 @@ export default function RantsFeed() {
                 onClick={() => setActiveFilter(filter)}
                 className={`px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-200 border-2 ${
                   activeFilter === filter
-                    ? 'bg-[#FFD700] border-[#FFD700] text-black shadow-[0_0_15px_rgba(255,215,0,0.3)]'
-                    : 'bg-transparent border-gray-700 text-gray-300 hover:border-[#FFD700] hover:text-[#FFD700]'
+                    ? 'bg-[#FFFFFF] border-[#FFFFFF] text-black shadow-[0_0_15px_rgba(255,215,0,0.3)]'
+                    : 'bg-transparent border-gray-700 text-gray-300 hover:border-[#FFFFFF] hover:text-[#FFFFFF]'
                 }`}
               >
                 {filter}
@@ -151,15 +151,15 @@ export default function RantsFeed() {
           {rants.map((rant) => (
             <div
               key={rant.id}
-              className="bg-[#111827] rounded-xl border border-gray-800 p-5 hover:border-[#FFD700]/50 transition-all duration-300 shadow-lg group relative overflow-hidden flex flex-col h-full"
+              className="bg-[#111827] rounded-xl border border-gray-800 p-5 hover:border-[#FFFFFF]/50 transition-all duration-300 shadow-lg group relative overflow-hidden flex flex-col h-full"
             >
               {/* Top Row: Play & Title & Duration */}
               <div className="flex items-start gap-4 mb-4">
-                <button className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-[#FFD700] flex items-center justify-center bg-transparent hover:bg-[#FFD700]/10 transition-colors group-hover:scale-105 duration-300">
-                  <Play className="w-5 h-5 text-[#FFD700] ml-1" fill="currentColor" />
+                <button className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-[#FFFFFF] flex items-center justify-center bg-transparent hover:bg-[#FFFFFF]/10 transition-colors group-hover:scale-105 duration-300">
+                  <Play className="w-5 h-5 text-[#FFFFFF] ml-1" fill="currentColor" />
                 </button>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-xl font-bold text-white mb-2 leading-tight group-hover:text-[#FFD700] transition-colors line-clamp-2">
+                  <h3 className="text-xl font-bold text-white mb-2 leading-tight group-hover:text-[#FFFFFF] transition-colors line-clamp-2">
                     {rant.title}
                   </h3>
                   <div className="flex items-center flex-wrap gap-2">
@@ -185,7 +185,7 @@ export default function RantsFeed() {
               <div className="mt-auto mb-5">
                 <div className="h-2 w-full bg-gray-800 rounded-full overflow-hidden cursor-pointer">
                   <div
-                    className="h-full bg-[#FFD700] relative transition-all duration-300 ease-linear"
+                    className="h-full bg-[#FFFFFF] relative transition-all duration-300 ease-linear"
                     style={{ width: `${rant.progress}%` }}
                   >
                     <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-white rounded-full shadow-sm" />
@@ -199,7 +199,7 @@ export default function RantsFeed() {
 
               {/* Bottom Row */}
               <div className="flex items-center justify-between pt-4 border-t border-gray-800/80">
-                <div className="flex items-center text-[#FFD700] font-bold">
+                <div className="flex items-center text-[#FFFFFF] font-bold">
                   <Flame className="w-5 h-5 mr-1.5" fill="currentColor" />
                   <span className="text-lg">{rant.votes}</span>
                 </div>
@@ -219,7 +219,7 @@ export default function RantsFeed() {
 
         {/* Load More Button */}
         <div className="mt-12 text-center">
-          <button className="px-8 py-3 rounded-full border-2 border-[#FFD700] text-[#FFD700] font-bold uppercase tracking-widest hover:bg-[#FFD700] hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(255,215,0,0.1)] hover:shadow-[0_0_20px_rgba(255,215,0,0.4)]">
+          <button className="px-8 py-3 rounded-full border-2 border-[#FFFFFF] text-[#FFFFFF] font-bold uppercase tracking-widest hover:bg-[#FFFFFF] hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(255,215,0,0.1)] hover:shadow-[0_0_20px_rgba(255,215,0,0.4)]">
             Load More Rants
           </button>
         </div>
