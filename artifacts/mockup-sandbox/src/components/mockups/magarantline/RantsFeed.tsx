@@ -137,7 +137,7 @@ export default function RantsFeed() {
                 className={`px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-200 border-2 ${
                   activeFilter === filter
                     ? 'bg-[#FFFFFF] border-[#FFFFFF] text-black shadow-[0_0_15px_rgba(255,215,0,0.3)]'
-                    : 'bg-transparent border-gray-700 text-gray-300 hover:border-[#FFFFFF] hover:text-[#FFFFFF]'
+                    : 'bg-transparent border-[#cc0000]/50 text-gray-300 hover:border-[#FFFFFF] hover:text-[#FFFFFF]'
                 }`}
               >
                 {filter}
@@ -151,7 +151,7 @@ export default function RantsFeed() {
           {rants.map((rant) => (
             <div
               key={rant.id}
-              className="bg-[#111827] rounded-xl border border-gray-800 p-5 hover:border-[#FFFFFF]/50 transition-all duration-300 shadow-lg group relative overflow-hidden flex flex-col h-full"
+              className="bg-[#111827] rounded-xl border border-[#cc0000]/40 p-5 hover:border-[#cc0000]/70 transition-all duration-300 shadow-lg group relative overflow-hidden flex flex-col h-full"
             >
               {/* Top Row: Play & Title & Duration */}
               <div className="flex items-start gap-4 mb-4">
@@ -198,7 +198,7 @@ export default function RantsFeed() {
               </div>
 
               {/* Bottom Row */}
-              <div className="flex items-center justify-between pt-4 border-t border-gray-800/80">
+              <div className="flex items-center justify-between pt-4 border-t border-[#cc0000]/40/80">
                 <div className="flex items-center text-[#FFFFFF] font-bold">
                   <Flame className="w-5 h-5 mr-1.5" fill="currentColor" />
                   <span className="text-lg">{rant.votes}</span>

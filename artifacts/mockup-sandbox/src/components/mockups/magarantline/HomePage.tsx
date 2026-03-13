@@ -104,10 +104,10 @@ export default function MagaRantLineHome() {
       {/* 3. FEATURED RANT AUDIO PLAYER */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-3xl">
-          <Card className="bg-[#0f1423] border-[#FFFFFF]/30 border-2 overflow-hidden shadow-[0_10px_40px_-10px_rgba(255,215,0,0.15)] relative">
+          <Card className="bg-[#0f1423] border-[#cc0000]/50 border-2 overflow-hidden shadow-[0_10px_40px_-10px_rgba(255,215,0,0.15)] relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFFFFF]/5 rounded-bl-full pointer-events-none"></div>
             
-            <CardHeader className="pb-4 border-b border-white/5">
+            <CardHeader className="pb-4 border-b border-[#cc0000]/5">
               <div className="flex justify-between items-start mb-2">
                 <Badge className="bg-[#cc0000] text-white hover:bg-red-700 border-none font-bold uppercase tracking-wider">
                   Inflation
@@ -157,7 +157,7 @@ export default function MagaRantLineHome() {
                 </div>
               </div>
             </CardContent>
-            <CardFooter className="bg-black/20 border-t border-white/5 py-3 px-6 flex justify-between">
+            <CardFooter className="bg-black/20 border-t border-[#cc0000]/5 py-3 px-6 flex justify-between">
               <div className="flex gap-4">
                  <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white hover:bg-white/10">
                    <Heart className="w-4 h-4 mr-2" /> Like
@@ -209,10 +209,10 @@ export default function MagaRantLineHome() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {recentRants.map((rant) => (
-              <Card key={rant.id} className="bg-[#0f1423] border-white/10 hover:border-[#FFFFFF]/50 transition-colors group">
+              <Card key={rant.id} className="bg-[#0f1423] border-[#cc0000]/10 hover:border-[#cc0000]/70 transition-colors group">
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start mb-4">
-                    <Badge variant="outline" className="text-gray-300 border-gray-600 font-semibold">
+                    <Badge variant="outline" className="text-gray-300 border-[#cc0000]/60 font-semibold">
                       {rant.category}
                     </Badge>
                     <button className="text-gray-500 hover:text-white">
@@ -251,14 +251,14 @@ export default function MagaRantLineHome() {
             ))}
           </div>
           
-          <Button variant="outline" className="w-full mt-8 border-white/20 text-white hover:bg-white/5 sm:hidden">
+          <Button variant="outline" className="w-full mt-8 border-[#cc0000]/20 text-white hover:bg-white/5 sm:hidden">
             View All Rants
           </Button>
         </div>
       </section>
 
       {/* 6. FOOTER */}
-      <footer className="bg-black py-12 border-t border-white/10">
+      <footer className="bg-black py-12 border-t border-[#cc0000]/10">
         <div className="container mx-auto px-4 max-w-6xl flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2">
             <Radio className="w-8 h-8 text-red-600" />
@@ -281,7 +281,7 @@ export default function MagaRantLineHome() {
             </a>
           </div>
         </div>
-        <div className="container mx-auto px-4 max-w-6xl mt-8 pt-8 border-t border-white/5 text-center md:text-left text-sm text-gray-600">
+        <div className="container mx-auto px-4 max-w-6xl mt-8 pt-8 border-t border-[#cc0000]/5 text-center md:text-left text-sm text-gray-600">
           <p>© {new Date().getFullYear()} MagaRantLine. All rights reserved. Rates may apply.</p>
         </div>
       </footer>

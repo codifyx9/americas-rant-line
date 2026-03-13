@@ -63,7 +63,7 @@ export default function LeaveARant() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 max-w-6xl mx-auto">
           
           {/* Card 1: Standard */}
-          <div className="bg-[#111827] rounded-2xl border border-slate-800 p-8 flex flex-col relative overflow-hidden transition-transform hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-900/20">
+          <div className="bg-[#111827] rounded-2xl border border-[#cc0000]/40 p-8 flex flex-col relative overflow-hidden transition-transform hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-900/20">
             <div className="mb-6">
               <h3 className="text-xl font-bold text-slate-300 mb-2">Standard Rant</h3>
               <div className="flex items-baseline gap-1">
@@ -152,7 +152,7 @@ export default function LeaveARant() {
           </div>
 
           {/* Card 3: Featured Rant */}
-          <div className="bg-gradient-to-b from-[#1a1f35] to-[#0a0e1a] rounded-2xl border border-[#FFFFFF]/50 p-8 flex flex-col relative overflow-hidden transition-transform hover:-translate-y-1 shadow-lg shadow-[#FFFFFF]/10">
+          <div className="bg-gradient-to-b from-[#1a1f35] to-[#0a0e1a] rounded-2xl border border-[#cc0000]/70 p-8 flex flex-col relative overflow-hidden transition-transform hover:-translate-y-1 shadow-lg shadow-[#FFFFFF]/10">
             <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-white/20 via-white/60 to-white/20"></div>
             <div className="mb-6">
               <h3 className="text-xl font-bold text-[#FFFFFF] mb-2 flex items-center gap-2">
@@ -202,7 +202,7 @@ export default function LeaveARant() {
         </div>
 
         {/* How It Works */}
-        <div className="max-w-4xl mx-auto bg-slate-900/50 rounded-3xl border border-slate-800 p-8 md:p-12 mb-12 backdrop-blur-sm">
+        <div className="max-w-4xl mx-auto bg-slate-900/50 rounded-3xl border border-[#cc0000]/40 p-8 md:p-12 mb-12 backdrop-blur-sm">
           <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -225,7 +225,7 @@ export default function LeaveARant() {
             </div>
             
             <div className="text-center relative">
-              <div className="w-16 h-16 bg-white/30 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-white/50 relative z-10">
+              <div className="w-16 h-16 bg-white/30 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-[#cc0000]/50 relative z-10">
                 <Radio className="h-8 w-8 text-[#FFFFFF]" />
                 <div className="absolute -top-3 -right-3 w-8 h-8 bg-[#cc0000] rounded-full flex items-center justify-center font-bold text-white border-2 border-[#0a0e1a]">3</div>
               </div>
@@ -233,7 +233,7 @@ export default function LeaveARant() {
             </div>
           </div>
 
-          <div className="bg-black/50 border border-slate-800 rounded-xl p-6 text-center shadow-inner relative overflow-hidden group">
+          <div className="bg-black/50 border border-[#cc0000]/40 rounded-xl p-6 text-center shadow-inner relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full duration-1000 ease-in-out"></div>
             <p className="text-slate-400 mb-2 font-medium uppercase tracking-widest text-sm">Hotline Number</p>
             <div className="text-4xl md:text-5xl font-black text-[#FFFFFF] tracking-wider animate-pulse">
@@ -268,7 +268,7 @@ export default function LeaveARant() {
                   <div className="text-5xl md:text-6xl font-black text-[#FFFFFF] tracking-wider mb-6">
                     1-800-RANT-NOW
                   </div>
-                  <div className="bg-slate-800 text-white font-mono py-3 px-6 rounded-lg text-xl border border-slate-700 inline-block">
+                  <div className="bg-slate-800 text-white font-mono py-3 px-6 rounded-lg text-xl border border-[#cc0000]/50 inline-block">
                     Your call code: <span className="font-bold text-[#FFFFFF]">#RNT-2847</span>
                   </div>
                 </div>

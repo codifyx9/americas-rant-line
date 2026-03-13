@@ -74,7 +74,7 @@ export default function Leaderboard() {
             <Button variant="ghost" className="text-white hover:bg-red-800 hover:text-white font-medium">Home</Button>
             <Button variant="ghost" className="text-white hover:bg-red-800 hover:text-white font-medium">Rants</Button>
             <Button variant="ghost" className="bg-red-900 text-[#FFFFFF] hover:bg-red-950 hover:text-[#FFFFFF] font-bold shadow-inner">Leaderboard</Button>
-            <Button variant="outline" className="ml-4 border-white text-black hover:bg-gray-100 font-bold uppercase tracking-wide border-2">Leave a Rant</Button>
+            <Button variant="outline" className="ml-4 border-[#cc0000] text-black hover:bg-gray-100 font-bold uppercase tracking-wide border-2">Leave a Rant</Button>
           </div>
           
           <div className="md:hidden">
@@ -96,7 +96,7 @@ export default function Leaderboard() {
           <p className="text-xl md:text-2xl text-gray-300 font-medium mb-3">
             The most voted rants from the hotline — updated live
           </p>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1a2235] text-[#FFFFFF] text-sm border border-[#FFFFFF]/30 font-medium tracking-wide">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1a2235] text-[#FFFFFF] text-sm border border-[#cc0000]/50 font-medium tracking-wide">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
             Last updated: 2 minutes ago
           </div>
@@ -107,8 +107,8 @@ export default function Leaderboard() {
           
           {/* 🥈 2nd Place */}
           <div className="w-full lg:w-1/3 order-2 lg:order-1 transform lg:-translate-y-8">
-            <Card className="bg-[#111827] border-[3px] border-slate-300 shadow-[0_0_20px_rgba(203,213,225,0.15)] relative overflow-visible">
-              <div className="absolute -top-6 -left-4 w-16 h-16 rounded-full bg-slate-200 flex items-center justify-center text-3xl shadow-lg border-[3px] border-slate-400 z-10 font-bold text-slate-800">
+            <Card className="bg-[#111827] border-[3px] border-[#cc0000] shadow-[0_0_20px_rgba(203,213,225,0.15)] relative overflow-visible">
+              <div className="absolute -top-6 -left-4 w-16 h-16 rounded-full bg-slate-200 flex items-center justify-center text-3xl shadow-lg border-[3px] border-[#cc0000] z-10 font-bold text-slate-800">
                 🥈
               </div>
               <CardHeader className="pt-8 pb-2">
@@ -127,7 +127,7 @@ export default function Leaderboard() {
                 </div>
                 
                 {/* Compact Player */}
-                <div className="bg-[#0a0e1a] rounded-lg p-3 flex items-center gap-3 border border-slate-800">
+                <div className="bg-[#0a0e1a] rounded-lg p-3 flex items-center gap-3 border border-[#cc0000]/40">
                   <Button size="icon" className="h-8 w-8 rounded-full bg-slate-300 hover:bg-slate-200 text-slate-900 shrink-0">
                     <Play className="h-4 w-4 ml-0.5" />
                   </Button>
@@ -161,7 +161,7 @@ export default function Leaderboard() {
               </CardHeader>
               <CardContent className="pb-6">
                 <p className="text-base text-gray-400 italic mb-6 border-l-2 border-[#FFFFFF] pl-3">— {PODIUM_DATA[0].caller}</p>
-                <div className="flex items-center justify-center py-4 bg-gradient-to-r from-transparent via-[#FFFFFF]/10 to-transparent border-y border-[#FFFFFF]/20 mb-6">
+                <div className="flex items-center justify-center py-4 bg-gradient-to-r from-transparent via-[#FFFFFF]/10 to-transparent border-y border-[#cc0000]/40 mb-6">
                   <div className="flex items-center gap-2 text-[#FFFFFF] font-black text-3xl tracking-tight text-shadow-sm">
                     <Flame className="h-8 w-8 text-[#FFFFFF] animate-pulse" fill="#FFFFFF" />
                     {PODIUM_DATA[0].votes} VOTES
@@ -196,8 +196,8 @@ export default function Leaderboard() {
 
           {/* 🥉 3rd Place */}
           <div className="w-full lg:w-1/3 order-3 transform lg:-translate-y-12">
-            <Card className="bg-[#111827] border-[3px] border-white shadow-[0_0_20px_rgba(180,83,9,0.15)] relative overflow-visible">
-              <div className="absolute -top-6 -left-4 w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl shadow-lg border-[3px] border-white z-10 font-bold text-white">
+            <Card className="bg-[#111827] border-[3px] border-[#cc0000] shadow-[0_0_20px_rgba(180,83,9,0.15)] relative overflow-visible">
+              <div className="absolute -top-6 -left-4 w-14 h-14 rounded-full bg-white flex items-center justify-center text-2xl shadow-lg border-[3px] border-[#cc0000] z-10 font-bold text-white">
                 🥉
               </div>
               <CardHeader className="pt-8 pb-2">
@@ -216,7 +216,7 @@ export default function Leaderboard() {
                 </div>
                 
                 {/* Compact Player */}
-                <div className="bg-[#0a0e1a] rounded-lg p-3 flex items-center gap-3 border border-white/30">
+                <div className="bg-[#0a0e1a] rounded-lg p-3 flex items-center gap-3 border border-[#cc0000]/30">
                   <Button size="icon" className="h-8 w-8 rounded-full bg-white hover:bg-white text-white shrink-0">
                     <Play className="h-4 w-4 ml-0.5" />
                   </Button>
@@ -233,14 +233,14 @@ export default function Leaderboard() {
         </div>
 
         {/* 4. LEADERBOARD TABLE */}
-        <div className="bg-[#111827] rounded-xl border border-gray-800 shadow-xl overflow-hidden mb-16">
-          <div className="p-6 border-b border-gray-800 bg-[#162032] flex justify-between items-center">
+        <div className="bg-[#111827] rounded-xl border border-[#cc0000]/40 shadow-xl overflow-hidden mb-16">
+          <div className="p-6 border-b border-[#cc0000]/40 bg-[#162032] flex justify-between items-center">
             <h3 className="text-xl font-bold uppercase tracking-wide">The Rest of the Best</h3>
           </div>
           <div className="overflow-x-auto">
             <Table>
               <TableHeader className="bg-[#0a0e1a] hover:bg-[#0a0e1a]">
-                <TableRow className="border-gray-800 hover:bg-transparent">
+                <TableRow className="border-[#cc0000]/40 hover:bg-transparent">
                   <TableHead className="w-16 text-center text-gray-400 font-bold uppercase">Rank</TableHead>
                   <TableHead className="text-gray-400 font-bold uppercase">Rant Title</TableHead>
                   <TableHead className="hidden md:table-cell text-gray-400 font-bold uppercase">Category</TableHead>
@@ -253,7 +253,7 @@ export default function Leaderboard() {
                 {LEADERBOARD_DATA.map((item, index) => (
                   <TableRow 
                     key={item.rank} 
-                    className={`border-gray-800 transition-colors hover:bg-gray-800/50 ${index % 2 === 0 ? 'bg-[#151e2e]' : 'bg-[#111827]'}`}
+                    className={`border-[#cc0000]/40 transition-colors hover:bg-gray-800/50 ${index % 2 === 0 ? 'bg-[#151e2e]' : 'bg-[#111827]'}`}
                   >
                     <TableCell className="text-center font-mono font-bold text-gray-400 text-lg">
                       #{item.rank}
@@ -262,7 +262,7 @@ export default function Leaderboard() {
                       "{item.title}"
                     </TableCell>
                     <TableCell className="hidden md:table-cell">
-                      <Badge variant="outline" className="border-gray-700 text-gray-300 bg-gray-800/50 font-medium">
+                      <Badge variant="outline" className="border-[#cc0000]/50 text-gray-300 bg-gray-800/50 font-medium">
                         {item.category}
                       </Badge>
                     </TableCell>
@@ -282,15 +282,15 @@ export default function Leaderboard() {
               </TableBody>
             </Table>
           </div>
-          <div className="p-4 bg-[#0a0e1a] border-t border-gray-800 text-center">
-            <Button variant="outline" className="border-gray-700 text-gray-300 hover:text-white hover:bg-gray-800">
+          <div className="p-4 bg-[#0a0e1a] border-t border-[#cc0000]/40 text-center">
+            <Button variant="outline" className="border-[#cc0000]/50 text-gray-300 hover:text-white hover:bg-gray-800">
               Load More Rants
             </Button>
           </div>
         </div>
 
         {/* 5. DAILY RESET BANNER */}
-        <div className="bg-[#1a1100] border border-[#FFFFFF]/30 rounded-lg p-4 flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(255,215,0,0.1)]">
+        <div className="bg-[#1a1100] border border-[#cc0000]/50 rounded-lg p-4 flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(255,215,0,0.1)]">
           <Clock className="h-5 w-5 text-[#FFFFFF]" />
           <span className="text-[#FFFFFF] font-bold tracking-wide uppercase text-sm md:text-base">
             Leaderboard resets at midnight EST
