@@ -5,5 +5,6 @@ export const modules: ModuleMap = {
   "./components/mockups/magarantline/HomePage.tsx": () => import("../components/mockups/magarantline/HomePage.tsx"),
   "./components/mockups/magarantline/Leaderboard.tsx": () => import("../components/mockups/magarantline/Leaderboard.tsx"),
   "./components/mockups/magarantline/LeaveARant.tsx": () => import("../components/mockups/magarantline/LeaveARant.tsx"),
-  "./components/mockups/magarantline/RantsFeed.tsx": () => import("../components/mockups/magarantline/RantsFeed.tsx")
+  "./components/mockups/magarantline/RantsFeed.tsx": () => import("../components/mockups/magarantline/RantsFeed.tsx"),
+  "./components/mockups/magarantline/RedVsBlue.tsx": () => import("../components/mockups/magarantline/RedVsBlue.tsx")
 };
