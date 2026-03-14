@@ -23,7 +23,7 @@ const RECENT_RANTS = [
   { id: 1, title: "Gas Was $1.89 When Trump Was in Office — FACT", category: 'Inflation', duration: '2:34', votes: '1,203', caller: 'PatriotPete', ago: '4m', side: 'red' },
   { id: 2, title: 'Healthcare Is a Right, Not a Luxury — Period.', category: 'Healthcare', duration: '3:01', votes: '1,091', caller: 'NursePatty', ago: '8m', side: 'blue' },
   { id: 3, title: 'My Boss Made Me Work on My Day Off AGAIN', category: 'Work', duration: '1:47', votes: '876', caller: 'TiredInTampa', ago: '12m', side: 'red' },
-  { id: 4, title: 'Women's Rights Are Under Attack Right Now', category: 'Rights', duration: '2:15', votes: '801', caller: 'VoiceForAll', ago: '19m', side: 'blue' },
+  { id: 4, title: "Women's Rights Are Under Attack Right Now", category: 'Rights', duration: '2:15', votes: '801', caller: 'VoiceForAll', ago: '19m', side: 'blue' },
   { id: 5, title: 'The Border Is WIDE Open and Nobody Cares', category: 'Politics', duration: '4:15', votes: '498', caller: 'RanchManTX', ago: '35m', side: 'red' },
   { id: 6, title: 'Climate Change Is Already Here — Wake Up', category: 'Environment', duration: '3:20', votes: '441', caller: 'GreenMike', ago: '41m', side: 'blue' },
 ];
