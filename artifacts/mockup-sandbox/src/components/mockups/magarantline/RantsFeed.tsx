@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Pause, Share2, Flame, Clock, Search, Filter, ChevronDown, TrendingUp, Star, Mic, Heart } from 'lucide-react';
+import { Play, Pause, Share2, Flame, Clock, Search, Filter, ChevronDown, TrendingUp, Star, Mic, ThumbsDown } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,16 +8,16 @@ const FILTERS = ['All', 'Inflation', 'Politics', 'War Concerns', 'Work', 'Dating
 const SORT_OPTIONS = ['🔥 Hottest', '🆕 Newest', '👍 Most Voted', '🕐 Longest'];
 
 const RANTS = [
-  { id: 1, title: 'Gas Prices Are Destroying My Family Budget', category: 'Inflation', catColor: 'bg-red-700', duration: '2:34', votes: '2,847', caller: 'Anonymous from Texas', ago: '4m', progress: 30, plays: '14.2k', isHot: true },
-  { id: 2, title: "The Government Doesn't Care About Us Anymore", category: 'Politics', catColor: 'bg-blue-700', duration: '4:12', votes: '1,923', caller: 'Anonymous from Ohio', ago: '12m', progress: 60, plays: '9.8k', isHot: true },
-  { id: 3, title: 'My Son Came Home from Overseas — CHANGED FOREVER', category: 'War Concerns', catColor: 'bg-green-700', duration: '3:45', votes: '1,456', caller: 'Anonymous from Georgia', ago: '19m', progress: 15, plays: '7.3k', isHot: false },
-  { id: 4, title: 'My Boss Gave My Raise to His Nephew — I Quit On The Spot', category: 'Work', catColor: 'bg-orange-700', duration: '2:18', votes: '987', caller: 'Anonymous from Florida', ago: '27m', progress: 80, plays: '5.1k', isHot: false },
-  { id: 5, title: 'Why Do Women Only Date Rich Guys Now?', category: 'Dating', catColor: 'bg-pink-700', duration: '5:02', votes: '876', caller: 'Anonymous from Michigan', ago: '35m', progress: 45, plays: '4.4k', isHot: false },
-  { id: 6, title: 'Grocery Store Checkout Lines Are Getting Out of Hand', category: 'Everyday Life', catColor: 'bg-purple-700', duration: '1:57', votes: '654', caller: 'Anonymous from Arizona', ago: '41m', progress: 10, plays: '3.3k', isHot: false },
-  { id: 7, title: 'They Are Teaching WHAT in Our Schools?!', category: 'Education', catColor: 'bg-teal-700', duration: '3:22', votes: '592', caller: 'Concerned Mom in Virginia', ago: '55m', progress: 25, plays: '3.0k', isHot: false },
-  { id: 8, title: 'Small Business Owner — I Cannot Keep Up With These Costs', category: 'Economy', catColor: 'bg-yellow-700', duration: '4:44', votes: '441', caller: 'Dave the Builder, NC', ago: '1h', progress: 55, plays: '2.2k', isHot: false },
-  { id: 9, title: 'Our Veterans Are Being Completely Ignored By DC', category: 'War Concerns', catColor: 'bg-green-700', duration: '2:50', votes: '388', caller: 'Vet from Virginia', ago: '1h 10m', progress: 70, plays: '1.9k', isHot: false },
-  { id: 10, title: 'The Border Is Wide Open and Nobody Will Talk About It', category: 'Border', catColor: 'bg-red-900', duration: '3:15', votes: '311', caller: 'Rancher Jim, TX', ago: '1h 20m', progress: 35, plays: '1.6k', isHot: false },
+  { id: 1, title: 'Gas Prices Are Destroying My Family Budget', category: 'Inflation', catColor: 'bg-red-700', duration: '2:34', votes: '2,847', downvotes: '412', caller: 'Anonymous from Texas', ago: '4m', progress: 30, plays: '14.2k', isHot: true },
+  { id: 2, title: "The Government Doesn't Care About Us Anymore", category: 'Politics', catColor: 'bg-blue-700', duration: '4:12', votes: '1,923', downvotes: '287', caller: 'Anonymous from Ohio', ago: '12m', progress: 60, plays: '9.8k', isHot: true },
+  { id: 3, title: 'My Son Came Home from Overseas — CHANGED FOREVER', category: 'War Concerns', catColor: 'bg-green-700', duration: '3:45', votes: '1,456', downvotes: '198', caller: 'Anonymous from Georgia', ago: '19m', progress: 15, plays: '7.3k', isHot: false },
+  { id: 4, title: 'My Boss Gave My Raise to His Nephew — I Quit On The Spot', category: 'Work', catColor: 'bg-orange-700', duration: '2:18', votes: '987', downvotes: '142', caller: 'Anonymous from Florida', ago: '27m', progress: 80, plays: '5.1k', isHot: false },
+  { id: 5, title: 'Why Do Women Only Date Rich Guys Now?', category: 'Dating', catColor: 'bg-pink-700', duration: '5:02', votes: '876', downvotes: '231', caller: 'Anonymous from Michigan', ago: '35m', progress: 45, plays: '4.4k', isHot: false },
+  { id: 6, title: 'Grocery Store Checkout Lines Are Getting Out of Hand', category: 'Everyday Life', catColor: 'bg-purple-700', duration: '1:57', votes: '654', downvotes: '94', caller: 'Anonymous from Arizona', ago: '41m', progress: 10, plays: '3.3k', isHot: false },
+  { id: 7, title: 'They Are Teaching WHAT in Our Schools?!', category: 'Education', catColor: 'bg-teal-700', duration: '3:22', votes: '592', downvotes: '86', caller: 'Concerned Mom in Virginia', ago: '55m', progress: 25, plays: '3.0k', isHot: false },
+  { id: 8, title: 'Small Business Owner — I Cannot Keep Up With These Costs', category: 'Economy', catColor: 'bg-yellow-700', duration: '4:44', votes: '441', downvotes: '63', caller: 'Dave the Builder, NC', ago: '1h', progress: 55, plays: '2.2k', isHot: false },
+  { id: 9, title: 'Our Veterans Are Being Completely Ignored By DC', category: 'War Concerns', catColor: 'bg-green-700', duration: '2:50', votes: '388', downvotes: '58', caller: 'Vet from Virginia', ago: '1h 10m', progress: 70, plays: '1.9k', isHot: false },
+  { id: 10, title: 'The Border Is Wide Open and Nobody Will Talk About It', category: 'Border', catColor: 'bg-red-900', duration: '3:15', votes: '311', downvotes: '44', caller: 'Rancher Jim, TX', ago: '1h 20m', progress: 35, plays: '1.6k', isHot: false },
 ];
 
 const TRENDING_TOPICS = [
@@ -39,6 +39,8 @@ export default function RantsFeed() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [activeSort, setActiveSort] = useState('🔥 Hottest');
   const [playing, setPlaying] = useState<number | null>(null);
+  const [downvotedIds, setDownvotedIds] = useState<Set<number>>(new Set());
+  const toggleDownvote = (id: number) => setDownvotedIds(prev => { const s = new Set(prev); s.has(id) ? s.delete(id) : s.add(id); return s; });
 
   return (
     <div className="min-h-screen bg-[#0a0e1a] text-white font-sans">
@@ -130,18 +132,22 @@ export default function RantsFeed() {
                         </div>
                       )}
                     </div>
-                    <div className="flex flex-col items-end gap-3 flex-shrink-0">
+                    <div className="flex flex-col items-end gap-2 flex-shrink-0">
                       <div className="flex items-center text-red-400 font-black text-lg gap-1">
                         <Flame className="w-5 h-5 fill-red-400" />{rant.votes}
                       </div>
-                      <div className="flex gap-1.5">
-                        <button className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
-                          <Heart className="w-3.5 h-3.5" />
-                        </button>
-                        <button className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
-                          <Share2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
+                      <button
+                        onClick={() => toggleDownvote(rant.id)}
+                        className={`flex items-center gap-1.5 px-2.5 h-7 rounded-full text-xs font-bold transition-all border ${
+                          downvotedIds.has(rant.id)
+                            ? 'bg-red-900/30 border-red-700 text-red-400'
+                            : 'bg-gray-800 border-gray-700 text-gray-500 hover:border-red-800 hover:text-red-500'
+                        }`}>
+                        <ThumbsDown className="w-3 h-3" />{rant.downvotes}
+                      </button>
+                      <button className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+                        <Share2 className="w-3.5 h-3.5" />
+                      </button>
                     </div>
                   </div>
                 </div>

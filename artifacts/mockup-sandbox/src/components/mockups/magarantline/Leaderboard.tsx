@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Radio, Menu, Play, Share2, Flame, Clock, Trophy, Volume2, ThumbsUp, TrendingUp, Star, Award, Mic } from "lucide-react";
+import { Radio, Menu, Play, Share2, Flame, Clock, Trophy, Volume2, ThumbsUp, ThumbsDown, TrendingUp, Star, Award, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -8,19 +8,19 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 const TIME_TABS = ['Today', 'This Week', 'This Month', 'All Time'];
 
 const PODIUM = [
-  { rank: 1, title: "Gas Prices Are Destroying My Family Budget", category: "Inflation", caller: "Anonymous from Texas", votes: "2,847", duration: "2:45", plays: "14.2k" },
-  { rank: 2, title: "The Government Doesn't Care About Us Anymore", category: "Politics", caller: "Mike in Ohio", votes: "1,923", duration: "1:30", plays: "9.8k" },
-  { rank: 3, title: "My Son Came Home from Overseas — CHANGED FOREVER", category: "War Concerns", caller: "Sarah from Florida", votes: "1,456", duration: "3:12", plays: "7.3k" },
+  { rank: 1, title: "Gas Prices Are Destroying My Family Budget", category: "Inflation", caller: "Anonymous from Texas", votes: "2,847", downvotes: "412", duration: "2:45", plays: "14.2k" },
+  { rank: 2, title: "The Government Doesn't Care About Us Anymore", category: "Politics", caller: "Mike in Ohio", votes: "1,923", downvotes: "287", duration: "1:30", plays: "9.8k" },
+  { rank: 3, title: "My Son Came Home from Overseas — CHANGED FOREVER", category: "War Concerns", caller: "Sarah from Florida", votes: "1,456", downvotes: "198", duration: "3:12", plays: "7.3k" },
 ];
 
 const REST = [
-  { rank: 4, title: "They're Teaching WHAT in Our Schools?!", category: "Education", caller: "Concerned Mom", votes: "1,204", duration: "2:10", trend: '+12' },
-  { rank: 5, title: "Small Businesses Are Getting CRUSHED", category: "Economy", caller: "Dave the Builder", votes: "982", duration: "1:45", trend: '+8' },
-  { rank: 6, title: "I Can't Recognize My Own Country Anymore", category: "Culture", caller: "Patriot Bill", votes: "845", duration: "4:00", trend: '+3' },
-  { rank: 7, title: "The Mainstream Media is Lying to You", category: "Media", caller: "Truth Seeker", votes: "756", duration: "2:20", trend: '-2' },
-  { rank: 8, title: "Border Crisis is Out of Control", category: "Border Security", caller: "Rancher Jim", votes: "690", duration: "3:30", trend: '+5' },
-  { rank: 9, title: "We Need to Stop These Endless Wars", category: "Foreign Policy", caller: "Vet from VA", votes: "488", duration: "2:40", trend: 'new' },
-  { rank: 10, title: "Healthcare Costs Are Destroying My Family", category: "Economy", caller: "NursePatty_OH", votes: "401", duration: "3:05", trend: '-1' },
+  { rank: 4, title: "They're Teaching WHAT in Our Schools?!", category: "Education", caller: "Concerned Mom", votes: "1,204", downvotes: "174", duration: "2:10", trend: '+12' },
+  { rank: 5, title: "Small Businesses Are Getting CRUSHED", category: "Economy", caller: "Dave the Builder", votes: "982", downvotes: "142", duration: "1:45", trend: '+8' },
+  { rank: 6, title: "I Can't Recognize My Own Country Anymore", category: "Culture", caller: "Patriot Bill", votes: "845", downvotes: "122", duration: "4:00", trend: '+3' },
+  { rank: 7, title: "The Mainstream Media is Lying to You", category: "Media", caller: "Truth Seeker", votes: "756", downvotes: "109", duration: "2:20", trend: '-2' },
+  { rank: 8, title: "Border Crisis is Out of Control", category: "Border Security", caller: "Rancher Jim", votes: "690", downvotes: "99", duration: "3:30", trend: '+5' },
+  { rank: 9, title: "We Need to Stop These Endless Wars", category: "Foreign Policy", caller: "Vet from VA", votes: "488", downvotes: "71", duration: "2:40", trend: 'new' },
+  { rank: 10, title: "Healthcare Costs Are Destroying My Family", category: "Economy", caller: "NursePatty_OH", votes: "401", downvotes: "58", duration: "3:05", trend: '-1' },
 ];
 
 const TOP_RANTERS = [
@@ -95,8 +95,13 @@ export default function Leaderboard() {
               </CardHeader>
               <CardContent className="pb-4">
                 <p className="text-sm text-slate-400 italic mb-3">— {PODIUM[1].caller}</p>
-                <div className="flex items-center gap-2 text-slate-300 font-black text-xl mb-4">
-                  <ThumbsUp className="h-5 w-5" />{PODIUM[1].votes}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center gap-1.5 text-slate-300 font-black text-xl">
+                    <ThumbsUp className="h-5 w-5" />{PODIUM[1].votes}
+                  </div>
+                  <div className="flex items-center gap-1 text-gray-600 text-sm font-bold">
+                    <ThumbsDown className="h-3.5 w-3.5" />{PODIUM[1].downvotes}
+                  </div>
                 </div>
                 <div className="text-xs text-gray-500 mb-3">{PODIUM[1].plays} plays · {PODIUM[1].duration}</div>
                 <div className="bg-[#0a0e1a] rounded-lg p-3 flex items-center gap-3 border border-slate-700">
@@ -124,10 +129,15 @@ export default function Leaderboard() {
               </CardHeader>
               <CardContent className="pb-6">
                 <p className="text-base text-gray-400 italic mb-4 border-l-2 border-white pl-3">— {PODIUM[0].caller}</p>
-                <div className="flex items-center justify-center py-4 bg-white/5 border-y border-white/10 mb-5 rounded-lg">
+                <div className="flex items-center justify-center gap-4 py-4 bg-white/5 border-y border-white/10 mb-5 rounded-lg">
                   <div className="flex items-center gap-2 text-white font-black text-4xl">
                     <Flame className="h-9 w-9 fill-red-500 text-red-500 animate-pulse" />{PODIUM[0].votes}
-                    <span className="text-base font-bold text-gray-400 self-end mb-1">VOTES</span>
+                    <span className="text-sm font-bold text-gray-500 self-end mb-1">up</span>
+                  </div>
+                  <div className="w-px h-8 bg-white/10"></div>
+                  <div className="flex items-center gap-1.5 text-gray-500 font-black text-xl">
+                    <ThumbsDown className="h-5 w-5" />{PODIUM[0].downvotes}
+                    <span className="text-xs font-bold text-gray-600 self-end mb-0.5">down</span>
                   </div>
                 </div>
                 <div className="text-center text-gray-500 text-sm mb-4">{PODIUM[0].plays} plays · {PODIUM[0].duration}</div>
@@ -155,8 +165,13 @@ export default function Leaderboard() {
               </CardHeader>
               <CardContent className="pb-4">
                 <p className="text-sm text-slate-400 italic mb-3">— {PODIUM[2].caller}</p>
-                <div className="flex items-center gap-2 text-orange-300 font-black text-xl mb-4">
-                  <ThumbsUp className="h-5 w-5" />{PODIUM[2].votes}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center gap-1.5 text-orange-300 font-black text-xl">
+                    <ThumbsUp className="h-5 w-5" />{PODIUM[2].votes}
+                  </div>
+                  <div className="flex items-center gap-1 text-gray-600 text-sm font-bold">
+                    <ThumbsDown className="h-3.5 w-3.5" />{PODIUM[2].downvotes}
+                  </div>
                 </div>
                 <div className="text-xs text-gray-500 mb-3">{PODIUM[2].plays} plays · {PODIUM[2].duration}</div>
                 <div className="bg-[#0a0e1a] rounded-lg p-3 flex items-center gap-3 border border-orange-900/30">
@@ -183,7 +198,7 @@ export default function Leaderboard() {
                   <TableHead className="text-gray-500 font-bold uppercase text-xs">Rant Title</TableHead>
                   <TableHead className="hidden md:table-cell text-gray-500 font-bold uppercase text-xs">Category</TableHead>
                   <TableHead className="hidden lg:table-cell text-gray-500 font-bold uppercase text-xs">Caller</TableHead>
-                  <TableHead className="text-right text-gray-500 font-bold uppercase text-xs">Votes</TableHead>
+                  <TableHead className="text-right text-gray-500 font-bold uppercase text-xs">Votes / Down</TableHead>
                   <TableHead className="hidden sm:table-cell text-center text-gray-500 font-bold uppercase text-xs">Trend</TableHead>
                   <TableHead className="w-16 text-center text-gray-500 font-bold uppercase text-xs">Play</TableHead>
                 </TableRow>
@@ -197,7 +212,12 @@ export default function Leaderboard() {
                       <Badge variant="outline" className="border-[#cc0000]/40 text-gray-400 bg-gray-800/50 font-medium text-xs">{item.category}</Badge>
                     </TableCell>
                     <TableCell className="hidden lg:table-cell text-gray-400 italic text-sm">{item.caller}</TableCell>
-                    <TableCell className="text-right font-black text-white">{item.votes}</TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex flex-col items-end">
+                        <span className="font-black text-white text-sm">{item.votes}</span>
+                        <span className="text-[10px] text-gray-600 flex items-center gap-0.5"><ThumbsDown className="w-2.5 h-2.5" />{item.downvotes}</span>
+                      </div>
+                    </TableCell>
                     <TableCell className="hidden sm:table-cell text-center">
                       <span className={`text-xs font-bold ${item.trend.startsWith('+') ? 'text-green-400' : item.trend === 'new' ? 'text-blue-400' : 'text-red-400'}`}>
                         {item.trend === 'new' ? '🆕' : item.trend.startsWith('+') ? `↑${item.trend}` : `↓${item.trend.slice(1)}`}

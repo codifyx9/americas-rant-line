@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, Zap, Star, Play, Pause, Flame, Heart, Share2, MessageCircle, TrendingUp, Mic, Trophy, ChevronRight, Users, ArrowUpRight } from 'lucide-react';
+import { Phone, Zap, Star, Play, Pause, Flame, Share2, MessageCircle, TrendingUp, Mic, Trophy, ChevronRight, Users, ArrowUpRight, ThumbsDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -251,7 +251,8 @@ export default function MagaRantLineHome() {
             </CardContent>
             <CardFooter className="bg-black/15 border-t border-white/5 py-2.5 px-5 flex justify-between">
               <div className="flex gap-2">
-                <Button variant="ghost" size="sm" className="text-gray-500 hover:text-white hover:bg-white/8 h-8 text-xs"><Heart className="w-3.5 h-3.5 mr-1.5" />2,847</Button>
+                <Button variant="ghost" size="sm" className="text-red-400 hover:text-red-300 hover:bg-white/8 h-8 text-xs"><Flame className="w-3.5 h-3.5 mr-1.5 fill-current" />2,847</Button>
+                <Button variant="ghost" size="sm" className="text-gray-500 hover:text-red-400 hover:bg-white/8 h-8 text-xs"><ThumbsDown className="w-3.5 h-3.5 mr-1.5" />412</Button>
                 <Button variant="ghost" size="sm" className="text-gray-500 hover:text-white hover:bg-white/8 h-8 text-xs"><MessageCircle className="w-3.5 h-3.5 mr-1.5" />142</Button>
                 <Button variant="ghost" size="sm" className="text-gray-500 hover:text-white hover:bg-white/8 h-8 text-xs"><Share2 className="w-3.5 h-3.5 mr-1.5" />Share</Button>
               </div>
@@ -412,8 +413,13 @@ export default function MagaRantLineHome() {
                         </button>
                         <span className="text-xs text-gray-600 font-bold">{rant.duration}</span>
                       </div>
-                      <div className={`flex items-center text-xs font-black gap-1 ${s.flame}`}>
-                        <Flame className="w-3.5 h-3.5 fill-current" />{rant.votes.toLocaleString()}
+                      <div className="flex items-center gap-2">
+                        <div className={`flex items-center text-xs font-black gap-1 ${s.flame}`}>
+                          <Flame className="w-3.5 h-3.5 fill-current" />{rant.votes.toLocaleString()}
+                        </div>
+                        <button className="flex items-center gap-0.5 px-2 h-6 rounded-full bg-gray-800 border border-gray-700 text-gray-500 hover:border-red-800 hover:text-red-500 text-[10px] font-bold transition-all">
+                          <ThumbsDown className="w-2.5 h-2.5" />{Math.round(rant.votes * 0.15).toLocaleString()}
+                        </button>
                       </div>
                     </div>
                   </CardContent>

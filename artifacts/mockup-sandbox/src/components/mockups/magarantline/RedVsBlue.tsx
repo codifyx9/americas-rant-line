@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
-import { Play, Pause, Flame, Share2, Trophy, Mic, ChevronRight, TrendingUp } from 'lucide-react';
+import { Play, Pause, Flame, Share2, Trophy, Mic, TrendingUp, ThumbsDown } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 const MAGA_RANTS = [
-  { id: 1, title: "They're Destroying This Country From the Inside Out", caller: "PatriotPete, TX", votes: "2,847", duration: "2:34", ago: "4m",  hot: true  },
-  { id: 2, title: "Open Borders Is an Attack on American Workers",        caller: "RanchManTX, TX", votes: "1,923", duration: "3:12", ago: "18m", hot: true  },
-  { id: 3, title: "Gas Was $1.89 When Trump Was in Office — FACT",        caller: "FuriousFrank, GA", votes: "1,241", duration: "1:58", ago: "31m", hot: false },
-  { id: 4, title: "The Media Won't Tell You What's Really Going On",      caller: "TruthSeeker, OH", votes: "987",   duration: "4:05", ago: "47m", hot: false },
-  { id: 5, title: "My Second Amendment Rights Are Non-Negotiable",        caller: "GunOwnerBill, VA", votes: "756",   duration: "2:20", ago: "1h",  hot: false },
+  { id: 1, title: "They're Destroying This Country From the Inside Out", caller: "PatriotPete, TX",  votes: "2,847", downvotes: "412", duration: "2:34", ago: "4m",    hot: true  },
+  { id: 2, title: "Open Borders Is an Attack on American Workers",       caller: "RanchManTX, TX",   votes: "1,923", downvotes: "287", duration: "3:12", ago: "18m",   hot: true  },
+  { id: 3, title: "Gas Was $1.89 When Trump Was in Office — FACT",       caller: "FuriousFrank, GA", votes: "1,241", downvotes: "180", duration: "1:58", ago: "31m",   hot: false },
+  { id: 4, title: "The Media Won't Tell You What's Really Going On",     caller: "TruthSeeker, OH",  votes: "987",   downvotes: "142", duration: "4:05", ago: "47m",   hot: false },
+  { id: 5, title: "My Second Amendment Rights Are Non-Negotiable",       caller: "GunOwnerBill, VA", votes: "756",   downvotes: "109", duration: "2:20", ago: "1h",    hot: false },
 ];
 
 const BLUE_RANTS = [
-  { id: 1, title: "Healthcare Is a Right, Not a Luxury — Period.",           caller: "NursePatty, IL",  votes: "2,412", duration: "3:01", ago: "7m",    hot: true  },
-  { id: 2, title: "Climate Change Is Here and Nobody Wants to Listen",       caller: "GreenMike, CA",   votes: "1,654", duration: "2:45", ago: "22m",   hot: true  },
-  { id: 3, title: "Why Are We Cutting School Budgets to Fund Tax Cuts?",     caller: "TeacherSue, NY",  votes: "1,102", duration: "3:30", ago: "38m",   hot: false },
-  { id: 4, title: "Women's Rights Are Under Attack — We Won't Be Quiet",     caller: "VoiceForAll, CO", votes: "893",   duration: "2:15", ago: "52m",   hot: false },
-  { id: 5, title: "The Supreme Court Has Lost Its Credibility",              caller: "LegalMind, DC",   votes: "688",   duration: "3:45", ago: "1h 5m", hot: false },
+  { id: 1, title: "Healthcare Is a Right, Not a Luxury — Period.",       caller: "NursePatty, IL",  votes: "2,412", downvotes: "349", duration: "3:01", ago: "7m",    hot: true  },
+  { id: 2, title: "Climate Change Is Here and Nobody Wants to Listen",   caller: "GreenMike, CA",   votes: "1,654", downvotes: "239", duration: "2:45", ago: "22m",   hot: true  },
+  { id: 3, title: "Why Are We Cutting School Budgets to Fund Tax Cuts?", caller: "TeacherSue, NY",  votes: "1,102", downvotes: "159", duration: "3:30", ago: "38m",   hot: false },
+  { id: 4, title: "Women's Rights Are Under Attack — We Won't Be Quiet", caller: "VoiceForAll, CO", votes: "893",   downvotes: "129", duration: "2:15", ago: "52m",   hot: false },
+  { id: 5, title: "The Supreme Court Has Lost Its Credibility",          caller: "LegalMind, DC",   votes: "688",   downvotes: "99",  duration: "3:45", ago: "1h 5m", hot: false },
 ];
 
 const NEUTRAL_RANTS = [
-  { id: 1, title: "Both Parties Are Failing Small Businesses — Period.",     caller: "ShopOwnerRay, OH",  votes: "1,988", duration: "3:05", ago: "9m",    hot: true  },
-  { id: 2, title: "I Spent $187 on Groceries and Got Four Bags",             caller: "FrustratedFran, GA",votes: "1,423", duration: "1:12", ago: "21m",   hot: true  },
-  { id: 3, title: "Rent Just Went Up $600 — Where Are We Supposed to Go?",  caller: "TiredTenant, NY",   votes: "1,102", duration: "1:55", ago: "37m",   hot: false },
-  { id: 4, title: "Nobody in Washington Cares About the Middle Class",       caller: "MiddleAmerica, KS", votes: "876",   duration: "2:40", ago: "54m",   hot: false },
-  { id: 5, title: "We're All Being Played — Red and Blue Both",              caller: "IndieVoter, CO",    votes: "641",   duration: "3:10", ago: "1h 12m",hot: false },
+  { id: 1, title: "Both Parties Are Failing Small Businesses — Period.",    caller: "ShopOwnerRay, OH",   votes: "1,988", downvotes: "288", duration: "3:05", ago: "9m",     hot: true  },
+  { id: 2, title: "I Spent $187 on Groceries and Got Four Bags",            caller: "FrustratedFran, GA", votes: "1,423", downvotes: "206", duration: "1:12", ago: "21m",    hot: true  },
+  { id: 3, title: "Rent Just Went Up $600 — Where Are We Supposed to Go?", caller: "TiredTenant, NY",    votes: "1,102", downvotes: "159", duration: "1:55", ago: "37m",    hot: false },
+  { id: 4, title: "Nobody in Washington Cares About the Middle Class",      caller: "MiddleAmerica, KS",  votes: "876",   downvotes: "127", duration: "2:40", ago: "54m",    hot: false },
+  { id: 5, title: "We're All Being Played — Red and Blue Both",             caller: "IndieVoter, CO",     votes: "641",   downvotes: "93",  duration: "3:10", ago: "1h 12m", hot: false },
 ];
 
 const MAGA_TOTAL    = 6842;
@@ -45,6 +45,7 @@ function sideStyles(side: Side) {
 
 function RantCard({ rant, side }: { rant: typeof MAGA_RANTS[0]; side: Side }) {
   const [playing, setPlaying] = useState(false);
+  const [downvoted, setDownvoted] = useState(false);
   const s = sideStyles(side);
 
   return (
@@ -71,9 +72,18 @@ function RantCard({ rant, side }: { rant: typeof MAGA_RANTS[0]; side: Side }) {
           <Flame className={`w-4 h-4 ${s.flameClass.split(' ')[1]}`} />
           {rant.votes}
         </div>
-        <button className="w-7 h-7 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
-          <Share2 className="w-3 h-3" />
-        </button>
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={() => setDownvoted(!downvoted)}
+            className={`flex items-center gap-1 px-2 h-6 rounded-full text-[10px] font-bold transition-all border ${
+              downvoted ? 'bg-red-900/30 border-red-700 text-red-400' : 'bg-gray-800 border-gray-700 text-gray-500 hover:border-red-800 hover:text-red-500'
+            }`}>
+            <ThumbsDown className="w-2.5 h-2.5" />{rant.downvotes}
+          </button>
+          <button className="w-7 h-7 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+            <Share2 className="w-3 h-3" />
+          </button>
+        </div>
       </div>
     </div>
   );
