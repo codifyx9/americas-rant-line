@@ -68,9 +68,7 @@ export default function AdminDashboard() {
       {/* HEADER */}
       <header className="flex items-center justify-between px-6 py-3 border-b border-[#cc0000]/40 bg-[#05070d] shrink-0">
         <div className="flex items-center gap-3">
-          <div className="bg-[#cc0000] rounded-md px-2 py-1 flex items-center">
-            <img src="/__mockup/images/wordmark.png" alt="MAGA★RANTLINE" className="h-7 w-auto object-contain" style={{mixBlendMode:'multiply'}} />
-          </div>
+          <span className="font-black text-xl tracking-tight text-white">MAGA <span className="font-light">RantLine</span></span>
           <h1 className="text-base font-normal text-gray-500">— Admin</h1>
         </div>
         <div className="flex items-center gap-3">

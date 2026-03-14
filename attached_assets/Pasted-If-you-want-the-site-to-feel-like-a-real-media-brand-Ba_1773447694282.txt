@@ -1,0 +1,251 @@
+If you want the site to feel like a **real media brand (Barstool / ESPN / UFC level)** instead of a startup landing page, the trick is a **tight typography system**. Most projects fail here—they mix too many fonts and everything looks amateur.
+
+Your logo already has a **heavy varsity slab look**, so the rest of the site should **contrast it with modern condensed fonts**, not compete with it.
+
+Below is the **exact system that will make the whole platform feel premium.**
+
+---
+
+# 1. Brand Logo Font (Already Used)
+
+**Primary Brand Font**
+
+College Block
+
+Use ONLY for:
+
+• Logo
+• Merch
+• Major banners
+• Rant numbers (RANT #82)
+
+Do **not** use it for body text or navigation.
+
+---
+
+# 2. Headline Font (Main Website Titles)
+
+Best option:
+
+Bebas Neue
+
+Why it works:
+
+• tall
+• aggressive
+• sports-media feel
+• pairs perfectly with varsity fonts
+
+Example use:
+
+```
+GOT SOMETHING TO SAY?
+LEAVE YOUR RANT
+TOP RANTS TODAY
+```
+
+All caps.
+
+Large.
+
+Tight letter spacing.
+
+---
+
+# 3. Section Headings
+
+Use:
+
+Anton
+
+Great for:
+
+• leaderboard titles
+• featured rant headers
+• weekly challenge
+
+Example:
+
+```
+LATEST RANTS
+WHAT PEOPLE ARE TALKING ABOUT
+TOP RANT OF THE WEEK
+```
+
+---
+
+# 4. Body Text
+
+Use:
+
+Inter
+
+Why:
+
+• extremely readable
+• used by many modern apps
+• clean UI feel
+
+Example:
+
+```
+Call the hotline and leave your rant about anything happening in life.
+```
+
+---
+
+# 5. Numbers / Stats
+
+Use:
+
+**Inter Bold**
+
+Example:
+
+```
+1,284 RANTS
+982 VOTES
+1:21 DURATION
+```
+
+Numbers should feel **data-driven and modern**.
+
+---
+
+# 6. Buttons
+
+Font:
+
+**Bebas Neue**
+
+Example buttons:
+
+```
+CALL THE HOTLINE
+VIEW LEADERBOARD
+LEAVE A RANT
+```
+
+Use **all caps**.
+
+---
+
+# 7. Typography Hierarchy
+
+### H1 (Hero)
+
+Bebas Neue
+64–96px
+
+Example
+
+```
+LEAVE YOUR RANT
+```
+
+---
+
+### H2 (Sections)
+
+Anton
+36–48px
+
+Example
+
+```
+LATEST RANTS
+```
+
+---
+
+### H3 (Cards)
+
+Inter Bold
+18–22px
+
+Example
+
+```
+Rent just went up $600
+```
+
+---
+
+### Body
+
+Inter Regular
+14–16px
+
+---
+
+# 8. Color Rules for Text
+
+Keep it simple.
+
+Primary text:
+
+White
+
+Secondary text:
+
+Light gray
+
+Interactive text:
+
+Red
+
+---
+
+# 9. Rant Card Example
+
+```
+Rent just went up $600
+Inflation
+1:21
+👍 1,982
+```
+
+Title → Inter Bold
+Meta → Inter Regular
+
+---
+
+# 10. The Visual Result
+
+This system creates:
+
+• strong media brand look
+• high readability
+• aggressive headline energy
+• clean UI structure
+
+Exactly what platforms like:
+
+• Barstool
+• Bleacher Report
+• DraftKings
+• ESPN digital
+
+use.
+
+---
+
+# One Brutally Honest Suggestion
+
+The logo works.
+
+But the **site should not use that varsity font everywhere**.
+
+If everything looks varsity, the platform starts to feel like **merch instead of media**.
+
+The contrast between:
+
+**Varsity logo + modern UI fonts**
+
+is what makes it feel like a **serious digital platform.**
+
+---
+
+If you want, I can also show you something extremely useful next:
+
+**The exact homepage layout used by viral media platforms that keeps users listening to content for 20+ minutes.**

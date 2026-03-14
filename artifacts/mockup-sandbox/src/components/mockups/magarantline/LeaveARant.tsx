@@ -87,7 +87,7 @@ export default function LeaveARant() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2 cursor-pointer">
-              <img src="/__mockup/images/wordmark.png" alt="MAGA★RANTLINE" className="h-10 w-auto object-contain" style={{mixBlendMode:'multiply'}} />
+              <span className="font-black text-2xl tracking-tight text-white">MAGA <span className="font-light">RantLine</span></span>
             </div>
             <div className="hidden md:flex items-baseline space-x-6">
               {['Home','Rants','Leaderboard'].map(l => <a key={l} href="#" className="text-red-100 hover:text-white text-sm font-medium transition-colors">{l}</a>)}
