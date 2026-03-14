@@ -41,9 +41,8 @@ export default function MagaRantLineHome() {
       {/* NAV */}
       <nav className="bg-[#cc0000] sticky top-0 z-50 shadow-lg shadow-red-900/20 border-b border-red-800">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src="/__mockup/images/hat.jpg" alt="hat" className="h-10 w-auto object-contain" style={{mixBlendMode:'multiply'}} />
-            <span className="font-extrabold text-xl tracking-tight">MagaRantLine</span>
+          <div className="flex items-center">
+            <img src="/__mockup/images/wordmark.png" alt="MAGA★RANTLINE" className="h-10 w-auto object-contain" style={{mixBlendMode:'multiply'}} />
           </div>
           <div className="hidden md:flex items-center gap-6 font-semibold text-sm tracking-wide">
             <a href="#" className="text-white border-b-2 border-white pb-0.5">HOME</a>

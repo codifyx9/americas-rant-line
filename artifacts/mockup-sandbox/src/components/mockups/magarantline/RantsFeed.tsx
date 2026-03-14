@@ -47,8 +47,7 @@ export default function RantsFeed() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <span className="text-xl font-black tracking-tight flex items-center gap-2">
-              <img src="/__mockup/images/hat.jpg" alt="hat" className="h-10 w-auto object-contain" style={{mixBlendMode:'multiply'}} />
-              MagaRantLine
+              <img src="/__mockup/images/wordmark.png" alt="MAGA★RANTLINE" className="h-10 w-auto object-contain" style={{mixBlendMode:'multiply'}} />
             </span>
             <div className="hidden md:flex space-x-1">
               {['Home', 'Rants', 'Leaderboard', 'Leave a Rant'].map((item) => (

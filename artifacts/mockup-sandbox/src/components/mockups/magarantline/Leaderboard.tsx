@@ -49,8 +49,7 @@ export default function Leaderboard() {
       <nav className="bg-[#cc0000] border-b border-red-900 sticky top-0 z-50 shadow-md">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/__mockup/images/hat.jpg" alt="hat" className="h-10 w-auto object-contain" style={{mixBlendMode:'multiply'}} />
-            <span className="font-bold text-xl tracking-tight uppercase">MagaRantLine</span>
+            <img src="/__mockup/images/wordmark.png" alt="MAGA★RANTLINE" className="h-10 w-auto object-contain" style={{mixBlendMode:'multiply'}} />
           </div>
           <div className="hidden md:flex items-center space-x-1">
             <Button variant="ghost" className="text-white hover:bg-red-800 hover:text-white font-medium">Home</Button>
