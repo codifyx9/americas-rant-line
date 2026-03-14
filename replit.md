@@ -48,6 +48,58 @@ Every package extends `tsconfig.base.json` which sets `composite: true`. The roo
 - `pnpm run build` — runs `typecheck` first, then recursively runs `build` in all packages that define it
 - `pnpm run typecheck` — runs `tsc --build --emitDeclarationOnly` using project references
 
+## America's Rant Line — Backend
+
+Full backend for a political talk-radio voicemail platform with three lines:
+- 🔴 MAGA Line (Conservative/Republican)
+- 🔵 Blue Line (Democrat/Progressive)
+- ⚪ Neutral Line (Independent)
+
+### Environment Variables Required
+
+| Variable | Purpose |
+|---|---|
+| `DATABASE_URL` | Auto-provided by Replit PostgreSQL |
+| `ADMIN_API_KEY` | Secret key for admin endpoints (set via environment secrets) |
+| `TWILIO_ACCOUNT_SID` | Twilio account (optional — for live call intake) |
+| `TWILIO_AUTH_TOKEN` | Twilio auth (optional) |
+| `TWILIO_PHONE_NUMBER` | Twilio phone number (optional) |
+| `STRIPE_SECRET_KEY` | Stripe secret key (optional — for payments) |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret (optional) |
+
+### API Routes
+
+| Method | Path | Auth | Description |
+|---|---|---|---|
+| GET | `/api/healthz` | — | Health check |
+| GET | `/api/rants/latest` | — | Latest 20 approved rants |
+| GET | `/api/rants/trending` | — | Trending rants (last 48h, by votes) |
+| GET | `/api/rants/leaderboard` | — | Top 20 all-time by votes |
+| GET | `/api/rants/:id` | — | Single rant |
+| POST | `/api/rants/:id/vote` | — | Upvote (rate-limited: 5/min) |
+| POST | `/api/rants/:id/downvote` | — | Downvote (rate-limited: 5/min) |
+| GET | `/api/stats/calls` | — | Total call counts by line |
+| GET | `/api/stats/calls/today` | — | Today's call counts |
+| POST | `/api/twilio/voice` | — | TwiML entry point (Twilio webhook) |
+| POST | `/api/twilio/gather` | — | TwiML keypress handler |
+| POST | `/api/twilio/recording` | — | Recording webhook → saves rant to DB |
+| POST | `/api/payments/create-session` | — | Create Stripe checkout session |
+| POST | `/api/payments/webhook` | Stripe sig | Stripe payment confirmation |
+| GET | `/api/admin/rants/pending` | x-admin-key | Pending moderation queue |
+| GET | `/api/admin/rants` | x-admin-key | All rants |
+| POST | `/api/admin/rants/:id/approve` | x-admin-key | Approve rant |
+| POST | `/api/admin/rants/:id/reject` | x-admin-key | Delete rant |
+| POST | `/api/admin/rants/:id/feature` | x-admin-key | Feature + approve rant |
+| GET | `/api/admin/callers` | x-admin-key | All callers list |
+
+### Stripe Products
+
+| Key | Name | Price |
+|---|---|---|
+| `leave-rant` | Leave a Rant | $1.99 |
+| `skip-line` | Skip the Line | $5.00 |
+| `featured` | Featured Rant | $25.00 |
+
 ## Packages
 
 ### `artifacts/api-server` (`@workspace/api-server`)

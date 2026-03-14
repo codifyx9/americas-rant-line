@@ -1,0 +1,459 @@
+Below is a **single all-in-one Replit AI build prompt** that includes everything we discussed:
+
+* **Supabase backend**
+* **Twilio call intake**
+* **Stripe payments**
+* **phone + email capture**
+* **admin moderation**
+* **rant IDs**
+* **three rant lines**
+* **legal recording notice**
+* **community moderation system**
+* **React/Vite/Tailwind frontend compatibility**
+
+You can **paste this entire prompt into Replit AI** and it should scaffold the backend and integrations.
+
+---
+
+# Replit Full Backend Build Prompt (America’s Rant Line)
+
+Build the backend for a web platform called **America’s Rant Line**.
+
+The platform allows users to call a phone number, leave a voicemail rant, and have that rant appear on the website after moderation.
+
+Users can vote on rants and view leaderboards.
+
+The platform has **three rant lines**:
+
+• MAGA Line — Right (Conservative / Republican)
+• Blue Line — Left (Democrat / Progressive)
+• Neutral Line — Independent / Open Rant
+
+Each rant must receive a **Rant ID number**.
+
+The platform must capture **phone numbers and emails from callers**.
+
+---
+
+# Tech Stack
+
+Frontend (already built)
+
+React
+Vite
+TailwindCSS
+
+Backend
+
+Node.js
+Express.js
+
+Database + Storage
+
+Supabase
+
+Hosting
+
+Replit
+
+Integrations
+
+Twilio — voice recording and caller phone capture
+Stripe — payments and email capture
+
+---
+
+# Environment Variables
+
+Support these environment variables.
+
+```env id="envvars"
+SUPABASE_URL
+SUPABASE_SERVICE_KEY
+TWILIO_ACCOUNT_SID
+TWILIO_AUTH_TOKEN
+TWILIO_PHONE_NUMBER
+STRIPE_SECRET_KEY
+ADMIN_API_KEY
+PORT
+```
+
+Default port:
+
+```id="port"
+PORT=5000
+```
+
+---
+
+# Supabase Database Setup
+
+Create table **callers**
+
+```sql id="callers-table"
+id uuid primary key default uuid_generate_v4()
+phone text
+email text
+nickname text
+created_at timestamp default now()
+```
+
+---
+
+Create table **rants**
+
+```sql id="rants-table"
+id uuid primary key default uuid_generate_v4()
+rant_number serial
+caller_id uuid
+category text
+audio_url text
+duration integer
+votes integer default 0
+created_at timestamp default now()
+approved boolean default false
+featured boolean default false
+```
+
+---
+
+Allowed categories:
+
+```id="categories"
+maga
+blue
+neutral
+```
+
+---
+
+# Supabase Storage
+
+Create storage bucket:
+
+```id="bucket"
+rant-audio
+```
+
+This bucket stores all rant recordings.
+
+---
+
+# Twilio Call Flow
+
+When someone calls the number, play this greeting.
+
+```id="twilio-script"
+Welcome to America's Rant Line.
+
+This call may be recorded and used publicly on our website and social media.
+
+Press 1 for the MAGA Line.
+Press 2 for the Blue Line.
+Press 3 for the Neutral Line.
+
+After the beep, leave your rant.
+```
+
+Capture keypress.
+
+Logic:
+
+```id="twilio-logic"
+1 → maga
+2 → blue
+3 → neutral
+```
+
+Then record the voicemail.
+
+---
+
+# Twilio Recording Webhook
+
+Create endpoint:
+
+```http id="webhook"
+POST /api/twilio/recording
+```
+
+Twilio sends:
+
+```json id="twilio-payload"
+RecordingUrl
+From
+RecordingDuration
+Digits
+```
+
+Server steps:
+
+1. Determine rant category from Digits
+2. Download the recording from Twilio
+3. Upload recording to Supabase Storage bucket `rant-audio`
+4. Get public file URL
+5. Check if caller phone exists in callers table
+6. If not, create new caller
+7. Insert rant record
+
+Fields saved:
+
+```id="rant-insert"
+caller_id
+category
+audio_url
+duration
+approved = false
+votes = 0
+```
+
+---
+
+# Email Capture
+
+Emails should be captured through **Stripe checkout**.
+
+Create Stripe checkout endpoint.
+
+```http id="stripe-endpoint"
+POST /api/payments/create-session
+```
+
+Products:
+
+```id="products"
+Leave Rant — $1.99
+Skip Line — $5
+Featured Rant — $25
+```
+
+Stripe should collect:
+
+```id="stripe-email"
+customer_email
+```
+
+After payment:
+
+Update caller record with email if available.
+
+---
+
+# Admin Moderation System
+
+Admins must approve rants before they appear publicly.
+
+---
+
+### Get pending rants
+
+```http id="admin-pending"
+GET /api/admin/rants/pending
+```
+
+Requires header:
+
+```id="admin-key"
+ADMIN_API_KEY
+```
+
+---
+
+### Approve rant
+
+```http id="approve"
+POST /api/admin/rants/:id/approve
+```
+
+Update:
+
+```id="approve-field"
+approved = true
+```
+
+---
+
+### Reject rant
+
+```http id="reject"
+POST /api/admin/rants/:id/reject
+```
+
+Delete rant from database.
+
+---
+
+# Public API
+
+---
+
+### Latest rants
+
+```http id="latest"
+GET /api/rants/latest
+```
+
+Return newest approved rants.
+
+---
+
+### Trending rants
+
+```http id="trending"
+GET /api/rants/trending
+```
+
+Sort by votes.
+
+---
+
+### Leaderboard
+
+```http id="leaderboard"
+GET /api/rants/leaderboard
+```
+
+Return top 20 voted rants.
+
+---
+
+# Voting Endpoint
+
+```http id="vote"
+POST /api/rants/:id/vote
+```
+
+Logic:
+
+```id="vote-logic"
+votes = votes + 1
+```
+
+Add basic rate limiting to prevent vote spam.
+
+---
+
+# Call Statistics
+
+Endpoint:
+
+```http id="stats"
+GET /api/stats/calls
+```
+
+Return totals grouped by category.
+
+Example response:
+
+```json id="stats-response"
+{
+  maga_calls: 6842,
+  blue_calls: 5931,
+  neutral_calls: 8214
+}
+```
+
+---
+
+# Folder Structure
+
+```id="structure"
+/server
+  index.js
+  routes/
+    rants.js
+    admin.js
+    payments.js
+    twilio.js
+  services/
+    supabase.js
+    stripe.js
+    twilio.js
+```
+
+---
+
+# Security
+
+Implement:
+
+• Twilio webhook signature validation
+• Stripe webhook verification
+• Admin API key protection
+• Rate limiting on vote endpoint
+
+---
+
+# Legal & Consent Requirements
+
+Call greeting must include:
+
+```id="legal"
+This call may be recorded and used publicly on our website and social media.
+```
+
+Website must include pages:
+
+• Terms of Use
+• Privacy Policy
+• Community Guidelines
+
+Footer disclaimer:
+
+```id="disclaimer"
+Opinions expressed by callers are their own and do not represent the views of America’s Rant Line.
+```
+
+---
+
+# Rant ID System
+
+Each rant should automatically receive a sequential **Rant Number**.
+
+Example:
+
+```id="rant-id"
+RANT #001
+RANT #002
+RANT #003
+```
+
+Return rant_number in all API responses.
+
+---
+
+# Startup
+
+Server must run with:
+
+```bash id="startup"
+npm install
+npm start
+```
+
+Server port:
+
+```id="port2"
+5000
+```
+
+---
+
+# Required End-to-End Flow
+
+The finished backend must support this full flow:
+
+1. User visits website
+2. User pays to leave rant
+3. User calls rant line
+4. Twilio records voicemail
+5. Recording uploaded to Supabase Storage
+6. Phone number stored in callers table
+7. Email captured via Stripe
+8. Admin approves rant
+9. Rant appears on website
+10. Users vote and leaderboard updates
+
+---
+
+If you want, the **next thing that will save you a TON of time** is me giving you the **exact Twilio + Node webhook code** so your rant hotline can be **live in about 10 minutes instead of debugging for hours**.
