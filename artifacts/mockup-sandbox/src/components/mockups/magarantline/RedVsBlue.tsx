@@ -99,7 +99,7 @@ export default function RedVsBlue() {
       <nav className="sticky top-0 z-50 border-b border-white/10"
         style={{ background: 'linear-gradient(90deg, #7a0000 0%, #1c0808 30%, #0a0d14 50%, #07091a 70%, #0c1a5a 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <span className="font-black text-2xl tracking-tight text-white">MAGA <span className="font-light">RantLine</span></span>
+          <span className="font-black text-2xl tracking-tight text-white">America's <span className="font-light">Rant Line</span></span>
           <div className="hidden md:flex items-center gap-5 text-sm font-semibold">
             <a href="#" className="text-white/60 hover:text-white transition-colors">Home</a>
             <a href="#" className="text-white/60 hover:text-white transition-colors">All Rants</a>

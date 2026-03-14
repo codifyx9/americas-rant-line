@@ -74,7 +74,7 @@ export default function MagaRantLineHome() {
       {/* NAV */}
       <nav className="bg-[#cc0000] sticky top-0 z-50 shadow-lg shadow-red-900/20 border-b border-red-800">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <span className="font-black text-2xl tracking-tight text-white">MAGA <span className="font-light">RantLine</span></span>
+          <span className="font-black text-2xl tracking-tight text-white">America's <span className="font-light">Rant Line</span></span>
           <div className="hidden md:flex items-center gap-6 font-semibold text-sm tracking-wide">
             <a href="#" className="text-white border-b-2 border-white pb-0.5">HOME</a>
             <a href="#" className="hover:text-white/80 transition-colors">RANTS</a>
@@ -519,7 +519,7 @@ export default function MagaRantLineHome() {
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div className="col-span-1 md:col-span-2">
-              <span className="font-black text-2xl text-white mb-3 block">MAGA <span className="font-light">RantLine</span></span>
+              <span className="font-black text-2xl text-white mb-3 block">America's <span className="font-light">Rant Line</span></span>
               <p className="text-gray-500 text-sm leading-relaxed mb-3 max-w-sm">The uncensored hotline for real Americans — MAGA, Blue, or Neutral. Say what you mean. Be heard.</p>
               <p className="text-[#cc0000] font-black text-lg">(877) RANT-NOW</p>
             </div>
@@ -537,7 +537,7 @@ export default function MagaRantLineHome() {
             </div>
           </div>
           <div className="border-t border-white/5 pt-5 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-gray-600">
-            <p>© {new Date().getFullYear()} MAGA RantLine. Not affiliated with any political party. Rates may apply.</p>
+            <p>© {new Date().getFullYear()} America's Rant Line. Not affiliated with any political party. Rates may apply.</p>
             <div className="flex gap-3">
               {['Twitter','Rumble','Truth Social','TikTok'].map(s => <a key={s} href="#" className="hover:text-gray-400 transition-colors">{s}</a>)}
             </div>

@@ -64,7 +64,7 @@ const FAQS = [
 
 const TESTIMONIALS = [
   { name: 'PatriotPete', state: 'Texas', quote: 'Left my rant at noon, it was live by 1:30 PM. 1,000 votes by midnight. This platform is the real deal.', plan: 'Skip the Line', votes: '1,203' },
-  { name: 'TiredInTampa', state: 'Florida', quote: 'Nobody wants to hear you on the news, they want a soundbite. MagaRantLine let me say everything I actually think.', plan: 'Standard', votes: '876' },
+  { name: 'TiredInTampa', state: 'Florida', quote: "Nobody wants to hear you on the news, they want a soundbite. America's Rant Line let me say everything I actually think.", plan: 'Standard', votes: '876' },
   { name: 'RanchManTX', state: 'Texas', quote: 'Went Featured, got shared on Twitter, 15k plays in 2 days. Worth every penny of the $25.', plan: 'Featured', votes: '2,847' },
 ];
 
@@ -87,7 +87,7 @@ export default function LeaveARant() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2 cursor-pointer">
-              <span className="font-black text-2xl tracking-tight text-white">MAGA <span className="font-light">RantLine</span></span>
+              <span className="font-black text-2xl tracking-tight text-white">America's <span className="font-light">Rant Line</span></span>
             </div>
             <div className="hidden md:flex items-baseline space-x-6">
               {['Home','Rants','Leaderboard'].map(l => <a key={l} href="#" className="text-red-100 hover:text-white text-sm font-medium transition-colors">{l}</a>)}

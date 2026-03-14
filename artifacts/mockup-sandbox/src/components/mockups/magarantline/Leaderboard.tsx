@@ -49,7 +49,7 @@ export default function Leaderboard() {
       <nav className="bg-[#cc0000] border-b border-red-900 sticky top-0 z-50 shadow-md">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="font-black text-2xl tracking-tight text-white">MAGA <span className="font-light">RantLine</span></span>
+            <span className="font-black text-2xl tracking-tight text-white">America's <span className="font-light">Rant Line</span></span>
           </div>
           <div className="hidden md:flex items-center space-x-1">
             <Button variant="ghost" className="text-white hover:bg-red-800 hover:text-white font-medium">Home</Button>

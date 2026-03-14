@@ -49,7 +49,7 @@ export default function RantsFeed() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <span className="text-xl font-black tracking-tight flex items-center gap-2">
-              <span className="font-black text-2xl tracking-tight text-white">MAGA <span className="font-light">RantLine</span></span>
+              <span className="font-black text-2xl tracking-tight text-white">America's <span className="font-light">Rant Line</span></span>
             </span>
             <div className="hidden md:flex space-x-1">
               {['Home', 'Rants', 'Leaderboard', 'Leave a Rant'].map((item) => (
