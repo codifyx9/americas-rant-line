@@ -36,26 +36,26 @@ const ALL_RANTS = [
 ];
 
 const TICKER_ITEMS = [
-  '🔴 RED LINE RANT #214 — "Gas prices are out of control"',
+  '🔴 MAGA LINE RANT #214 — "Gas prices are out of control"',
   '🔵 BLUE LINE RANT #215 — "Stop blaming immigrants for everything"',
-  '⚪ OPEN LINE RANT #216 — "Both parties are failing small businesses"',
-  '🔴 RED LINE RANT #217 — "Bring manufacturing back"',
-  '⚪ OPEN LINE RANT #218 — "Rent just went up $600"',
-  '⚪ OPEN LINE RANT #219 — "My grocery bill was $380"',
+  '⚪ NEUTRAL LINE RANT #216 — "Both parties are failing small businesses"',
+  '🔴 MAGA LINE RANT #217 — "Bring manufacturing back"',
+  '⚪ NEUTRAL LINE RANT #218 — "Rent just went up $600"',
+  '⚪ NEUTRAL LINE RANT #219 — "My grocery bill was $380"',
   '🔵 BLUE LINE RANT #220 — "Healthcare costs are ridiculous"',
   '🏆 Weekly Challenge: Top Rant Wins $100 — 342 entries so far',
 ];
 
 const DAILY_LEADERBOARD = [
-  { rank: 1, medal: '🥇', title: 'Gas prices are killing us', line: 'Red Line',  votes: 2847, caller: 'PatriotPete', rantNo: 214, side: 'red'  },
-  { rank: 2, medal: '🥈', title: 'Rent is insane right now',  line: 'Open Line', votes: 1988, caller: 'TiredTenant', rantNo: 218, side: 'open' },
+  { rank: 1, medal: '🥇', title: 'Gas prices are killing us', line: 'MAGA Line',    votes: 2847, caller: 'PatriotPete', rantNo: 214, side: 'red'  },
+  { rank: 2, medal: '🥈', title: 'Rent is insane right now',  line: 'Neutral Line', votes: 1988, caller: 'TiredTenant', rantNo: 218, side: 'open' },
   { rank: 3, medal: '🥉', title: 'Healthcare costs are ridiculous', line: 'Blue Line', votes: 1423, caller: 'DrDave', rantNo: 220, side: 'blue' },
 ];
 
 function sideLabel(side: string) {
-  if (side === 'red')  return { label: '🔴 Red Line',  bg: 'bg-red-900/50',   text: 'text-red-400',   border: 'border-red-700/50',  play: 'hover:bg-[#cc0000] hover:border-[#cc0000]',  flame: 'text-red-400'  };
-  if (side === 'blue') return { label: '🔵 Blue Line', bg: 'bg-blue-900/50',  text: 'text-blue-400',  border: 'border-blue-700/50', play: 'hover:bg-blue-700 hover:border-blue-700',    flame: 'text-blue-400' };
-  return                      { label: '⚪ Open Line', bg: 'bg-gray-800/60',  text: 'text-gray-300',  border: 'border-gray-600/50', play: 'hover:bg-gray-600 hover:border-gray-600',    flame: 'text-gray-300' };
+  if (side === 'red')  return { label: '🔴 MAGA Line',    bg: 'bg-red-900/50',   text: 'text-red-400',   border: 'border-red-700/50',  play: 'hover:bg-[#cc0000] hover:border-[#cc0000]',  flame: 'text-red-400'  };
+  if (side === 'blue') return { label: '🔵 Blue Line',    bg: 'bg-blue-900/50',  text: 'text-blue-400',  border: 'border-blue-700/50', play: 'hover:bg-blue-700 hover:border-blue-700',    flame: 'text-blue-400' };
+  return                      { label: '⚪ Neutral Line', bg: 'bg-gray-800/60',  text: 'text-gray-300',  border: 'border-gray-600/50', play: 'hover:bg-gray-600 hover:border-gray-600',    flame: 'text-gray-300' };
 }
 
 export default function MagaRantLineHome() {
@@ -129,16 +129,30 @@ export default function MagaRantLineHome() {
           <p className="text-xs text-gray-600 mb-10 uppercase tracking-widest font-semibold">Unfiltered · Uncensored · Unafraid</p>
 
           {/* Three line CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-5">
-            <Button size="lg" className="w-full sm:w-auto bg-[#cc0000] hover:bg-red-700 text-white font-black text-base h-13 px-8 shadow-[0_0_25px_rgba(204,0,0,0.35)] rounded-full">
-              🔴 Red Line — $1.99
-            </Button>
-            <Button size="lg" className="w-full sm:w-auto bg-blue-700 hover:bg-blue-600 text-white font-black text-base h-13 px-8 shadow-[0_0_25px_rgba(30,64,175,0.35)] rounded-full">
-              🔵 Blue Line — $1.99
-            </Button>
-            <Button size="lg" className="w-full sm:w-auto bg-gray-700 hover:bg-gray-600 text-white font-black text-base h-13 px-8 rounded-full">
-              ⚪ Open Line — $1.99
-            </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-5">
+            <div className="flex flex-col items-center gap-1.5">
+              <Button size="lg" className="w-full bg-[#cc0000] hover:bg-red-700 text-white font-black text-base h-13 px-8 shadow-[0_0_25px_rgba(204,0,0,0.35)] rounded-full">
+                🔴 MAGA Line — $1.99
+              </Button>
+              <span className="text-[11px] text-red-400/70 font-semibold">Right (Conservative / Republican)</span>
+              <span className="text-[10px] text-gray-600 uppercase tracking-widest">Leave your rant.</span>
+            </div>
+            <div className="text-gray-700 font-black text-xl hidden sm:block self-start mt-3">VS</div>
+            <div className="flex flex-col items-center gap-1.5">
+              <Button size="lg" className="w-full bg-blue-700 hover:bg-blue-600 text-white font-black text-base h-13 px-8 shadow-[0_0_25px_rgba(30,64,175,0.35)] rounded-full">
+                🔵 Blue Line — $1.99
+              </Button>
+              <span className="text-[11px] text-blue-400/70 font-semibold">Left (Democrat / Progressive)</span>
+              <span className="text-[10px] text-gray-600 uppercase tracking-widest">Leave your rant.</span>
+            </div>
+            <div className="text-gray-700 font-black text-xl hidden sm:block self-start mt-3">·</div>
+            <div className="flex flex-col items-center gap-1.5">
+              <Button size="lg" className="w-full bg-gray-700 hover:bg-gray-600 text-white font-black text-base h-13 px-8 rounded-full">
+                ⚪ Neutral Line — $1.99
+              </Button>
+              <span className="text-[11px] text-gray-400/70 font-semibold">Independent / Open Rant</span>
+              <span className="text-[10px] text-gray-600 uppercase tracking-widest">Leave your rant.</span>
+            </div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -167,7 +181,7 @@ export default function MagaRantLineHome() {
             <div className="grid grid-cols-3 divide-x divide-white/8">
               <div className="p-5 text-center">
                 <div className="text-3xl font-black text-red-400 mb-1">{RED_TODAY.toLocaleString()}</div>
-                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">🔴 Red Line</div>
+                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">🔴 MAGA Line</div>
                 <div className="text-[10px] text-red-400/50 mt-1">+124 last hr</div>
               </div>
               <div className="p-5 text-center">
@@ -177,7 +191,7 @@ export default function MagaRantLineHome() {
               </div>
               <div className="p-5 text-center">
                 <div className="text-3xl font-black text-gray-300 mb-1">{OPEN_TODAY.toLocaleString()}</div>
-                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">⚪ Open Line</div>
+                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">⚪ Neutral Line</div>
                 <div className="text-[10px] text-gray-500/50 mt-1">+211 last hr</div>
               </div>
             </div>
@@ -210,7 +224,7 @@ export default function MagaRantLineHome() {
             <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#cc0000] via-red-400 to-[#cc0000]"></div>
             <CardHeader className="pb-3 border-b border-white/5">
               <div className="flex justify-between items-start mb-2">
-                <Badge className="bg-[#cc0000] text-white border-none font-bold uppercase tracking-wider text-[10px]">🔴 Red Line · Inflation · Rant #214</Badge>
+                <Badge className="bg-[#cc0000] text-white border-none font-bold uppercase tracking-wider text-[10px]">🔴 MAGA Line · Inflation · Rant #214</Badge>
                 <div className="flex items-center text-white font-bold bg-white/8 px-2.5 py-1 rounded-full text-xs">
                   <Flame className="w-3.5 h-3.5 mr-1 fill-white" /> 2,847 votes
                 </div>
@@ -259,7 +273,7 @@ export default function MagaRantLineHome() {
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-xl bg-orange-500/20 border border-orange-600/30 flex items-center justify-center text-2xl shrink-0">⚪</div>
               <div className="flex-1">
-                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-1">Open Line · Rant #219 · Inflation</div>
+                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-1">Neutral Line · Rant #219 · Inflation</div>
                 <h3 className="text-xl font-black text-white leading-tight mb-2">
                   "I spent $187 on groceries and got four bags."
                 </h3>
@@ -360,7 +374,7 @@ export default function MagaRantLineHome() {
           <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
             <div>
               <h2 className="text-3xl font-black uppercase tracking-tight mb-1">Latest Rants</h2>
-              <p className="text-gray-500 text-sm">Red, Blue & Open — all three lines</p>
+              <p className="text-gray-500 text-sm">MAGA, Blue & Neutral — all three lines</p>
             </div>
             {/* Sort tabs */}
             <div className="flex gap-1 bg-[#0f1423] border border-white/8 rounded-full p-1">
@@ -422,9 +436,9 @@ export default function MagaRantLineHome() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
-              { side: 'red',  badge: '🔴 Top Red Rant',  title: "They're Destroying This Country From the Inside Out", caller: 'PatriotPete, TX', dur: '2:34', votes: '2,847', bg: 'from-red-950/60', border: 'border-red-700/50', btn: 'bg-[#cc0000] hover:bg-red-700' },
-              { side: 'blue', badge: '🔵 Top Blue Rant',  title: 'Healthcare Is a Right, Not a Luxury — Period.', caller: 'NursePatty, IL', dur: '3:01', votes: '2,412', bg: 'from-blue-950/60', border: 'border-blue-700/50', btn: 'bg-blue-700 hover:bg-blue-600' },
-              { side: 'open', badge: '⚪ Top Open Rant',  title: 'Both parties are failing small businesses', caller: 'ShopOwnerRay, OH', dur: '3:05', votes: '1,988', bg: 'from-gray-800/50', border: 'border-gray-600/50', btn: 'bg-gray-700 hover:bg-gray-600' },
+              { side: 'red',  badge: '🔴 Top MAGA Rant',    title: "They're Destroying This Country From the Inside Out", caller: 'PatriotPete, TX', dur: '2:34', votes: '2,847', bg: 'from-red-950/60', border: 'border-red-700/50', btn: 'bg-[#cc0000] hover:bg-red-700' },
+              { side: 'blue', badge: '🔵 Top Blue Rant',    title: 'Healthcare Is a Right, Not a Luxury — Period.', caller: 'NursePatty, IL', dur: '3:01', votes: '2,412', bg: 'from-blue-950/60', border: 'border-blue-700/50', btn: 'bg-blue-700 hover:bg-blue-600' },
+              { side: 'open', badge: '⚪ Top Neutral Rant', title: 'Both parties are failing small businesses', caller: 'ShopOwnerRay, OH', dur: '3:05', votes: '1,988', bg: 'from-gray-800/50', border: 'border-gray-600/50', btn: 'bg-gray-700 hover:bg-gray-600' },
             ].map((r) => (
               <div key={r.side} className={`bg-gradient-to-br ${r.bg} to-[#0f1423] border-2 ${r.border} rounded-2xl p-5`}>
                 <Badge className={`${r.btn.split(' ')[0]} text-white border-none font-black uppercase tracking-widest text-[10px] mb-3`}>{r.badge}</Badge>
@@ -457,7 +471,7 @@ export default function MagaRantLineHome() {
             <div className="relative z-10">
               <Badge className="bg-[#cc0000] text-white font-bold uppercase tracking-widest mb-4 text-xs">Rant of the Week Challenge</Badge>
               <h2 className="text-3xl md:text-4xl font-black text-white mb-2 leading-tight">Top Rant Wins $100</h2>
-              <p className="text-gray-400 text-sm max-w-md">Leave the most-voted rant this week — any line, any topic — and take home cash. Red, Blue, or Open Line.</p>
+              <p className="text-gray-400 text-sm max-w-md">Leave the most-voted rant this week — any line, any topic — and take home cash. MAGA, Blue, or Neutral Line.</p>
               <div className="mt-3 flex items-center gap-4 text-xs">
                 <span className="text-gray-500 flex items-center gap-1"><Flame className="w-3.5 h-3.5 text-red-500" />342 entries so far</span>
                 <span className="text-gray-600">·</span>
@@ -500,7 +514,7 @@ export default function MagaRantLineHome() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div className="col-span-1 md:col-span-2">
               <span className="font-black text-2xl text-white mb-3 block">MAGA <span className="font-light">RantLine</span></span>
-              <p className="text-gray-500 text-sm leading-relaxed mb-3 max-w-sm">The uncensored hotline for real Americans — Red, Blue, or Open. Say what you mean. Be heard.</p>
+              <p className="text-gray-500 text-sm leading-relaxed mb-3 max-w-sm">The uncensored hotline for real Americans — MAGA, Blue, or Neutral. Say what you mean. Be heard.</p>
               <p className="text-[#cc0000] font-black text-lg">(877) RANT-NOW</p>
             </div>
             <div>
