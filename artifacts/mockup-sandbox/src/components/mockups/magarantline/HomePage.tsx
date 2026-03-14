@@ -36,13 +36,13 @@ const ALL_RANTS = [
 ];
 
 const TICKER_ITEMS = [
-  '🔴 MAGA LINE RANT #214 — "Gas prices are out of control"',
-  '🔵 BLUE LINE RANT #215 — "Stop blaming immigrants for everything"',
-  '⚪ NEUTRAL LINE RANT #216 — "Both parties are failing small businesses"',
-  '🔴 MAGA LINE RANT #217 — "Bring manufacturing back"',
-  '⚪ NEUTRAL LINE RANT #218 — "Rent just went up $600"',
-  '⚪ NEUTRAL LINE RANT #219 — "My grocery bill was $380"',
-  '🔵 BLUE LINE RANT #220 — "Healthcare costs are ridiculous"',
+  '🔥 MAGA LINE RANT #214 — "Gas Prices Are Destroying My Family Budget"',
+  '🔥 BLUE LINE RANT #215 — "Stop Blaming Immigrants for Everything"',
+  '🔥 NEUTRAL LINE RANT #216 — "Both Parties Are Failing Small Businesses"',
+  '🔥 MAGA LINE RANT #217 — "Bring Manufacturing Back to America"',
+  '🔥 NEUTRAL LINE RANT #218 — "Rent Just Went Up $600 — Where Do We Go?"',
+  '🔥 NEUTRAL LINE RANT #219 — "My Grocery Bill Was $380 — Four Bags"',
+  '🔥 BLUE LINE RANT #220 — "Healthcare Costs Are Absolutely Ridiculous"',
   '🏆 Weekly Challenge: Top Rant Wins $100 — 342 entries so far',
 ];
 
@@ -125,33 +125,31 @@ export default function MagaRantLineHome() {
             America<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-gray-200 to-blue-500">Is Arguing.</span>
           </h1>
-          <p className="text-xl font-medium text-gray-400 mb-2 max-w-xl mx-auto">Pick a side. Leave your rant. Let America vote.</p>
+          <p className="text-xl font-medium text-gray-400 mb-2 max-w-xl mx-auto">Pick a line. Leave your rant. Let America vote.</p>
           <p className="text-xs text-gray-600 mb-10 uppercase tracking-widest font-semibold">Unfiltered · Uncensored · Unafraid</p>
 
           {/* Three line CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-5">
-            <div className="flex flex-col items-center gap-1.5">
+          <p className="text-[11px] text-gray-500 uppercase tracking-[0.2em] font-bold mb-4">— Choose a Line —</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-5">
+            <div className="flex flex-col items-center gap-1">
               <Button size="lg" className="w-full bg-[#cc0000] hover:bg-red-700 text-white font-black text-base h-13 px-8 shadow-[0_0_25px_rgba(204,0,0,0.35)] rounded-full">
                 🔴 MAGA Line — $1.99
               </Button>
-              <span className="text-[11px] text-red-400/70 font-semibold">Right (Conservative / Republican)</span>
-              <span className="text-[10px] text-gray-600 uppercase tracking-widest">Leave your rant.</span>
+              <span className="text-[11px] text-red-400 font-black uppercase tracking-wide mt-1">Right / Conservative / Republican</span>
             </div>
-            <div className="text-gray-700 font-black text-xl hidden sm:block self-start mt-3">VS</div>
-            <div className="flex flex-col items-center gap-1.5">
+            <div className="text-gray-700 font-black text-xl hidden sm:block">VS</div>
+            <div className="flex flex-col items-center gap-1">
               <Button size="lg" className="w-full bg-blue-700 hover:bg-blue-600 text-white font-black text-base h-13 px-8 shadow-[0_0_25px_rgba(30,64,175,0.35)] rounded-full">
                 🔵 Blue Line — $1.99
               </Button>
-              <span className="text-[11px] text-blue-400/70 font-semibold">Left (Democrat / Progressive)</span>
-              <span className="text-[10px] text-gray-600 uppercase tracking-widest">Leave your rant.</span>
+              <span className="text-[11px] text-blue-400 font-black uppercase tracking-wide mt-1">Left / Democrat / Progressive</span>
             </div>
-            <div className="text-gray-700 font-black text-xl hidden sm:block self-start mt-3">·</div>
-            <div className="flex flex-col items-center gap-1.5">
+            <div className="text-gray-700 font-black text-xl hidden sm:block">VS</div>
+            <div className="flex flex-col items-center gap-1">
               <Button size="lg" className="w-full bg-gray-700 hover:bg-gray-600 text-white font-black text-base h-13 px-8 rounded-full">
                 ⚪ Neutral Line — $1.99
               </Button>
-              <span className="text-[11px] text-gray-400/70 font-semibold">Independent / Open Rant</span>
-              <span className="text-[10px] text-gray-600 uppercase tracking-widest">Leave your rant.</span>
+              <span className="text-[11px] text-gray-400 font-black uppercase tracking-wide mt-1">Independent / Open Rant</span>
             </div>
           </div>
 
@@ -181,17 +179,17 @@ export default function MagaRantLineHome() {
             <div className="grid grid-cols-3 divide-x divide-white/8">
               <div className="p-5 text-center">
                 <div className="text-3xl font-black text-red-400 mb-1">{RED_TODAY.toLocaleString()}</div>
-                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">🔴 MAGA Line</div>
+                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">🔴 MAGA Calls Today</div>
                 <div className="text-[10px] text-red-400/50 mt-1">+124 last hr</div>
               </div>
               <div className="p-5 text-center">
                 <div className="text-3xl font-black text-blue-400 mb-1">{BLUE_TODAY.toLocaleString()}</div>
-                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">🔵 Blue Line</div>
+                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">🔵 Blue Calls Today</div>
                 <div className="text-[10px] text-blue-400/50 mt-1">+97 last hr</div>
               </div>
               <div className="p-5 text-center">
                 <div className="text-3xl font-black text-gray-300 mb-1">{OPEN_TODAY.toLocaleString()}</div>
-                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">⚪ Neutral Line</div>
+                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">⚪ Open Calls Today</div>
                 <div className="text-[10px] text-gray-500/50 mt-1">+211 last hr</div>
               </div>
             </div>
