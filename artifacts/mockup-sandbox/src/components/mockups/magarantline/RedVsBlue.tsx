@@ -158,7 +158,7 @@ export default function RedVsBlue() {
               <span className="text-[10px] text-gray-600 uppercase tracking-widest">Leave your rant.</span>
             </div>
           </div>
-          <p className="text-gray-600 text-xs mt-2">Skip the Line: $5 · Featured: $25 · (877) RANT-NOW</p>
+          <p className="text-gray-600 text-xs mt-2">Skip the Line: $5 · Featured: $25 · 1-888-460-RANT</p>
         </div>
       </div>
 

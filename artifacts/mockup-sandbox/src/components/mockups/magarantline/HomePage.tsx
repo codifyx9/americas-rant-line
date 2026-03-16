@@ -110,7 +110,7 @@ export default function MagaRantLineHome() {
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="inline-flex items-center gap-2.5 bg-black border border-white/15 px-5 py-2 rounded-full">
               <Phone className="w-4 h-4 text-[#cc0000]" />
-              <span className="font-black text-white text-base tracking-widest">(877) RANT-NOW</span>
+              <span className="font-black text-white text-base tracking-widest">1-888-460-RANT</span>
               <span className="text-gray-600 text-xs">·</span>
               <span className="text-gray-500 text-xs font-medium">Lines open 24/7</span>
             </div>
@@ -498,7 +498,7 @@ export default function MagaRantLineHome() {
             {[
               { step: '01', icon: '💳', title: 'Choose Your Plan', desc: 'Pick Standard, Skip the Line, or Featured. Pay securely.' },
               { step: '02', icon: '📞', title: 'Get Your Code',    desc: 'Receive a unique call code and the hotline number instantly.' },
-              { step: '03', icon: '🎙️', title: 'Call & Record',   desc: 'Dial (877) RANT-NOW, enter your code, speak your mind.' },
+              { step: '03', icon: '🎙️', title: 'Call & Record',   desc: 'Dial 1-888-460-RANT, enter your code, speak your mind.' },
               { step: '04', icon: '🔥', title: 'Go Live & Vote',  desc: 'Your rant is published. Listeners vote and share your voice.' },
             ].map((s) => (
               <div key={s.step} className="bg-[#0f1423] border border-[#cc0000]/15 rounded-xl p-5 relative">
@@ -519,7 +519,7 @@ export default function MagaRantLineHome() {
             <div className="col-span-1 md:col-span-2">
               <span className="font-black text-2xl text-white mb-3 block">America's <span className="font-light">Rant Line</span></span>
               <p className="text-gray-500 text-sm leading-relaxed mb-3 max-w-sm">The uncensored hotline for real Americans — MAGA, Blue, or Neutral. Say what you mean. Be heard.</p>
-              <p className="text-[#cc0000] font-black text-lg">(877) RANT-NOW</p>
+              <p className="text-[#cc0000] font-black text-lg">1-888-460-RANT</p>
             </div>
             <div>
               <h4 className="font-bold text-white text-xs uppercase tracking-widest mb-3">Navigate</h4>

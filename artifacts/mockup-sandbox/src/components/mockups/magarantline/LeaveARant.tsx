@@ -103,7 +103,7 @@ export default function LeaveARant() {
         <div className="text-center mb-14">
           <div className="inline-flex items-center gap-2 bg-red-950/60 border border-red-800 text-red-400 px-4 py-1.5 rounded-full text-xs font-bold mb-6 uppercase tracking-widest">
             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-            Hotline Open Now · 1-800-RANT-NOW
+            Hotline Open Now · 1-888-460-RANT
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-4 uppercase">Leave Your <span className="text-[#cc0000]">Rant</span></h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
@@ -162,7 +162,7 @@ export default function LeaveARant() {
             {[
               { step: '1', icon: <CreditCard className="h-7 w-7 text-blue-400" />, title: 'Choose & Pay', desc: 'Pick your plan and pay securely via Stripe. Takes under 60 seconds.' },
               { step: '2', icon: <MessageSquare className="h-7 w-7 text-red-400" />, title: 'Get Your Code', desc: 'Receive your unique call code and the hotline number instantly by text or email.' },
-              { step: '3', icon: <Phone className="h-7 w-7 text-green-400" />, title: 'Call & Record', desc: 'Dial 1-800-RANT-NOW, enter your code, and speak your mind. Up to 5 minutes.' },
+              { step: '3', icon: <Phone className="h-7 w-7 text-green-400" />, title: 'Call & Record', desc: 'Dial 1-888-460-RANT, enter your code, and speak your mind. Up to 5 minutes.' },
               { step: '4', icon: <Radio className="h-7 w-7 text-white" />, title: 'Go Live', desc: 'Your rant is reviewed, published, and shared to 89,000+ listeners immediately.' },
             ].map((s) => (
               <div key={s.step} className="bg-[#0f1423] border border-[#cc0000]/20 rounded-xl p-5 relative">
@@ -177,7 +177,7 @@ export default function LeaveARant() {
           <div className="mt-8 bg-black/50 border-2 border-[#cc0000]/50 rounded-xl p-6 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/3 to-transparent animate-pulse pointer-events-none"></div>
             <p className="text-gray-500 mb-1 font-medium uppercase tracking-widest text-xs">Hotline Number</p>
-            <div className="text-5xl md:text-6xl font-black text-white tracking-widest">1-800-RANT-NOW</div>
+            <div className="text-5xl md:text-6xl font-black text-white tracking-widest">1-888-460-RANT</div>
             <p className="text-gray-600 text-xs mt-2">Available 24/7 · All US numbers accepted</p>
           </div>
 
@@ -248,7 +248,7 @@ export default function LeaveARant() {
                 <p className="text-xl text-gray-300 mb-10 max-w-xl mx-auto">You're ready to rant. Grab your phone and call now.</p>
                 <div className="bg-black/60 border-2 border-white rounded-2xl p-8 mb-8 inline-block">
                   <div className="text-gray-400 mb-2 font-medium uppercase tracking-widest text-xs">Call Now</div>
-                  <div className="text-5xl md:text-6xl font-black text-white tracking-wider mb-5">1-800-RANT-NOW</div>
+                  <div className="text-5xl md:text-6xl font-black text-white tracking-wider mb-5">1-888-460-RANT</div>
                   <div className="bg-gray-800 text-white font-mono py-3 px-6 rounded-lg text-xl border border-[#cc0000]/50 inline-block">
                     Your call code: <span className="font-black text-red-400">#RNT-2847</span>
                   </div>
