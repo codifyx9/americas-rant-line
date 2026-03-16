@@ -170,7 +170,7 @@ export default function RantsFeed() {
               <Mic className="w-10 h-10 text-white mx-auto mb-3" />
               <h3 className="font-black text-white text-lg mb-1">Got Something To Say?</h3>
               <p className="text-red-200 text-xs mb-4 leading-relaxed">Call the hotline and join 12,000+ ranters who've been heard.</p>
-              <Button className="w-full bg-white text-black font-black hover:bg-white/90 rounded-full">Leave a Rant — $1.99</Button>
+              <Button className="w-full bg-white text-black font-black hover:bg-white/90 rounded-full">Leave a Rant — $2.99</Button>
             </div>
 
             {/* TRENDING TOPICS */}

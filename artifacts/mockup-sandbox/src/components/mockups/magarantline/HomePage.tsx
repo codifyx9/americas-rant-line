@@ -133,21 +133,21 @@ export default function MagaRantLineHome() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-5">
             <div className="flex flex-col items-center gap-1">
               <Button size="lg" className="w-full bg-[#cc0000] hover:bg-red-700 text-white font-black text-base h-13 px-8 shadow-[0_0_25px_rgba(204,0,0,0.35)] rounded-full">
-                🔴 MAGA Line — $1.99
+                🔴 MAGA Line — $2.99
               </Button>
               <span className="text-[11px] text-red-400 font-black uppercase tracking-wide mt-1">Right / Conservative / Republican</span>
             </div>
             <div className="text-gray-700 font-black text-xl hidden sm:block">VS</div>
             <div className="flex flex-col items-center gap-1">
               <Button size="lg" className="w-full bg-blue-700 hover:bg-blue-600 text-white font-black text-base h-13 px-8 shadow-[0_0_25px_rgba(30,64,175,0.35)] rounded-full">
-                🔵 Blue Line — $1.99
+                🔵 Blue Line — $2.99
               </Button>
               <span className="text-[11px] text-blue-400 font-black uppercase tracking-wide mt-1">Left / Democrat / Progressive</span>
             </div>
             <div className="text-gray-700 font-black text-xl hidden sm:block">VS</div>
             <div className="flex flex-col items-center gap-1">
               <Button size="lg" className="w-full bg-gray-700 hover:bg-gray-600 text-white font-black text-base h-13 px-8 rounded-full">
-                ⚪ Neutral Line — $1.99
+                ⚪ Neutral Line — $2.99
               </Button>
               <span className="text-[11px] text-gray-400 font-black uppercase tracking-wide mt-1">Independent / Open Rant</span>
             </div>

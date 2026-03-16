@@ -15,11 +15,11 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const RANTS_DATA = [
   { id: "#2847", caller: "+1(512)***-4892", state: "TX", timestamp: "Today 2:34 PM", duration: "2:34", category: "", status: "Pending", plan: "Skip", revenue: "$5.00", featured: false },
   { id: "#2846", caller: "+1(614)***-7723", state: "OH", timestamp: "Today 1:18 PM", duration: "4:12", category: "Inflation", status: "Pending", plan: "Featured", revenue: "$25.00", featured: false },
-  { id: "#2845", caller: "+1(404)***-2291", state: "GA", timestamp: "Today 11:45 AM", duration: "3:45", category: "Politics", status: "Approved", plan: "Standard", revenue: "$1.99", featured: false },
+  { id: "#2845", caller: "+1(404)***-2291", state: "GA", timestamp: "Today 11:45 AM", duration: "3:45", category: "Politics", status: "Approved", plan: "Standard", revenue: "$2.99", featured: false },
   { id: "#2844", caller: "+1(305)***-9918", state: "FL", timestamp: "Today 9:22 AM", duration: "2:18", category: "Work", status: "Approved", plan: "Skip", revenue: "$5.00", featured: false },
-  { id: "#2843", caller: "+1(734)***-5507", state: "MI", timestamp: "Yesterday 6:15 PM", duration: "5:02", category: "Dating", status: "Rejected", plan: "Standard", revenue: "$1.99", featured: false },
+  { id: "#2843", caller: "+1(734)***-5507", state: "MI", timestamp: "Yesterday 6:15 PM", duration: "5:02", category: "Dating", status: "Rejected", plan: "Standard", revenue: "$2.99", featured: false },
   { id: "#2842", caller: "+1(602)***-1134", state: "AZ", timestamp: "Yesterday 4:01 PM", duration: "1:57", category: "Everyday Life", status: "Approved", plan: "Featured", revenue: "$25.00", featured: true },
-  { id: "#2841", caller: "+1(801)***-3344", state: "UT", timestamp: "Yesterday 2:22 PM", duration: "3:30", category: "Border", status: "Approved", plan: "Standard", revenue: "$1.99", featured: false },
+  { id: "#2841", caller: "+1(801)***-3344", state: "UT", timestamp: "Yesterday 2:22 PM", duration: "3:30", category: "Border", status: "Approved", plan: "Standard", revenue: "$2.99", featured: false },
   { id: "#2840", caller: "+1(256)***-8812", state: "AL", timestamp: "Yesterday 11:05 AM", duration: "2:47", category: "Politics", status: "Pending", plan: "Skip", revenue: "$5.00", featured: false },
 ];
 

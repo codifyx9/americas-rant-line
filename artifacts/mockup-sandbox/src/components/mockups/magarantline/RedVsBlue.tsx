@@ -136,7 +136,7 @@ export default function RedVsBlue() {
           <div className="flex flex-col sm:flex-row items-start justify-center gap-4 mb-4">
             <div className="flex flex-col items-center gap-1.5 w-full sm:w-auto">
               <Button size="lg" className="bg-[#cc0000] hover:bg-red-700 text-white font-black text-base h-13 px-8 rounded-full shadow-[0_0_25px_rgba(204,0,0,0.4)] w-full">
-                🔴 MAGA Line — $1.99
+                🔴 MAGA Line — $2.99
               </Button>
               <span className="text-[11px] text-red-400/70 font-semibold">Right (Conservative / Republican)</span>
               <span className="text-[10px] text-gray-600 uppercase tracking-widest">Leave your rant.</span>
@@ -144,7 +144,7 @@ export default function RedVsBlue() {
             <div className="text-gray-700 font-black text-lg hidden sm:block self-start mt-3">VS</div>
             <div className="flex flex-col items-center gap-1.5 w-full sm:w-auto">
               <Button size="lg" className="bg-gray-700 hover:bg-gray-600 text-white font-black text-base h-13 px-8 rounded-full w-full">
-                ⚪ Neutral Line — $1.99
+                ⚪ Neutral Line — $2.99
               </Button>
               <span className="text-[11px] text-gray-400/70 font-semibold">Independent / Open Rant</span>
               <span className="text-[10px] text-gray-600 uppercase tracking-widest">Leave your rant.</span>
@@ -152,7 +152,7 @@ export default function RedVsBlue() {
             <div className="text-gray-700 font-black text-lg hidden sm:block self-start mt-3">VS</div>
             <div className="flex flex-col items-center gap-1.5 w-full sm:w-auto">
               <Button size="lg" className="bg-blue-700 hover:bg-blue-600 text-white font-black text-base h-13 px-8 rounded-full shadow-[0_0_25px_rgba(30,64,175,0.4)] w-full">
-                🔵 Blue Line — $1.99
+                🔵 Blue Line — $2.99
               </Button>
               <span className="text-[11px] text-blue-400/70 font-semibold">Left (Democrat / Progressive)</span>
               <span className="text-[10px] text-gray-600 uppercase tracking-widest">Leave your rant.</span>
@@ -334,7 +334,7 @@ export default function RedVsBlue() {
             <p className="text-red-400/60 text-xs font-semibold mb-2">Right (Conservative / Republican)</p>
             <p className="text-gray-500 text-sm mb-5">Say what the mainstream media won't air.</p>
             <Button className="bg-[#cc0000] hover:bg-red-700 text-white font-black rounded-full px-7 h-11">
-              Call Now — $1.99
+              Call Now — $2.99
             </Button>
           </div>
           <div className="bg-gradient-to-b from-gray-800/30 to-transparent p-8 text-center">
@@ -343,7 +343,7 @@ export default function RedVsBlue() {
             <p className="text-gray-400/60 text-xs font-semibold mb-2">Independent / Open Rant</p>
             <p className="text-gray-500 text-sm mb-5">No side required. Just your honest voice.</p>
             <Button className="bg-gray-700 hover:bg-gray-600 text-white font-black rounded-full px-7 h-11">
-              Call Now — $1.99
+              Call Now — $2.99
             </Button>
           </div>
           <div className="bg-gradient-to-l from-blue-950/60 to-transparent p-8 text-center">
@@ -352,7 +352,7 @@ export default function RedVsBlue() {
             <p className="text-blue-400/60 text-xs font-semibold mb-2">Left (Democrat / Progressive)</p>
             <p className="text-gray-500 text-sm mb-5">Make your voice heard loud and clear.</p>
             <Button className="bg-blue-700 hover:bg-blue-600 text-white font-black rounded-full px-7 h-11">
-              Call Now — $1.99
+              Call Now — $2.99
             </Button>
           </div>
         </div>

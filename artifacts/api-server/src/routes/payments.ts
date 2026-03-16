@@ -12,7 +12,7 @@ function getStripe() {
 }
 
 const PRODUCTS = {
-  "leave-rant": { name: "Leave a Rant", amount: 199, description: "Leave your rant on America's Rant Line" },
+  "leave-rant": { name: "Leave a Rant", amount: 299, description: "Leave your rant on America's Rant Line" },
   "skip-line":  { name: "Skip the Line", amount: 500, description: "Jump to the front of the queue" },
   "featured":   { name: "Featured Rant", amount: 2500, description: "Get your rant featured on the homepage" },
 } as const;
