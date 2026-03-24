@@ -57,7 +57,7 @@ export default function PrivacyPolicy() {
               <li>The line you called (MAGA, Blue, or Neutral)</li>
               <li>Vote counts, play counts, and ranking data</li>
             </ul>
-            <p className="mt-2">Your phone number is <strong className="text-white">never</strong> displayed publicly. If you wish to have a published rant removed, contact us at privacy@americasrantline.com.</p>
+            <p className="mt-2">Your phone number is <strong className="text-white">never</strong> displayed publicly. If you wish to have a published rant removed, contact us at americasrantline@gmail.com.</p>
           </section>
 
           <section>
@@ -98,7 +98,7 @@ export default function PrivacyPolicy() {
               <li><strong className="text-white">Opt-Out of Cookies:</strong> You can manage cookie preferences through your browser settings.</li>
               <li><strong className="text-white">Rant Removal:</strong> Request removal of a published rant by contacting us.</li>
             </ul>
-            <p className="mt-2">To exercise any of these rights, email us at privacy@americasrantline.com with your request and sufficient information to verify your identity.</p>
+            <p className="mt-2">To exercise any of these rights, email us at americasrantline@gmail.com with your request and sufficient information to verify your identity.</p>
           </section>
 
           <section>
@@ -110,7 +110,7 @@ export default function PrivacyPolicy() {
               <li>The right to opt out of the sale of personal information (we do not sell personal information)</li>
               <li>The right to non-discrimination for exercising your CCPA rights</li>
             </ul>
-            <p className="mt-2">To exercise your CCPA rights, contact us at privacy@americasrantline.com or call 1-888-460-RANT.</p>
+            <p className="mt-2">To exercise your CCPA rights, contact us at americasrantline@gmail.com or call 1-888-460-RANT.</p>
           </section>
 
           <section>
@@ -131,7 +131,7 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-lg font-black text-white uppercase mb-3">13. Contact Us</h2>
             <p>For privacy-related questions or requests, contact us at:</p>
-            <p className="mt-2 text-white font-semibold">privacy@americasrantline.com</p>
+            <p className="mt-2 text-white font-semibold">americasrantline@gmail.com</p>
             <p className="text-gray-500 mt-1">America&rsquo;s Rant Line &middot; 1-888-460-RANT</p>
           </section>
         </div>

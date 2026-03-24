@@ -95,7 +95,7 @@ export default function CommunityGuidelines() {
               <li><strong className="text-white">First Offense:</strong> Rant rejected. No further action unless the content was severe.</li>
               <li><strong className="text-white">Repeated Violations:</strong> Future rants from your phone number may be automatically flagged for review.</li>
               <li><strong className="text-white">Severe Violations:</strong> Phone number permanently blocked. Content reported to law enforcement if legally required.</li>
-              <li><strong className="text-white">Appeals:</strong> If you believe your rant was wrongly rejected, email appeals@americasrantline.com with your rant number.</li>
+              <li><strong className="text-white">Appeals:</strong> If you believe your rant was wrongly rejected, email americasrantline@gmail.com with your rant number.</li>
             </ul>
           </section>
 
@@ -110,7 +110,7 @@ export default function CommunityGuidelines() {
           <section>
             <h2 className="text-lg font-black text-white uppercase mb-3">Contact</h2>
             <p>Questions about these guidelines? Contact us at:</p>
-            <p className="mt-2 text-white font-semibold">community@americasrantline.com</p>
+            <p className="mt-2 text-white font-semibold">americasrantline@gmail.com</p>
             <p className="text-gray-500 mt-1">America&rsquo;s Rant Line &middot; 1-888-460-RANT</p>
           </section>
         </div>

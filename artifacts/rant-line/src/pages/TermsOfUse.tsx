@@ -93,7 +93,7 @@ export default function TermsOfUse() {
           <section>
             <h2 className="text-lg font-black text-white uppercase mb-3">15. Contact</h2>
             <p>For questions about these Terms, contact us at:</p>
-            <p className="mt-2 text-white font-semibold">legal@americasrantline.com</p>
+            <p className="mt-2 text-white font-semibold">americasrantline@gmail.com</p>
             <p className="text-gray-500 mt-1">America&rsquo;s Rant Line &middot; 1-888-460-RANT</p>
           </section>
         </div>
