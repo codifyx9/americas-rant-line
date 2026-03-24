@@ -145,6 +145,33 @@ Full backend for a political talk-radio voicemail platform with three lines:
 | `skip-line` | Skip the Line | $5.00 |
 | `featured` | Featured Rant | $25.00 |
 
+## America's Rant Line — Frontend
+
+React + Vite SPA at `artifacts/rant-line/` with wouter routing and TanStack React Query.
+
+### Pages
+| Route | Component | Description |
+|---|---|---|
+| `/` | Home | Hero, stats, 3 line counters, featured rant, trending list, CTA |
+| `/rants` | RantsFeed | Paginated/filtered/searchable rant feed with audio playback |
+| `/leaderboard` | Leaderboard | Period-selectable top rants + top ranters sidebar |
+| `/leave-a-rant` | LeaveARant | Line picker, plan selector, Stripe checkout flow |
+| `/arena` | RedVsBlue | Red vs Blue comparison: bar, top rant VS, latest per side |
+| `/admin` | AdminDashboard | API key auth, moderation queue, stats panel |
+
+### Key Files
+- `src/lib/api.ts` — typed fetch client for all API endpoints
+- `src/components/Layout.tsx` — shared nav + footer (mobile hamburger)
+- `src/components/RantCard.tsx` — reusable rant card with play/vote/downvote
+- `src/index.css` — dark navy theme (bg `#0a0e1a`, primary `#cc0000`)
+- `vite.config.ts` — proxies `/api` to API server on port 8080
+
+### Design
+- Always dark mode (navy `#0a0e1a` background)
+- Red `#cc0000` primary, blue `#1e40af` for blue line
+- Font: Inter (font-black for headings)
+- Wordmark: `America's` (bold) `Rant Line` (light)
+
 ## Packages
 
 ### `artifacts/api-server` (`@workspace/api-server`)
