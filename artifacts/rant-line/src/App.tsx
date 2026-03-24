@@ -9,6 +9,9 @@ import Leaderboard from "@/pages/Leaderboard";
 import LeaveARant from "@/pages/LeaveARant";
 import RedVsBlue from "@/pages/RedVsBlue";
 import AdminDashboard from "@/pages/AdminDashboard";
+import TermsOfUse from "@/pages/TermsOfUse";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import CommunityGuidelines from "@/pages/CommunityGuidelines";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient({
@@ -30,6 +33,9 @@ function Router() {
         <Route path="/leave-a-rant" component={LeaveARant} />
         <Route path="/arena" component={RedVsBlue} />
         <Route path="/admin" component={AdminDashboard} />
+        <Route path="/terms" component={TermsOfUse} />
+        <Route path="/privacy" component={PrivacyPolicy} />
+        <Route path="/community-guidelines" component={CommunityGuidelines} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

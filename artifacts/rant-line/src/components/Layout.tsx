@@ -96,9 +96,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </div>
             </div>
             <div className="flex gap-6 text-xs text-gray-500">
-              <a href="#" className="hover:text-white transition-colors">Terms of Use</a>
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Community Guidelines</a>
+              <Link href="/terms" className="hover:text-white transition-colors no-underline text-gray-500">Terms of Use</Link>
+              <Link href="/privacy" className="hover:text-white transition-colors no-underline text-gray-500">Privacy Policy</Link>
+              <Link href="/community-guidelines" className="hover:text-white transition-colors no-underline text-gray-500">Community Guidelines</Link>
             </div>
           </div>
           <p className="text-center text-[10px] text-gray-700 mt-8">
