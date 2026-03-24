@@ -67,36 +67,81 @@ Full backend for a political talk-radio voicemail platform with three lines:
 | `STRIPE_SECRET_KEY` | Stripe secret key (optional — for payments) |
 | `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret (optional) |
 
+### Database Tables
+
+- **callers**: id, phone, email, nickname, city, state, created_at
+- **rants**: id, rant_number (serial), caller_id, category, title, topic, audio_url, duration, votes, downvotes, plays, approved, featured, created_at
+- **call_codes**: id, code (unique), caller_id, plan, category, stripe_session_id, used, rant_id, created_at, expires_at
+- **activity_log**: id, type, message, metadata (jsonb), created_at
+
 ### API Routes
 
-| Method | Path | Auth | Description |
-|---|---|---|---|
-| GET | `/api/healthz` | — | Health check |
-| GET | `/api/rants/latest` | — | Latest 20 approved rants |
-| GET | `/api/rants/trending` | — | Trending rants (last 48h, by votes) |
-| GET | `/api/rants/leaderboard` | — | Top 20 all-time by votes |
-| GET | `/api/rants/:id` | — | Single rant |
-| POST | `/api/rants/:id/vote` | — | Upvote (rate-limited: 5/min) |
-| POST | `/api/rants/:id/downvote` | — | Downvote (rate-limited: 5/min) |
-| GET | `/api/stats/calls` | — | Total call counts by line |
-| GET | `/api/stats/calls/today` | — | Today's call counts |
-| POST | `/api/twilio/voice` | — | TwiML entry point (Twilio webhook) |
-| POST | `/api/twilio/gather` | — | TwiML keypress handler |
-| POST | `/api/twilio/recording` | — | Recording webhook → saves rant to DB |
-| POST | `/api/payments/create-session` | — | Create Stripe checkout session |
-| POST | `/api/payments/webhook` | Stripe sig | Stripe payment confirmation |
-| GET | `/api/admin/rants/pending` | x-admin-key | Pending moderation queue |
-| GET | `/api/admin/rants` | x-admin-key | All rants |
-| POST | `/api/admin/rants/:id/approve` | x-admin-key | Approve rant |
-| POST | `/api/admin/rants/:id/reject` | x-admin-key | Delete rant |
-| POST | `/api/admin/rants/:id/feature` | x-admin-key | Feature + approve rant |
-| GET | `/api/admin/callers` | x-admin-key | All callers list |
+**Public Rants**
+| Method | Path | Description |
+|---|---|---|
+| GET | `/api/rants/latest` | Paginated rants (?page, ?limit, ?sort, ?category, ?topic, ?q) |
+| GET | `/api/rants/trending` | Trending rants (last 48h by votes) |
+| GET | `/api/rants/featured` | Current featured rant |
+| GET | `/api/rants/by-line` | Latest 10 rants per line (maga/blue/neutral) |
+| GET | `/api/rants/top-by-line` | Top rant per line by votes |
+| GET | `/api/rants/leaderboard` | Top rants (?period=today/week/month/all, ?limit) |
+| GET | `/api/rants/:id` | Single rant |
+| POST | `/api/rants/:id/vote` | Upvote (rate-limited: 5/min) |
+| POST | `/api/rants/:id/downvote` | Downvote (rate-limited: 5/min) |
+| POST | `/api/rants/:id/play` | Increment play count |
+
+**Stats & Aggregation**
+| Method | Path | Description |
+|---|---|---|
+| GET | `/api/stats/calls` | Total call counts by line |
+| GET | `/api/stats/calls/today` | Today's call counts |
+| GET | `/api/stats/global` | Global totals (rants, plays, votes, callers, featured) |
+| GET | `/api/stats/topics` | Trending topics with counts |
+| GET | `/api/stats/top-ranters` | Top callers by votes (?limit) |
+| GET | `/api/stats/category-breakdown` | Topic distribution with percentages |
+
+**Call Codes**
+| Method | Path | Description |
+|---|---|---|
+| POST | `/api/call-codes/generate` | Generate code (body: plan, category) |
+| GET | `/api/call-codes/:code` | Lookup code validity |
+| POST | `/api/call-codes/:code/use` | Mark code as used |
+
+**Twilio Webhooks**
+| Method | Path | Description |
+|---|---|---|
+| POST | `/api/twilio/voice` | IVR entry point with legal notice |
+| POST | `/api/twilio/gather` | Keypress handler (1=MAGA, 2=Blue, 3=Neutral) |
+| POST | `/api/twilio/code-check` | Validate call code during call |
+| POST | `/api/twilio/record` | Start recording with plan-based max length |
+| POST | `/api/twilio/recording` | Recording complete webhook → save to DB |
+
+**Payments**
+| Method | Path | Description |
+|---|---|---|
+| POST | `/api/payments/create-session` | Stripe checkout (body: product, category) |
+| POST | `/api/payments/webhook` | Stripe webhook → creates call code + logs activity |
+
+**Admin (requires x-admin-key header)**
+| Method | Path | Description |
+|---|---|---|
+| GET | `/api/admin/rants/pending` | Pending moderation queue |
+| GET | `/api/admin/rants` | All rants (last 100) |
+| POST | `/api/admin/rants/:id/approve` | Approve rant |
+| POST | `/api/admin/rants/:id/reject` | Delete rant |
+| POST | `/api/admin/rants/:id/feature` | Feature + approve rant |
+| POST | `/api/admin/rants/:id/category` | Update topic/category |
+| POST | `/api/admin/rants/:id/title` | Set rant title |
+| POST | `/api/admin/rants/bulk-approve` | Approve all pending |
+| GET | `/api/admin/callers` | All callers list |
+| GET | `/api/admin/stats/revenue` | Revenue analytics (?period=week/month/year) |
+| GET | `/api/admin/activity` | Activity log feed (?limit) |
 
 ### Stripe Products
 
 | Key | Name | Price |
 |---|---|---|
-| `leave-rant` | Leave a Rant | $1.99 |
+| `leave-rant` | Leave a Rant | $2.99 |
 | `skip-line` | Skip the Line | $5.00 |
 | `featured` | Featured Rant | $25.00 |
 

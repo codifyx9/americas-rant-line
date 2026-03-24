@@ -7,6 +7,8 @@ export const callersTable = pgTable("callers", {
   phone: text("phone"),
   email: text("email"),
   nickname: text("nickname"),
+  city: text("city"),
+  state: text("state"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

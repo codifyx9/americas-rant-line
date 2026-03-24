@@ -1,8 +1,10 @@
 import { Router } from "express";
 import Stripe from "stripe";
 import { db } from "@workspace/db";
-import { callersTable } from "@workspace/db";
+import { callersTable, callCodesTable } from "@workspace/db";
 import { eq } from "drizzle-orm";
+import { generateCallCode } from "../lib/callCodeGenerator.js";
+import { logActivity } from "../lib/activityLogger.js";
 
 const router = Router();
 
@@ -22,8 +24,9 @@ type ProductKey = keyof typeof PRODUCTS;
 router.post("/payments/create-session", async (req, res) => {
   try {
     const stripe = getStripe();
-    const { product, successUrl, cancelUrl } = req.body as {
+    const { product, category, successUrl, cancelUrl } = req.body as {
       product: ProductKey;
+      category?: string;
       successUrl?: string;
       cancelUrl?: string;
     };
@@ -44,7 +47,7 @@ router.post("/payments/create-session", async (req, res) => {
       billing_address_collection: "auto",
       success_url: successUrl ?? `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl ?? `${origin}/`,
-      metadata: { product },
+      metadata: { product, category: category ?? "" },
     });
 
     res.json({ url: session.url, sessionId: session.id });
@@ -76,20 +79,57 @@ router.post("/payments/webhook", async (req, res) => {
     const session = event.data.object as Stripe.Checkout.Session;
     const email = session.customer_details?.email ?? session.customer_email;
     const phone = session.customer_details?.phone;
+    const product = session.metadata?.product ?? "leave-rant";
+    const category = session.metadata?.category;
 
-    if (email && phone) {
+    let callerId: string | undefined;
+
+    if (phone) {
       const existing = await db.select().from(callersTable).where(eq(callersTable.phone, phone)).limit(1);
       if (existing.length > 0) {
-        await db.update(callersTable).set({ email }).where(eq(callersTable.phone, phone));
+        callerId = existing[0].id;
+        if (email) await db.update(callersTable).set({ email }).where(eq(callersTable.phone, phone));
       } else {
-        await db.insert(callersTable).values({ phone, email });
+        const [newCaller] = await db.insert(callersTable).values({ phone, email }).returning({ id: callersTable.id });
+        callerId = newCaller.id;
       }
     } else if (email) {
       const existing = await db.select().from(callersTable).where(eq(callersTable.email, email)).limit(1);
-      if (existing.length === 0) {
-        await db.insert(callersTable).values({ email });
+      if (existing.length > 0) {
+        callerId = existing[0].id;
+      } else {
+        const [newCaller] = await db.insert(callersTable).values({ email }).returning({ id: callersTable.id });
+        callerId = newCaller.id;
       }
     }
+
+    let code = generateCallCode();
+    let attempts = 0;
+    while (attempts < 5) {
+      const existing = await db.select().from(callCodesTable).where(eq(callCodesTable.code, code)).limit(1);
+      if (existing.length === 0) break;
+      code = generateCallCode();
+      attempts++;
+    }
+
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    await db.insert(callCodesTable).values({
+      code,
+      plan: product,
+      category: category || undefined,
+      callerId,
+      stripeSessionId: session.id,
+      expiresAt,
+    });
+
+    const PRICES: Record<string, number> = { "leave-rant": 2.99, "skip-line": 5.0, "featured": 25.0 };
+    await logActivity("payment_received", `Payment $${PRICES[product] ?? 0} received for ${product}`, {
+      sessionId: session.id,
+      product,
+      amount: PRICES[product] ?? 0,
+      callCode: code,
+      callerPhone: phone,
+    });
   }
 
   res.json({ received: true });
