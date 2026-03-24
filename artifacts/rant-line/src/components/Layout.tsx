@@ -101,12 +101,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <Link href="/community-guidelines" className="hover:text-white transition-colors no-underline text-gray-500">Community Guidelines</Link>
             </div>
           </div>
-          <p className="text-center text-[10px] text-gray-700 mt-8">
-            Opinions expressed by callers are their own and do not represent the views of {"America's"} Rant Line.
-          </p>
-          <p className="text-center text-[10px] text-gray-700 mt-1">
-            &copy; {new Date().getFullYear()} {"America's"} Rant Line. All rights reserved.
-          </p>
+          <div className="flex items-center justify-center mt-8 gap-3">
+            <p className="text-[10px] text-gray-700">
+              Opinions expressed by callers are their own and do not represent the views of {"America's"} Rant Line.
+            </p>
+          </div>
+          <div className="flex items-center justify-center mt-1 gap-2">
+            <p className="text-[10px] text-gray-700">
+              &copy; {new Date().getFullYear()} {"America's"} Rant Line. All rights reserved.
+            </p>
+            <Link href="/admin" className="text-gray-700 hover:text-gray-500 transition-colors no-underline text-[10px]">&middot; Dashboard</Link>
+          </div>
         </div>
       </footer>
     </div>
