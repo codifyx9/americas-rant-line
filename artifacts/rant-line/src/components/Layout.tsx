@@ -3,45 +3,47 @@ import { Link, useLocation } from "wouter";
 import { Phone, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-  { href: "/", label: "HOME" },
-  { href: "/rants", label: "RANTS" },
-  { href: "/leaderboard", label: "LEADERBOARD" },
-  { href: "/arena", label: "RED VS BLUE", colored: true },
+  { href: "/", label: "Home" },
+  { href: "/rants", label: "Rants" },
+  { href: "/leaderboard", label: "Leaderboard" },
+  { href: "/arena", label: "🔴🔵 Red vs Blue", colored: true },
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const isArena = location === "/arena";
+
   return (
     <div className="min-h-screen bg-[#0a0e1a] text-white">
-      <nav className="bg-[#0a0e1a]/95 backdrop-blur-sm border-b border-white/10 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
+      <nav
+        className="sticky top-0 z-50 shadow-lg border-b border-red-800"
+        style={
+          isArena
+            ? { background: "linear-gradient(90deg, #7a0000 0%, #1c0808 30%, #0a0d14 50%, #07091a 70%, #0c1a5a 100%)" }
+            : { background: "#cc0000" }
+        }
+      >
+        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="no-underline">
-            <span className="font-black text-xl tracking-tight text-white">
+            <span className="font-black text-2xl tracking-tight text-white">
               {"America's"} <span className="font-light">Rant Line</span>
             </span>
           </Link>
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-1">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-xs font-bold tracking-wider no-underline transition-colors ${
+                className={`px-4 py-2 rounded-md text-sm font-bold uppercase tracking-wider transition-colors no-underline ${
                   location === link.href
-                    ? "text-white"
+                    ? "bg-white text-[#cc0000]"
                     : link.colored
-                    ? "text-red-400 hover:text-red-300"
-                    : "text-gray-400 hover:text-white"
+                    ? "text-yellow-200 font-black hover:text-yellow-100"
+                    : "text-white hover:bg-white/10"
                 }`}
               >
-                {link.colored && (
-                  <span className="mr-1">
-                    <span className="text-red-500">&#9679;</span>
-                    <span className="text-white">&#9679;</span>
-                    <span className="text-blue-500">&#9679;</span>
-                  </span>
-                )}
                 {link.label}
               </Link>
             ))}
@@ -49,27 +51,27 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-3">
             <Link
               href="/leave-a-rant"
-              className="bg-white text-black font-black text-xs px-4 py-2 rounded-full no-underline hover:bg-white/90 transition-colors"
+              className="bg-white hover:bg-white/90 text-black font-bold rounded-full px-6 py-2 shadow-md no-underline text-sm"
             >
               LEAVE A RANT
             </Link>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden p-2 text-gray-400 hover:text-white"
+              className="md:hidden p-2 text-white hover:text-white/80"
             >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
         {mobileOpen && (
-          <div className="md:hidden border-t border-white/5 bg-[#0a0e1a] px-4 py-3 space-y-2">
+          <div className="md:hidden border-t border-red-800 bg-[#cc0000] px-4 py-3 space-y-1">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className={`block py-2 text-sm font-bold tracking-wider no-underline ${
-                  location === link.href ? "text-white" : "text-gray-400"
+                className={`block py-2 text-sm font-bold uppercase tracking-wider no-underline ${
+                  location === link.href ? "text-white" : "text-red-100"
                 }`}
               >
                 {link.label}

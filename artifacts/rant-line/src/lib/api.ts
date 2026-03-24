@@ -54,6 +54,24 @@ export const api = {
         body: JSON.stringify({ product, category }),
       }),
   },
+  admin: {
+    rants: (adminKey: string) =>
+      request<Rant[]>("/admin/rants", { headers: { "x-admin-key": adminKey } }),
+    pending: (adminKey: string) =>
+      request<Rant[]>("/admin/rants/pending", { headers: { "x-admin-key": adminKey } }),
+    approve: (id: string, adminKey: string) =>
+      request<{ success: boolean }>(`/admin/rants/${id}/approve`, { method: "POST", headers: { "x-admin-key": adminKey } }),
+    reject: (id: string, adminKey: string) =>
+      request<{ success: boolean }>(`/admin/rants/${id}/reject`, { method: "POST", headers: { "x-admin-key": adminKey } }),
+    feature: (id: string, adminKey: string) =>
+      request<{ success: boolean }>(`/admin/rants/${id}/feature`, { method: "POST", headers: { "x-admin-key": adminKey } }),
+    revenue: (adminKey: string, period = "week") =>
+      request<{ total: number; breakdown: { plan: string; count: number; revenue: number }[] }>(`/admin/stats/revenue?period=${period}`, { headers: { "x-admin-key": adminKey } }),
+    activity: (adminKey: string) =>
+      request<{ id: string; action: string; targetId: string; details: string; createdAt: string }[]>("/admin/activity", { headers: { "x-admin-key": adminKey } }),
+    callers: (adminKey: string) =>
+      request<{ id: string; nickname: string; state: string; totalRants: number }[]>("/admin/callers", { headers: { "x-admin-key": adminKey } }),
+  },
 };
 
 export interface Rant {

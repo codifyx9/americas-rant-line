@@ -1,183 +1,262 @@
 import { useState } from "react";
-import { Phone, CreditCard, Shield, Clock, Mic, Star, Zap, CheckCircle } from "lucide-react";
-
-const LINES = [
-  {
-    key: "maga",
-    emoji: "🟥",
-    label: "MAGA LINE",
-    sublabel: "Conservative / Republican",
-    color: "border-red-600 bg-red-600/10 hover:bg-red-600/20",
-    activeColor: "border-red-500 bg-red-600/20 ring-2 ring-red-500/50",
-  },
-  {
-    key: "blue",
-    emoji: "🟦",
-    label: "BLUE LINE",
-    sublabel: "Democrat / Progressive",
-    color: "border-blue-600 bg-blue-600/10 hover:bg-blue-600/20",
-    activeColor: "border-blue-500 bg-blue-600/20 ring-2 ring-blue-500/50",
-  },
-  {
-    key: "neutral",
-    emoji: "⬜",
-    label: "NEUTRAL LINE",
-    sublabel: "Independent / Other",
-    color: "border-gray-600 bg-gray-600/10 hover:bg-gray-600/20",
-    activeColor: "border-gray-400 bg-gray-600/20 ring-2 ring-gray-400/50",
-  },
-];
+import {
+  Phone, Check, Star, Zap, ArrowRight, CreditCard, CheckCircle2,
+  Radio, ChevronDown, ChevronUp, Shield, Clock, Mic, MessageSquare,
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { api } from "@/lib/api";
 
 const PLANS = [
   {
-    key: "standard",
-    label: "Standard",
+    id: "standard",
+    name: "Standard Rant",
     price: "$2.99",
-    features: ["2-minute rant", "Published to feed", "Community voting"],
-    icon: Mic,
-    popular: true,
+    tag: null,
+    color: "border-[#cc0000]/40 bg-[#111827]",
+    btnClass: "bg-white text-black hover:bg-white/90",
+    checkColor: "text-green-400",
+    features: [
+      "Up to 3 minute recording",
+      "Published within 24 hours",
+      "Community voting enabled",
+      "Shareable link",
+      "Searchable in feed",
+    ],
   },
   {
-    key: "skip-line",
-    label: "Skip the Line",
+    id: "skip",
+    name: "Skip the Line",
     price: "$5.00",
-    features: ["Priority queue", "3-minute rant", "Published to feed", "Community voting"],
-    icon: Zap,
-    popular: false,
+    tag: "Most Popular",
+    color: "border-[#cc0000] bg-[#161b2e] shadow-2xl shadow-red-900/30 scale-[1.02]",
+    btnClass: "bg-[#cc0000] text-white hover:bg-red-700",
+    checkColor: "text-[#cc0000]",
+    features: [
+      "Everything in Standard",
+      "Published within 2 hours",
+      "Priority position in feed",
+      "Bold title styling",
+      "Email notification when live",
+    ],
   },
   {
-    key: "featured",
-    label: "Featured",
+    id: "featured",
+    name: "Featured Rant",
     price: "$25.00",
-    features: ["Featured placement", "5-minute rant", "Highlighted on homepage", "Priority moderation"],
-    icon: Star,
-    popular: false,
+    tag: "\u2B50 VIP",
+    color: "border-white/30 bg-gradient-to-b from-[#1a1f35] to-[#0a0e1a]",
+    btnClass: "bg-white text-black hover:bg-white/90",
+    checkColor: "text-white",
+    features: [
+      "Everything in Skip the Line",
+      "Front page featured placement",
+      "Pinned for 24 hours",
+      "Promoted on social media",
+      "Personal shoutout intro by host",
+    ],
   },
 ];
 
-export default function LeaveARant() {
-  const [selectedLine, setSelectedLine] = useState("");
-  const [selectedPlan, setSelectedPlan] = useState("standard");
-  const [purchasing, setPurchasing] = useState(false);
+const FAQS = [
+  { q: "How long can my rant be?", a: "Standard rants can be up to 3 minutes. Skip the Line and Featured rants can be up to 5 minutes." },
+  { q: "Is my identity kept anonymous?", a: "Yes. We only show your general location (city/state) unless you choose to share your name. Your phone number is never displayed publicly." },
+  { q: "When will my rant go live?", a: "Standard rants go live within 24 hours after passing our brief review. Skip the Line rants go live within 2 hours. Featured rants go live within 30 minutes." },
+  { q: "What topics are allowed?", a: "Anything you want to rant about! Politics, work, dating, inflation, family \u2014 it all goes. The only rule: no threats, no doxxing, no illegal content." },
+  { q: "Can I get a refund?", a: "Refunds are available if your rant is rejected by our review team. If it goes live, no refund is issued." },
+  { q: "How does the weekly challenge work?", a: "Every week we pick the most-voted rant for a $100 cash prize. Anyone who leaves a rant is automatically entered." },
+];
 
-  const handlePurchase = async () => {
-    if (!selectedLine) return;
-    setPurchasing(true);
+const TESTIMONIALS = [
+  { name: "PatriotPete", state: "Texas", quote: "Left my rant at noon, it was live by 1:30 PM. 1,000 votes by midnight. This platform is the real deal.", plan: "Skip the Line", votes: "1,203" },
+  { name: "TiredInTampa", state: "Florida", quote: "Nobody wants to hear you on the news, they want a soundbite. This let me say everything I actually think.", plan: "Standard", votes: "876" },
+  { name: "RanchManTX", state: "Texas", quote: "Went Featured, got shared on Twitter, 15k plays in 2 days. Worth every penny of the $25.", plan: "Featured", votes: "2,847" },
+];
+
+export default function LeaveARant() {
+  const [payment, setPayment] = useState<"idle" | "processing" | "confirmed">("idle");
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [email, setEmail] = useState("");
+
+  const [callCode, setCallCode] = useState<string | null>(null);
+  const [payError, setPayError] = useState<string | null>(null);
+
+  const handlePay = async (id: string) => {
+    setSelectedPlan(id);
+    setPayment("processing");
+    setPayError(null);
     try {
-      const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-      const res = await fetch(`${base}/api/payments/create-session`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ product: selectedPlan, category: selectedLine }),
-      });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch {
-      alert("Payment system is not configured yet. Call 1-888-460-RANT directly!");
-    } finally {
-      setPurchasing(false);
+      const productMap: Record<string, string> = { standard: "leave-rant", skip: "skip-line", featured: "featured" };
+      const product = productMap[id] || "leave-rant";
+      const codeResult = await api.callCodes.generate(product);
+      setCallCode(codeResult.code);
+      setPayment("confirmed");
+    } catch (err: any) {
+      setPayError(err.message || "Payment failed. Please try again.");
+      setPayment("idle");
     }
   };
 
   return (
-    <div className="bg-[#0a0e1a] min-h-screen">
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="text-center mb-10">
-          <h1 className="font-black text-3xl text-white mb-2">LEAVE A RANT</h1>
-          <p className="text-gray-500 text-sm">Pick your line, choose your plan, and let America hear you</p>
-        </div>
-
-        <div className="mb-10">
-          <h2 className="font-black text-sm text-gray-400 mb-4 uppercase tracking-wider">Step 1: Choose Your Line</h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            {LINES.map((line) => (
-              <button
-                key={line.key}
-                onClick={() => setSelectedLine(line.key)}
-                className={`p-6 rounded-xl border text-center transition-all ${
-                  selectedLine === line.key ? line.activeColor : line.color
-                }`}
-              >
-                <div className="text-4xl mb-3">{line.emoji}</div>
-                <div className="font-black text-white text-sm mb-1">{line.label}</div>
-                <div className="text-gray-500 text-xs">{line.sublabel}</div>
-                {selectedLine === line.key && (
-                  <CheckCircle className="w-5 h-5 text-green-400 mx-auto mt-3" />
-                )}
-              </button>
-            ))}
+    <div className="min-h-screen bg-[#0a0e1a] text-white font-sans pb-24">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 bg-red-950/60 border border-red-800 text-red-400 px-4 py-1.5 rounded-full text-xs font-bold mb-6 uppercase tracking-widest">
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+            Hotline Open Now &middot; 1-888-460-RANT
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-4 uppercase">Leave Your <span className="text-[#cc0000]">Rant</span></h1>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            Choose your plan, get your call code, dial the hotline, and say exactly what is on your mind. No filter. No editing. Just you.
+          </p>
+          <div className="flex items-center justify-center gap-8 mt-6 text-sm text-gray-500 font-medium flex-wrap">
+            <span className="flex items-center gap-2"><Shield className="w-4 h-4 text-green-500" /> Secure payment</span>
+            <span className="flex items-center gap-2"><Clock className="w-4 h-4 text-blue-400" /> Live within hours</span>
+            <span className="flex items-center gap-2"><Mic className="w-4 h-4 text-red-400" /> Fully anonymous</span>
           </div>
         </div>
 
-        <div className="mb-10">
-          <h2 className="font-black text-sm text-gray-400 mb-4 uppercase tracking-wider">Step 2: Choose Your Plan</h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            {PLANS.map((plan) => (
-              <button
-                key={plan.key}
-                onClick={() => setSelectedPlan(plan.key)}
-                className={`relative p-6 rounded-xl border text-left transition-all ${
-                  selectedPlan === plan.key
-                    ? "border-[#cc0000] bg-[#cc0000]/10 ring-2 ring-[#cc0000]/50"
-                    : "border-white/10 bg-[#111827] hover:border-white/20"
-                }`}
-              >
-                {plan.popular && (
-                  <span className="absolute -top-2.5 right-4 bg-[#cc0000] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full">
-                    MOST POPULAR
-                  </span>
-                )}
-                <plan.icon className="w-6 h-6 text-[#cc0000] mb-3" />
-                <div className="font-black text-white text-lg mb-1">{plan.price}</div>
-                <div className="font-bold text-white text-sm mb-3">{plan.label}</div>
-                <ul className="space-y-2">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-gray-400 text-xs">
-                      <CheckCircle className="w-3 h-3 text-green-500 flex-shrink-0" /> {f}
-                    </li>
-                  ))}
-                </ul>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-10">
-          <h2 className="font-black text-sm text-gray-400 mb-4 uppercase tracking-wider">Step 3: How It Works</h2>
-          <div className="grid md:grid-cols-4 gap-4">
-            {[
-              { icon: CreditCard, label: "Pay securely", desc: "Quick checkout" },
-              { icon: Phone, label: "Get your code", desc: "Unique call code" },
-              { icon: Mic, label: "Call & record", desc: "1-888-460-RANT" },
-              { icon: Star, label: "Go live", desc: "Published to feed" },
-            ].map((step, i) => (
-              <div key={i} className="bg-[#111827] border border-white/5 rounded-xl p-5 text-center">
-                <div className="w-8 h-8 rounded-full bg-[#cc0000]/20 flex items-center justify-center mx-auto mb-3">
-                  <step.icon className="w-4 h-4 text-[#cc0000]" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20 max-w-5xl mx-auto items-start">
+          {PLANS.map((plan) => (
+            <div key={plan.id} className={`rounded-2xl border-2 p-7 flex flex-col relative overflow-hidden transition-transform ${plan.color}`}>
+              {plan.tag && (
+                <div className={`absolute top-0 inset-x-0 py-1.5 text-xs font-black uppercase tracking-widest text-center flex items-center justify-center gap-1 ${plan.id === "skip" ? "bg-[#cc0000] text-white" : "bg-white/10 text-white"}`}>
+                  <Zap className="h-3 w-3" fill="currentColor" /> {plan.tag}
                 </div>
-                <div className="font-bold text-white text-sm mb-1">{step.label}</div>
-                <div className="text-gray-500 text-xs">{step.desc}</div>
+              )}
+              <div className={plan.tag ? "mt-6" : ""}>
+                <h3 className="text-lg font-bold text-white mb-1">{plan.name}</h3>
+                <div className="flex items-baseline gap-1 mb-6">
+                  <span className="text-4xl font-black text-white">{plan.price}</span>
+                  <span className="text-gray-500 text-sm">/ rant</span>
+                </div>
+              </div>
+              <ul className="space-y-3 mb-8 flex-1">
+                {plan.features.map((f) => (
+                  <li key={f} className="flex items-start gap-3">
+                    <Check className={`h-4 w-4 ${plan.checkColor} shrink-0 mt-0.5`} />
+                    <span className="text-gray-300 text-sm">{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => handlePay(plan.id)}
+                disabled={payment === "processing"}
+                className={`w-full ${plan.btnClass} font-black py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg text-base disabled:opacity-60 disabled:cursor-not-allowed`}
+              >
+                {payment === "processing" && selectedPlan === plan.id
+                  ? <span className="animate-pulse">Processing...</span>
+                  : plan.id === "skip" ? <><Zap className="h-4 w-4" fill="currentColor" /> Skip the Line</>
+                  : plan.id === "featured" ? <><Star className="h-4 w-4" fill="currentColor" /> Go Featured</>
+                  : <>Get Started <ArrowRight className="h-4 w-4" /></>}
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {payError && (
+          <div className="max-w-5xl mx-auto mb-6 bg-red-900/30 border border-red-700 rounded-xl p-4 text-center text-red-300 text-sm font-medium">{payError}</div>
+        )}
+
+        <div className="max-w-5xl mx-auto mb-16">
+          <h2 className="text-4xl font-black text-center uppercase tracking-tight mb-10">How It Works</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+            {[
+              { step: "1", icon: <CreditCard className="h-7 w-7 text-blue-400" />, title: "Choose & Pay", desc: "Pick your plan and pay securely via Stripe. Takes under 60 seconds." },
+              { step: "2", icon: <MessageSquare className="h-7 w-7 text-red-400" />, title: "Get Your Code", desc: "Receive your unique call code and the hotline number instantly by text or email." },
+              { step: "3", icon: <Phone className="h-7 w-7 text-green-400" />, title: "Call & Record", desc: "Dial 1-888-460-RANT, enter your code, and speak your mind. Up to 5 minutes." },
+              { step: "4", icon: <Radio className="h-7 w-7 text-white" />, title: "Go Live", desc: "Your rant is reviewed, published, and shared to listeners immediately." },
+            ].map((s) => (
+              <div key={s.step} className="bg-[#0f1423] border border-[#cc0000]/20 rounded-xl p-5 relative">
+                <div className="absolute -top-3 -left-3 w-7 h-7 rounded-full bg-[#cc0000] flex items-center justify-center text-xs font-black text-white">{s.step}</div>
+                <div className="mb-4 mt-2">{s.icon}</div>
+                <h3 className="font-black text-white text-base mb-2">{s.title}</h3>
+                <p className="text-gray-500 text-xs leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 bg-black/50 border-2 border-[#cc0000]/50 rounded-xl p-6 text-center relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent animate-pulse pointer-events-none"></div>
+            <p className="text-gray-500 mb-1 font-medium uppercase tracking-widest text-xs">Hotline Number</p>
+            <div className="text-5xl md:text-6xl font-black text-white tracking-widest">1-888-460-RANT</div>
+            <p className="text-gray-600 text-xs mt-2">Available 24/7 &middot; All US numbers accepted</p>
+          </div>
+
+          <div className="mt-6 flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter email to get notified when your rant goes live (optional)"
+              className="flex-1 bg-[#111827] border border-[#cc0000]/30 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-[#cc0000]"
+            />
+            <button className="bg-[#cc0000] hover:bg-red-700 text-white font-bold px-6 py-3 rounded-xl text-sm transition-colors shrink-0">Notify Me</button>
+          </div>
+        </div>
+
+        <div className="max-w-5xl mx-auto mb-16">
+          <h2 className="text-4xl font-black text-center uppercase tracking-tight mb-8">What Ranters Are Saying</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {TESTIMONIALS.map((t) => (
+              <div key={t.name} className="bg-[#111827] border border-[#cc0000]/25 rounded-xl p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-[#cc0000]/30 border border-[#cc0000]/40 flex items-center justify-center font-black text-white text-sm">{t.name[0]}</div>
+                  <div>
+                    <div className="font-bold text-white text-sm">{t.name}</div>
+                    <div className="text-gray-500 text-xs">{t.state} &middot; {t.plan}</div>
+                  </div>
+                  <div className="ml-auto text-red-400 font-black text-sm">{"\uD83D\uDD25"} {t.votes}</div>
+                </div>
+                <p className="text-gray-300 text-sm leading-relaxed italic">&ldquo;{t.quote}&rdquo;</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="text-center">
-          <button
-            onClick={handlePurchase}
-            disabled={!selectedLine || purchasing}
-            className="bg-[#cc0000] hover:bg-[#aa0000] disabled:opacity-50 disabled:cursor-not-allowed text-white font-black text-lg px-12 py-4 rounded-full transition-colors inline-flex items-center gap-3"
-          >
-            <Phone className="w-5 h-5" />
-            {purchasing ? "PROCESSING..." : `GET YOUR CALL CODE — ${PLANS.find(p => p.key === selectedPlan)?.price}`}
-          </button>
-          <p className="text-gray-600 text-xs mt-4 flex items-center justify-center gap-2">
-            <Shield className="w-3 h-3" /> Secure payment via Stripe &middot; <Clock className="w-3 h-3" /> Code valid for 24 hours
-          </p>
+        <div className="max-w-3xl mx-auto mb-16">
+          <h2 className="text-4xl font-black text-center uppercase tracking-tight mb-8">Frequently Asked Questions</h2>
+          <div className="space-y-3">
+            {FAQS.map((faq, i) => (
+              <div key={i} className="bg-[#111827] border border-[#cc0000]/25 rounded-xl overflow-hidden">
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between p-5 text-left hover:bg-white/[0.03] transition-colors"
+                >
+                  <span className="font-bold text-white">{faq.q}</span>
+                  {openFaq === i ? <ChevronUp className="w-5 h-5 text-gray-400 shrink-0" /> : <ChevronDown className="w-5 h-5 text-gray-400 shrink-0" />}
+                </button>
+                {openFaq === i && (
+                  <div className="px-5 pb-5 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">{faq.a}</div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+
+        {payment === "confirmed" && (
+          <div className="max-w-3xl mx-auto mt-12">
+            <div className="bg-gradient-to-br from-green-900/40 to-[#0a0e1a] rounded-3xl border-2 border-green-500/50 p-8 md:p-12 text-center relative overflow-hidden shadow-2xl">
+              <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none"><CheckCircle2 className="w-64 h-64 text-green-500" /></div>
+              <div className="relative z-10">
+                <div className="inline-flex items-center justify-center p-4 bg-green-500/20 rounded-full mb-6 border border-green-500/30">
+                  <CheckCircle2 className="h-12 w-12 text-green-400" />
+                </div>
+                <h2 className="text-4xl font-black text-white mb-3 uppercase">Payment Confirmed!</h2>
+                <p className="text-xl text-gray-300 mb-10 max-w-xl mx-auto">You are ready to rant. Grab your phone and call now.</p>
+                <div className="bg-black/60 border-2 border-white rounded-2xl p-8 mb-8 inline-block">
+                  <div className="text-gray-400 mb-2 font-medium uppercase tracking-widest text-xs">Call Now</div>
+                  <div className="text-5xl md:text-6xl font-black text-white tracking-wider mb-5">1-888-460-RANT</div>
+                  <div className="bg-gray-800 text-white font-mono py-3 px-6 rounded-lg text-xl border border-[#cc0000]/50 inline-block">
+                    Your call code: <span className="font-black text-red-400">{callCode || "Loading..."}</span>
+                  </div>
+                </div>
+                <p className="text-gray-500 text-sm">Your rant will go live within {selectedPlan === "standard" ? "24 hours" : selectedPlan === "skip" ? "2 hours" : "30 minutes"}</p>
+              </div>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 }
