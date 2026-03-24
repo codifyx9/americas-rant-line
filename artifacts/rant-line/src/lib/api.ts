@@ -66,11 +66,19 @@ export const api = {
     feature: (id: string, adminKey: string) =>
       request<{ success: boolean }>(`/admin/rants/${id}/feature`, { method: "POST", headers: { "x-admin-key": adminKey } }),
     revenue: (adminKey: string, period = "week") =>
-      request<{ total: number; breakdown: { plan: string; count: number; revenue: number }[] }>(`/admin/stats/revenue?period=${period}`, { headers: { "x-admin-key": adminKey } }),
+      request<RevenueData>(`/admin/stats/revenue?period=${period}`, { headers: { "x-admin-key": adminKey } }),
     activity: (adminKey: string) =>
       request<{ id: string; action: string; targetId: string; details: string; createdAt: string }[]>("/admin/activity", { headers: { "x-admin-key": adminKey } }),
     callers: (adminKey: string) =>
-      request<{ id: string; nickname: string; state: string; totalRants: number }[]>("/admin/callers", { headers: { "x-admin-key": adminKey } }),
+      request<AdminCaller[]>("/admin/callers", { headers: { "x-admin-key": adminKey } }),
+    unfeature: (id: string, adminKey: string) =>
+      request<{ success: boolean }>(`/admin/rants/${id}/unfeature`, { method: "POST", headers: { "x-admin-key": adminKey } }),
+    bulkApprove: (adminKey: string) =>
+      request<{ success: boolean; approved: number }>("/admin/rants/bulk-approve", { method: "POST", headers: { "x-admin-key": adminKey } }),
+    updateCategory: (id: string, adminKey: string, category: string, topic?: string) =>
+      request<{ success: boolean }>(`/admin/rants/${id}/category`, { method: "POST", headers: { "x-admin-key": adminKey }, body: JSON.stringify({ category, topic }) }),
+    updateTitle: (id: string, adminKey: string, title: string) =>
+      request<{ success: boolean }>(`/admin/rants/${id}/title`, { method: "POST", headers: { "x-admin-key": adminKey }, body: JSON.stringify({ title }) }),
   },
 };
 
@@ -123,6 +131,23 @@ export interface TopRanter {
   state: string | null;
   totalRants: number;
   totalVotes: number;
+}
+
+export interface AdminCaller {
+  id: string;
+  phone: string | null;
+  email: string | null;
+  nickname: string | null;
+  city: string | null;
+  state: string | null;
+  createdAt: string;
+}
+
+export interface RevenueData {
+  period: string;
+  dailyRevenue: { date: string; transactions: number; revenue: number }[];
+  totalRevenue: number;
+  totalTransactions: number;
 }
 
 export interface CallCodeInfo {

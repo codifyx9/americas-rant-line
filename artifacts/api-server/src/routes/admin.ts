@@ -89,6 +89,22 @@ router.post("/rants/:id/feature", async (req, res) => {
   }
 });
 
+router.post("/rants/:id/unfeature", async (req, res) => {
+  try {
+    const [updated] = await db
+      .update(rantsTable)
+      .set({ featured: false })
+      .where(eq(rantsTable.id, req.params.id))
+      .returning();
+    if (!updated) { res.status(404).json({ error: "Rant not found" }); return; }
+    await logActivity("rant_unfeatured", `Rant #${updated.rantNumber} removed from featured`, { rantId: updated.id });
+    res.json({ success: true, rant: updated });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 router.post("/rants/:id/reject", async (req, res) => {
   try {
     const [deleted] = await db

@@ -130,6 +130,7 @@ Full backend for a political talk-radio voicemail platform with three lines:
 | POST | `/api/admin/rants/:id/approve` | Approve rant |
 | POST | `/api/admin/rants/:id/reject` | Delete rant |
 | POST | `/api/admin/rants/:id/feature` | Feature + approve rant |
+| POST | `/api/admin/rants/:id/unfeature` | Remove from featured (keep approved) |
 | POST | `/api/admin/rants/:id/category` | Update topic/category |
 | POST | `/api/admin/rants/:id/title` | Set rant title |
 | POST | `/api/admin/rants/bulk-approve` | Approve all pending |
