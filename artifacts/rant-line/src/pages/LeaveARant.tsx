@@ -10,7 +10,7 @@ const PLANS = [
   {
     id: "standard",
     name: "Standard Rant",
-    price: "$2.99",
+    price: "$1.99",
     tag: null,
     color: "border-[#cc0000]/40 bg-[#111827]",
     btnClass: "bg-white text-black hover:bg-white/90",

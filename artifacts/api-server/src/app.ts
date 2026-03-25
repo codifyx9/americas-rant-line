@@ -1,16 +1,14 @@
 import express, { type Express, type Request, type Response, type NextFunction } from "express";
 import cors from "cors";
-import router from "./routes";
+import router from "./routes/index.js";
 
 const app: Express = express();
 
 app.use(cors());
-
-app.use("/api/payments/webhook", express.raw({ type: "application/json" }));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Directly plugging the router into /api
 app.use("/api", router);
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {

@@ -120,17 +120,17 @@ export default function RedVsBlue() {
           <p className="text-xl text-gray-400 mb-10 font-medium">Pick a side. Leave your rant. Let the people vote.</p>
           <div className="flex flex-col sm:flex-row items-start justify-center gap-4 mb-4">
             <div className="flex flex-col items-center gap-1.5 w-full sm:w-auto">
-              <Link href="/leave-a-rant"><Button size="lg" className="bg-[#cc0000] hover:bg-red-700 text-white font-black text-base h-13 px-8 rounded-full shadow-[0_0_25px_rgba(204,0,0,0.4)] w-full">{"\uD83D\uDD34"} MAGA Line &mdash; $2.99</Button></Link>
+              <Link href="/leave-a-rant"><Button size="lg" className="bg-[#cc0000] hover:bg-red-700 text-white font-black text-base h-13 px-8 rounded-full shadow-[0_0_25px_rgba(204,0,0,0.4)] w-full">{"\uD83D\uDD34"} MAGA Line &mdash; $1.99</Button></Link>
               <span className="text-[11px] text-red-400/70 font-semibold">Right (Conservative / Republican)</span>
             </div>
             <div className="text-gray-700 font-black text-lg hidden sm:block self-start mt-3">VS</div>
             <div className="flex flex-col items-center gap-1.5 w-full sm:w-auto">
-              <Link href="/leave-a-rant"><Button size="lg" className="bg-gray-700 hover:bg-gray-600 text-white font-black text-base h-13 px-8 rounded-full w-full">{"\u26AA"} Neutral Line &mdash; $2.99</Button></Link>
+              <Link href="/leave-a-rant"><Button size="lg" className="bg-gray-700 hover:bg-gray-600 text-white font-black text-base h-13 px-8 rounded-full w-full">{"\u26AA"} Neutral Line &mdash; $1.99</Button></Link>
               <span className="text-[11px] text-gray-400/70 font-semibold">Independent / Open Rant</span>
             </div>
             <div className="text-gray-700 font-black text-lg hidden sm:block self-start mt-3">VS</div>
             <div className="flex flex-col items-center gap-1.5 w-full sm:w-auto">
-              <Link href="/leave-a-rant"><Button size="lg" className="bg-blue-700 hover:bg-blue-600 text-white font-black text-base h-13 px-8 rounded-full shadow-[0_0_25px_rgba(30,64,175,0.4)] w-full">{"\uD83D\uDD35"} Blue Line &mdash; $2.99</Button></Link>
+              <Link href="/leave-a-rant"><Button size="lg" className="bg-blue-700 hover:bg-blue-600 text-white font-black text-base h-13 px-8 rounded-full shadow-[0_0_25px_rgba(30,64,175,0.4)] w-full">{"\uD83D\uDD35"} Blue Line &mdash; $1.99</Button></Link>
               <span className="text-[11px] text-blue-400/70 font-semibold">Left (Democrat / Progressive)</span>
             </div>
           </div>
@@ -285,21 +285,21 @@ export default function RedVsBlue() {
             <h3 className="font-black text-white text-lg mb-1">{"\uD83D\uDD34"} MAGA Line</h3>
             <p className="text-red-400/60 text-xs font-semibold mb-2">Right (Conservative / Republican)</p>
             <p className="text-gray-500 text-sm mb-5">Say what the mainstream media will not air.</p>
-            <Link href="/leave-a-rant"><Button className="bg-[#cc0000] hover:bg-red-700 text-white font-black rounded-full px-7 h-11">Call Now &mdash; $2.99</Button></Link>
+            <Link href="/leave-a-rant"><Button className="bg-[#cc0000] hover:bg-red-700 text-white font-black rounded-full px-7 h-11">Call Now &mdash; $1.99</Button></Link>
           </div>
           <div className="bg-gradient-to-b from-gray-800/30 to-transparent p-8 text-center">
             <Mic className="w-9 h-9 text-gray-400 mx-auto mb-3" />
             <h3 className="font-black text-white text-lg mb-1">{"\u26AA"} Neutral Line</h3>
             <p className="text-gray-400/60 text-xs font-semibold mb-2">Independent / Open Rant</p>
             <p className="text-gray-500 text-sm mb-5">No side required. Just your honest voice.</p>
-            <Link href="/leave-a-rant"><Button className="bg-gray-700 hover:bg-gray-600 text-white font-black rounded-full px-7 h-11">Call Now &mdash; $2.99</Button></Link>
+            <Link href="/leave-a-rant"><Button className="bg-gray-700 hover:bg-gray-600 text-white font-black rounded-full px-7 h-11">Call Now &mdash; $1.99</Button></Link>
           </div>
           <div className="bg-gradient-to-l from-blue-950/60 to-transparent p-8 text-center">
             <Mic className="w-9 h-9 text-blue-400 mx-auto mb-3" />
             <h3 className="font-black text-white text-lg mb-1">{"\uD83D\uDD35"} Blue Line</h3>
             <p className="text-blue-400/60 text-xs font-semibold mb-2">Left (Democrat / Progressive)</p>
             <p className="text-gray-500 text-sm mb-5">Make your voice heard loud and clear.</p>
-            <Link href="/leave-a-rant"><Button className="bg-blue-700 hover:bg-blue-600 text-white font-black rounded-full px-7 h-11">Call Now &mdash; $2.99</Button></Link>
+            <Link href="/leave-a-rant"><Button className="bg-blue-700 hover:bg-blue-600 text-white font-black rounded-full px-7 h-11">Call Now &mdash; $1.99</Button></Link>
           </div>
         </div>
       </div>

@@ -18,6 +18,7 @@ export const rantsTable = pgTable("rants", {
   votes: integer("votes").default(0).notNull(),
   downvotes: integer("downvotes").default(0).notNull(),
   plays: integer("plays").default(0).notNull(),
+  tips: integer("tips").default(0).notNull(),
   approved: boolean("approved").default(false).notNull(),
   featured: boolean("featured").default(false).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),

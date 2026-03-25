@@ -30,7 +30,7 @@ export default function TermsOfUse() {
             <h2 className="text-lg font-black text-white uppercase mb-3">5. Payments &amp; Pricing</h2>
             <p>We offer three tiers of service:</p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
-              <li><strong className="text-white">Standard Rant ($2.99)</strong> &mdash; Up to 3 minutes of recording time.</li>
+              <li><strong className="text-white">Standard Rant ($1.99)</strong> &mdash; Up to 2 minutes of recording time.</li>
               <li><strong className="text-white">Skip the Line ($5.00)</strong> &mdash; Priority review and up to 5 minutes of recording time.</li>
               <li><strong className="text-white">Featured Rant ($25.00)</strong> &mdash; Priority review, up to 5 minutes, and featured placement on the homepage.</li>
             </ul>
