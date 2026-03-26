@@ -93,7 +93,7 @@ router.post("/recording", async (req, res) => {
     const plan = (req.query.plan as string) || "leave-rant";
     const code = (req.query.code as string) || "";
     
-    // START DIAGNOSTIC TRACE
+    // NO MORE TIPS FIELD - IT CAUSES DATABASE CRASH
     const categoryMap: any = { "1": "maga", "2": "blue", "3": "neutral" };
     const category = categoryMap[digit] ?? "neutral";
     const recordingUrl = (req.body.RecordingUrl as string) + ".mp3";
@@ -129,8 +129,8 @@ router.post("/recording", async (req, res) => {
       topic: "Politics",
       votes: 0,
       downvotes: 0,
-      plays: 0,
-      tips: 0
+      plays: 0
+      // REMOVED 'tips' field 
     }).returning();
     const rant = insertedRants[0];
 
@@ -144,8 +144,7 @@ router.post("/recording", async (req, res) => {
     res.sendStatus(204);
   } catch (err: any) {
     console.error("Twilio recording webhook error:", err);
-    // SEND THE ACTUAL ERROR BACK TO TWILIO LOGS SO WE CAN SEE IT
-    res.status(500).send(`CRITICAL ERROR: ${err.message || 'Unknown Error'}`);
+    res.status(500).send(`Internal Server Error: ${err.message || 'Unknown'}`);
   }
 });
 
