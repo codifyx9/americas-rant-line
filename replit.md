@@ -143,8 +143,8 @@ Full backend for a political talk-radio voicemail platform with three lines:
 | Key | Name | Price |
 |---|---|---|
 | `leave-rant` | Leave a Rant | $2.99 |
-| `skip-line` | Skip the Line | $9.99 |
-| `featured` | Featured Rant | $19.99 |
+| `skip-line` | Skip the Line | $12.99 |
+| `featured` | Featured Rant | $24.99 |
 
 ## America's Rant Line — Frontend
 

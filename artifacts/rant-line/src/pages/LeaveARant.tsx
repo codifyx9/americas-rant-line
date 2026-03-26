@@ -26,7 +26,7 @@ const PLANS = [
   {
     id: "skip",
     name: "Skip the Line",
-    price: "$9.99",
+    price: "$12.99",
     tag: "Most Popular",
     color: "border-[#cc0000] bg-[#161b2e] shadow-2xl shadow-red-900/30 scale-[1.02]",
     btnClass: "bg-[#cc0000] text-white hover:bg-red-700",
@@ -42,7 +42,7 @@ const PLANS = [
   {
     id: "featured",
     name: "Featured Rant",
-    price: "$19.99",
+    price: "$24.99",
     tag: "\u2B50 VIP",
     color: "border-white/30 bg-gradient-to-b from-[#1a1f35] to-[#0a0e1a]",
     btnClass: "bg-white text-black hover:bg-white/90",
@@ -69,7 +69,7 @@ const FAQS = [
 const TESTIMONIALS = [
   { name: "PatriotPete", state: "Texas", quote: "Left my rant at noon, it was live by 1:30 PM. 1,000 votes by midnight. This platform is the real deal.", plan: "Skip the Line", votes: "1,203" },
   { name: "TiredInTampa", state: "Florida", quote: "Nobody wants to hear you on the news, they want a soundbite. This let me say everything I actually think.", plan: "Standard", votes: "876" },
-  { name: "RanchManTX", state: "Texas", quote: "Went Featured, got shared on Twitter, 15k plays in 2 days. Worth every penny of the $19.99.", plan: "Featured", votes: "2,847" },
+  { name: "RanchManTX", state: "Texas", quote: "Went Featured, got shared on Twitter, 15k plays in 2 days. Worth every penny of the $24.99.", plan: "Featured", votes: "2,847" },
 ];
 
 export default function LeaveARant() {
