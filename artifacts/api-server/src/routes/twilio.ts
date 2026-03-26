@@ -1,11 +1,30 @@
 import { Router } from "express";
 import twilio from "twilio";
 import { db } from "@workspace/db";
-import { callersTable, rantsTable, callCodesTable } from "@workspace/db";
+import { pgTable, text, uuid, timestamp, integer, boolean, serial } from "drizzle-orm/pg-core";
+import { callersTable } from "@workspace/db"; // Use the one from the lib for foreign keys
 import { eq, and } from "drizzle-orm";
 import { logActivity } from "../lib/activityLogger.js";
 
 const router = Router();
+
+// FORCED LOCAL DEFINITION - Bypasses any workspace caching/stale libraries
+const localRantsTable = pgTable("rants", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  rantNumber: serial("rant_number").notNull(),
+  callerId: uuid("caller_id").references(() => callersTable.id),
+  category: text("category").notNull(),
+  title: text("title"),
+  topic: text("topic"),
+  audioUrl: text("audio_url").notNull(),
+  duration: integer("duration").default(0),
+  votes: integer("votes").default(0).notNull(),
+  downvotes: integer("downvotes").default(0).notNull(),
+  plays: integer("plays").default(0).notNull(),
+  approved: boolean("approved").default(false).notNull(),
+  featured: boolean("featured").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
 
 // Full path: /api/twilio/voice
 router.post("/voice", (req, res) => {
@@ -93,7 +112,7 @@ router.post("/recording", async (req, res) => {
     const plan = (req.query.plan as string) || "leave-rant";
     const code = (req.query.code as string) || "";
     
-    // NO MORE TIPS FIELD - IT CAUSES DATABASE CRASH
+    // START DIAGNOSTIC TRACE
     const categoryMap: any = { "1": "maga", "2": "blue", "3": "neutral" };
     const category = categoryMap[digit] ?? "neutral";
     const recordingUrl = (req.body.RecordingUrl as string) + ".mp3";
@@ -118,7 +137,8 @@ router.post("/recording", async (req, res) => {
       await db.update(callCodesTable).set({ used: true }).where(eq(callCodesTable.code, code));
     }
 
-    const insertedRants = await db.insert(rantsTable).values({
+    // WE ARE USING THE LOCAL TABLE DEFINITION HERE TO BYPASS ANY STALE LIBRARIES
+    const insertedRants = await db.insert(localRantsTable).values({
       callerId,
       category,
       audioUrl: recordingUrl,
@@ -130,7 +150,6 @@ router.post("/recording", async (req, res) => {
       votes: 0,
       downvotes: 0,
       plays: 0
-      // REMOVED 'tips' field 
     }).returning();
     const rant = insertedRants[0];
 
@@ -144,7 +163,7 @@ router.post("/recording", async (req, res) => {
     res.sendStatus(204);
   } catch (err: any) {
     console.error("Twilio recording webhook error:", err);
-    res.status(500).send(`Internal Server Error: ${err.message || 'Unknown'}`);
+    res.status(500).send(`CRITICAL ERROR (INTERNAL OVERRIDE): ${err.message || 'Unknown Error'}`);
   }
 });
 
