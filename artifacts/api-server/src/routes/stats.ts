@@ -7,24 +7,27 @@ const router = Router();
 
 router.get("/global", async (_req, res) => {
   try {
-    const [stats] = await db
+    const [rantStats] = await db
       .select({
         totalRants: count(rantsTable.id),
         totalPlays: sum(rantsTable.plays),
         totalVotes: sum(rantsTable.votes),
         approvedRants: sql<number>`count(${rantsTable.id}) filter (where ${rantsTable.approved} = true)`,
         featuredRants: sql<number>`count(${rantsTable.id}) filter (where ${rantsTable.featured} = true)`,
-        totalCallers: count(callersTable.id),
       })
       .from(rantsTable);
 
+    const [callerStats] = await db
+      .select({ totalCallers: count(callersTable.id) })
+      .from(callersTable);
+
     res.json({
-      totalRants: Number(stats.totalRants),
-      totalPlays: Number(stats.totalPlays ?? 0),
-      totalVotes: Number(stats.totalVotes ?? 0),
-      approvedRants: Number(stats.approvedRants),
-      featuredRants: Number(stats.featuredRants),
-      totalCallers: Number(stats.totalCallers),
+      totalRants: Number(rantStats.totalRants),
+      totalPlays: Number(rantStats.totalPlays ?? 0),
+      totalVotes: Number(rantStats.totalVotes ?? 0),
+      approvedRants: Number(rantStats.approvedRants),
+      featuredRants: Number(rantStats.featuredRants),
+      totalCallers: Number(callerStats.totalCallers),
     });
   } catch (err) {
     console.error(err);
@@ -67,6 +70,45 @@ router.get("/calls", async (_req, res) => {
       else result.neutral_calls += total;
     }
     res.json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+router.get("/calls/today", async (_req, res) => {
+  try {
+    const rows = await db
+      .select({ category: rantsTable.category, total: count() })
+      .from(rantsTable)
+      .where(sql`${rantsTable.createdAt} > now() - interval '24 hours'`)
+      .groupBy(rantsTable.category);
+
+    const result = { total_calls: 0, maga_calls: 0, blue_calls: 0, neutral_calls: 0 };
+    for (const r of rows) {
+      const total = Number(r.total);
+      result.total_calls += total;
+      if (r.category === "maga") result.maga_calls = total;
+      else if (r.category === "blue") result.blue_calls = total;
+      else result.neutral_calls += total;
+    }
+    res.json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+router.get("/topics", async (_req, res) => {
+  try {
+    const rows = await db
+      .select({ topic: rantsTable.topic, total: count() })
+      .from(rantsTable)
+      .where(eq(rantsTable.approved, true))
+      .groupBy(rantsTable.topic)
+      .orderBy(desc(count()))
+      .limit(20);
+    res.json(rows.filter(r => r.topic).map(r => ({ topic: r.topic!, total: Number(r.total) })));
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });

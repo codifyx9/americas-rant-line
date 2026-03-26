@@ -18,10 +18,10 @@ router.use(healthRouter);
 router.use("/twilio", twilioRouter);
 
 // ALL OTHER ROUTES
-router.use(rantsRouter);
+router.use("/rants", rantsRouter);
 router.use("/admin", requireAdminKey, adminRouter);
 router.use(paymentsRouter);
-router.use(statsRouter);
+router.use("/stats", statsRouter);
 router.use(callCodesRouter);
 
 export default router;

@@ -128,6 +128,46 @@ router.get("/leaderboard", async (req, res) => {
   }
 });
 
+router.get("/by-line", async (_req, res) => {
+  try {
+    const result: Record<string, any[]> = { maga: [], blue: [], neutral: [] };
+    for (const cat of ["maga", "blue", "neutral"] as const) {
+      const rows = await db
+        .select(PUBLIC_FIELDS)
+        .from(rantsTable)
+        .leftJoin(callersTable, eq(rantsTable.callerId, callersTable.id))
+        .where(and(eq(rantsTable.approved, true), eq(rantsTable.category, cat)))
+        .orderBy(desc(rantsTable.createdAt))
+        .limit(10);
+      result[cat] = rows;
+    }
+    res.json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+router.get("/top-by-line", async (_req, res) => {
+  try {
+    const result: Record<string, any> = { maga: null, blue: null, neutral: null };
+    for (const cat of ["maga", "blue", "neutral"] as const) {
+      const [row] = await db
+        .select(PUBLIC_FIELDS)
+        .from(rantsTable)
+        .leftJoin(callersTable, eq(rantsTable.callerId, callersTable.id))
+        .where(and(eq(rantsTable.approved, true), eq(rantsTable.category, cat)))
+        .orderBy(desc(rantsTable.votes))
+        .limit(1);
+      result[cat] = row || null;
+    }
+    res.json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   try {
     const [row] = await db
