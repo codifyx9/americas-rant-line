@@ -121,7 +121,7 @@ export default function Home() {
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link href="/leave-a-rant"><Button variant="outline" className="bg-transparent hover:bg-white/5 text-white border border-white/20 font-bold text-sm h-10 px-5 rounded-full"><Zap className="w-3.5 h-3.5 mr-1.5 fill-white" /> Skip the Line &mdash; $12.99</Button></Link>
-            <Link href="/leave-a-rant"><Button variant="outline" className="bg-transparent hover:bg-white/5 text-white border border-white/20 font-bold text-sm h-10 px-5 rounded-full"><Star className="w-3.5 h-3.5 mr-1.5" /> Featured Rant &mdash; $24.99</Button></Link>
+            <Link href="/leave-a-rant"><Button variant="outline" className="bg-transparent hover:bg-white/5 text-white border border-white/20 font-bold text-sm h-10 px-5 rounded-full"><Star className="w-3.5 h-3.5 mr-1.5" /> Featured Rant &mdash; $39.99</Button></Link>
           </div>
           <p className="mt-5 text-gray-600 text-xs">{(globalStats?.totalRants ?? 0).toLocaleString()} total rants &middot; {(globalStats?.totalPlays ?? 0).toLocaleString()} listeners &middot; No censorship</p>
         </div>
