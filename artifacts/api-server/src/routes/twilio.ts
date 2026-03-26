@@ -2,7 +2,7 @@ import { Router } from "express";
 import twilio from "twilio";
 import { db } from "@workspace/db";
 import { pgTable, text, uuid, timestamp, integer, boolean, serial } from "drizzle-orm/pg-core";
-import { callersTable } from "@workspace/db"; // Use the one from the lib for foreign keys
+import { callersTable, callCodesTable } from "@workspace/db"; 
 import { eq, and } from "drizzle-orm";
 import { logActivity } from "../lib/activityLogger.js";
 
@@ -26,13 +26,16 @@ const localRantsTable = pgTable("rants", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// We use Amazon Polly "Matthew" or "Joanna" for a professional US English sound
+const PREMIUM_VOICE: any = { voice: "Polly.Matthew-Neural" };
+
 // Full path: /api/twilio/voice
 router.post("/voice", (req, res) => {
   const twiml = new twilio.twiml.VoiceResponse();
-  twiml.say({ voice: "alice" }, "Welcome to America's Rant Line. This call may be recorded and used publicly on our website and social media. Press 1 for the MAGA Line. Press 2 for the Blue Line. Press 3 for the Neutral Line.");
+  twiml.say(PREMIUM_VOICE, "Welcome to America's Rant Line. This call may be recorded and used publicly on our website and social media. Press 1 for the MAGA Line. Press 2 for the Blue Line. Or press 3 for the Neutral Line.");
   const gather = twiml.gather({ numDigits: "1", action: "/api/twilio/gather", method: "POST" });
-  gather.say({ voice: "alice" }, "Press 1 for MAGA, 2 for Blue, 3 for Neutral.");
-  twiml.say({ voice: "alice" }, "We did not receive your selection. Goodbye.");
+  gather.say(PREMIUM_VOICE, "Press 1 for MAGA, 2 for Blue, or 3 for Neutral.");
+  twiml.say(PREMIUM_VOICE, "We did not receive your selection. Goodbye.");
   twiml.hangup();
   res.type("text/xml").send(twiml.toString());
 });
@@ -44,7 +47,7 @@ router.post("/gather", (req, res) => {
   const lineNames: Record<string, string> = { "1": "MAGA Line", "2": "Blue Line", "3": "Neutral Line" };
   const lineName = lineNames[digit] ?? "Neutral Line";
   
-  twiml.say({ voice: "alice" }, `You selected the ${lineName}. If you have a call code, enter it now followed by pound. Otherwise, just press pound to continue.`);
+  twiml.say(PREMIUM_VOICE, `You selected the ${lineName}. If you have a call code, enter it now followed by pound. Otherwise, just press pound to continue.`);
   twiml.gather({
     numDigits: "8",
     action: `/api/twilio/code-check?digits=${digit}`,
@@ -69,11 +72,11 @@ router.post("/code-check", async (req, res) => {
     ).limit(1);
 
     if (row && new Date(row.expiresAt) > new Date()) {
-      twiml.say({ voice: "alice" }, "Code accepted!");
+      twiml.say(PREMIUM_VOICE, "Code accepted! Your premium recording session is active.");
       twiml.redirect({ method: "POST" }, `/api/twilio/record?digits=${digit}&plan=${row.plan}&code=${code}`);
       return res.type("text/xml").send(twiml.toString());
     }
-    twiml.say({ voice: "alice" }, "Invalid or expired code.");
+    twiml.say(PREMIUM_VOICE, "Invalid or expired code. Continuing with a standard session.");
     return res.type("text/xml").send(twiml.toString());
   }
   twiml.redirect({ method: "POST" }, `/api/twilio/record?digits=${digit}&plan=leave-rant`);
@@ -92,7 +95,7 @@ router.post("/record", (req, res) => {
   const lineName = lineNames[digit] ?? "Neutral";
   const maxLength = plan === "featured" ? 300 : (plan === "skip-line" ? 300 : 180);
 
-  twiml.say({ voice: "alice" }, `Recording for the ${lineName} Line. After the beep, leave your rant. Press pound when done.`);
+  twiml.say(PREMIUM_VOICE, `Recording for the ${lineName} Line. After the beep, leave your rant. Press pound when done.`);
   twiml.record({
     action: `/api/twilio/recording?digits=${digit}&plan=${plan}&code=${code}`,
     method: "POST",
@@ -101,7 +104,7 @@ router.post("/record", (req, res) => {
     transcribe: false,
     playBeep: true,
   });
-  twiml.say({ voice: "alice" }, "Thank you for your rant. Visit Americas Rant Line dot com to see it posted.");
+  twiml.say(PREMIUM_VOICE, "Thank you for your rant. Visit Americas Rant Line dot com to see it posted.");
   res.type("text/xml").send(twiml.toString());
 });
 
@@ -112,7 +115,6 @@ router.post("/recording", async (req, res) => {
     const plan = (req.query.plan as string) || "leave-rant";
     const code = (req.query.code as string) || "";
     
-    // START DIAGNOSTIC TRACE
     const categoryMap: any = { "1": "maga", "2": "blue", "3": "neutral" };
     const category = categoryMap[digit] ?? "neutral";
     const recordingUrl = (req.body.RecordingUrl as string) + ".mp3";
@@ -137,7 +139,6 @@ router.post("/recording", async (req, res) => {
       await db.update(callCodesTable).set({ used: true }).where(eq(callCodesTable.code, code));
     }
 
-    // WE ARE USING THE LOCAL TABLE DEFINITION HERE TO BYPASS ANY STALE LIBRARIES
     const insertedRants = await db.insert(localRantsTable).values({
       callerId,
       category,
