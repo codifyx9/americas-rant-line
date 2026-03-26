@@ -65,6 +65,23 @@ export default function AdminDashboard() {
   const [authError, setAuthError] = useState<string | null>(null);
   const [revPeriod, setRevPeriod] = useState<"week" | "month" | "year">("week");
   const queryClient = useQueryClient();
+  const [audio] = useState(new Audio());
+
+  // Setup audio event listeners
+  useState(() => {
+    audio.onended = () => setPlayingId(null);
+  });
+
+  const togglePlay = (rant: Rant) => {
+    if (playingId === rant.id) {
+      audio.pause();
+      setPlayingId(null);
+    } else {
+      audio.src = rant.audioUrl;
+      audio.play().catch(e => console.error("Playback failed:", e));
+      setPlayingId(rant.id);
+    }
+  };
 
   const { data: globalStats } = useQuery({ queryKey: ["globalStats"], queryFn: api.stats.global, enabled: authenticated });
   const { data: callStats } = useQuery({ queryKey: ["callStats"], queryFn: api.stats.calls, enabled: authenticated });
@@ -209,7 +226,7 @@ export default function AdminDashboard() {
               <TableCell className="text-gray-400 text-xs">{formatDuration(rant.duration)}</TableCell>
               <TableCell>
                 <div className="flex items-center">
-                  <Button size="icon" variant="ghost" onClick={() => setPlayingId(playingId === rant.id ? null : rant.id)} className="h-7 w-7 rounded-full bg-white/[0.08] text-white hover:bg-[#cc0000] hover:text-white">
+                  <Button size="icon" variant="ghost" onClick={() => togglePlay(rant)} className="h-7 w-7 rounded-full bg-white/[0.08] text-white hover:bg-[#cc0000] hover:text-white">
                     {playingId === rant.id ? <Pause className="h-3 w-3 fill-current" /> : <Play className="h-3 w-3 fill-current" />}
                   </Button>
                   <Waveform active={playingId === rant.id} />
@@ -411,7 +428,7 @@ export default function AdminDashboard() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Button size="icon" variant="ghost" onClick={() => setPlayingId(playingId === rant.id ? null : rant.id)} className="h-8 w-8 rounded-full bg-white/[0.08] text-white hover:bg-[#cc0000]">
+                  <Button size="icon" variant="ghost" onClick={() => togglePlay(rant)} className="h-8 w-8 rounded-full bg-white/[0.08] text-white hover:bg-[#cc0000]">
                     {playingId === rant.id ? <Pause className="h-3.5 w-3.5 fill-current" /> : <Play className="h-3.5 w-3.5 fill-current" />}
                   </Button>
                   <Button size="sm" variant="outline" className="bg-orange-500/10 border-orange-500/30 text-orange-400 hover:bg-orange-500/20 text-xs" onClick={() => unfeatureMut.mutate(rant.id)} disabled={unfeatureMut.isPending}>Unfeature</Button>
