@@ -57,7 +57,7 @@ const lineBg = (cat: string) => {
 
 export default function AdminDashboard() {
   const [page, setPage] = useState<Page>("overview");
-  const [activeTab, setActiveTab] = useState("all");
+  const [activeTab, setActiveTab] = useState("pending");
   const [playingId, setPlayingId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
@@ -123,11 +123,24 @@ export default function AdminDashboard() {
     queryClient.invalidateQueries({ queryKey: ["adminActivity"] });
   };
 
-  const approveMut = useMutation({ mutationFn: (id: string) => api.admin.approve(id, adminKey), onSuccess: invalidateAll });
-  const rejectMut = useMutation({ mutationFn: (id: string) => api.admin.reject(id, adminKey), onSuccess: invalidateAll });
-  const featureMut = useMutation({ mutationFn: (id: string) => api.admin.feature(id, adminKey), onSuccess: invalidateAll });
-  const unfeatureMut = useMutation({ mutationFn: (id: string) => api.admin.unfeature(id, adminKey), onSuccess: invalidateAll });
-  const bulkApproveMut = useMutation({ mutationFn: () => api.admin.bulkApprove(adminKey), onSuccess: invalidateAll });
+  const [mutatingId, setMutatingId] = useState<string | null>(null);
+  const [mutationError, setMutationError] = useState<string | null>(null);
+
+  const makeMutation = (fn: (id: string) => Promise<any>) => useMutation({
+    mutationFn: (id: string) => { setMutatingId(id); setMutationError(null); return fn(id); },
+    onSuccess: () => { setMutatingId(null); invalidateAll(); },
+    onError: (err: Error) => { setMutatingId(null); setMutationError(err.message); },
+  });
+
+  const approveMut = makeMutation((id) => api.admin.approve(id, adminKey));
+  const rejectMut = makeMutation((id) => api.admin.reject(id, adminKey));
+  const featureMut = makeMutation((id) => api.admin.feature(id, adminKey));
+  const unfeatureMut = makeMutation((id) => api.admin.unfeature(id, adminKey));
+  const bulkApproveMut = useMutation({
+    mutationFn: () => api.admin.bulkApprove(adminKey),
+    onSuccess: invalidateAll,
+    onError: (err: Error) => setMutationError(err.message),
+  });
 
   const totalToday = callsToday?.total_calls ?? 0;
 
@@ -191,13 +204,20 @@ export default function AdminDashboard() {
   const featuredRants = (allRants ?? []).filter((r) => r.featured);
   const approvedCount = (allRants ?? []).filter((r) => !r.featured).length;
 
-  const RantActionButtons = ({ rant }: { rant: Rant }) => (
-    <div className="flex items-center justify-end gap-1">
-      <Button size="icon" variant="outline" className="h-7 w-7 bg-green-500/10 border-green-500/20 text-green-500 hover:bg-green-500/20 rounded-md" title="Approve" onClick={() => approveMut.mutate(rant.id)} disabled={approveMut.isPending}><Check className="h-3.5 w-3.5" /></Button>
-      <Button size="icon" variant="outline" className="h-7 w-7 bg-red-500/10 border-red-500/20 text-red-500 hover:bg-red-500/20 rounded-md" title="Reject" onClick={() => rejectMut.mutate(rant.id)} disabled={rejectMut.isPending}><X className="h-3.5 w-3.5" /></Button>
-      <Button size="icon" variant="outline" className="h-7 w-7 bg-yellow-500/10 border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 rounded-md" title="Feature" onClick={() => featureMut.mutate(rant.id)} disabled={featureMut.isPending}><Star className="h-3.5 w-3.5" /></Button>
-    </div>
-  );
+  const RantActionButtons = ({ rant }: { rant: Rant }) => {
+    const isBusy = mutatingId === rant.id;
+    return (
+      <div className="flex items-center justify-end gap-1">
+        {!rant.approved && (
+          <Button size="icon" variant="outline" className="h-7 w-7 bg-green-500/10 border-green-500/20 text-green-500 hover:bg-green-500/20 rounded-md" title="Approve" onClick={() => approveMut.mutate(rant.id)} disabled={isBusy}><Check className="h-3.5 w-3.5" /></Button>
+        )}
+        <Button size="icon" variant="outline" className="h-7 w-7 bg-red-500/10 border-red-500/20 text-red-500 hover:bg-red-500/20 rounded-md" title="Reject" onClick={() => rejectMut.mutate(rant.id)} disabled={isBusy}><X className="h-3.5 w-3.5" /></Button>
+        {!rant.featured && (
+          <Button size="icon" variant="outline" className="h-7 w-7 bg-yellow-500/10 border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 rounded-md" title="Feature" onClick={() => featureMut.mutate(rant.id)} disabled={isBusy}><Star className="h-3.5 w-3.5" /></Button>
+        )}
+      </div>
+    );
+  };
 
   const RantTable = ({ data, loading, showActions = true }: { data: Rant[]; loading?: boolean; showActions?: boolean }) => (
     <div className="overflow-x-auto">
@@ -210,6 +230,7 @@ export default function AdminDashboard() {
             <TableHead className="text-gray-500 font-bold text-xs w-16">Len</TableHead>
             <TableHead className="text-gray-500 font-bold text-xs">Audio</TableHead>
             <TableHead className="text-gray-500 font-bold text-xs">Line</TableHead>
+            <TableHead className="text-gray-500 font-bold text-xs">Status</TableHead>
             <TableHead className="text-gray-500 font-bold text-xs hidden md:table-cell">Votes</TableHead>
             {showActions && <TableHead className="text-gray-500 font-bold text-xs text-right">Actions</TableHead>}
           </TableRow>
@@ -235,6 +256,15 @@ export default function AdminDashboard() {
               <TableCell>
                 <Badge variant="outline" className={`font-medium text-xs border ${lineColor(rant.category)}`}>{rant.category || "N/A"}</Badge>
               </TableCell>
+              <TableCell>
+                {rant.featured ? (
+                  <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 text-[10px]">Featured</Badge>
+                ) : rant.approved ? (
+                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-[10px]">Approved</Badge>
+                ) : (
+                  <Badge className="bg-orange-500/20 text-orange-400 border-orange-500/30 text-[10px]">Pending</Badge>
+                )}
+              </TableCell>
               <TableCell className="hidden md:table-cell">
                 <div className="flex items-center gap-2">
                   <span className="text-green-400 font-bold text-sm">{rant.votes}</span>
@@ -246,7 +276,7 @@ export default function AdminDashboard() {
             </TableRow>
           ))}
           {data.length === 0 && (
-            <TableRow><TableCell colSpan={showActions ? 8 : 7} className="text-center py-10 text-gray-500">{loading ? "Loading..." : "No rants found"}</TableCell></TableRow>
+            <TableRow><TableCell colSpan={showActions ? 9 : 8} className="text-center py-10 text-gray-500">{loading ? "Loading..." : "No rants found"}</TableCell></TableRow>
           )}
         </TableBody>
       </Table>
@@ -362,6 +392,10 @@ export default function AdminDashboard() {
           <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white h-9 w-9" onClick={invalidateAll}><RefreshCw className="w-4 h-4" /></Button>
         </div>
       </div>
+
+      {mutationError && (
+        <div className="bg-red-900/30 border border-red-700 rounded-xl p-3 text-center text-red-300 text-sm font-medium mb-4">{mutationError}</div>
+      )}
 
       <div className="bg-gray-900/40 rounded-xl border border-[#cc0000]/30">
         <div className="p-3 border-b border-[#cc0000]/30">

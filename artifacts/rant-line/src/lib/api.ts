@@ -93,6 +93,7 @@ export interface Rant {
   votes: number;
   downvotes: number;
   plays: number;
+  approved: boolean;
   featured: boolean;
   createdAt: string;
   callerNickname: string | null;
