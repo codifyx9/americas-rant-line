@@ -93,10 +93,11 @@ router.post("/recording", async (req, res) => {
     const plan = (req.query.plan as string) || "leave-rant";
     const code = (req.query.code as string) || "";
     
+    // START DIAGNOSTIC TRACE
     const categoryMap: any = { "1": "maga", "2": "blue", "3": "neutral" };
     const category = categoryMap[digit] ?? "neutral";
     const recordingUrl = (req.body.RecordingUrl as string) + ".mp3";
-    const callerPhone = (req.body.From as string) || "Unknown"; // Robust fallback
+    const callerPhone = (req.body.From as string) || "Unknown";
     const duration = parseInt(req.body.RecordingDuration ?? "0", 10);
 
     let callerId: string;
@@ -125,7 +126,7 @@ router.post("/recording", async (req, res) => {
       approved: false,
       featured: (plan === 'featured'),
       title: `${category.toUpperCase()} Rant`,
-      topic: "General",
+      topic: "Politics",
       votes: 0,
       downvotes: 0,
       plays: 0,
@@ -141,9 +142,10 @@ router.post("/recording", async (req, res) => {
     });
 
     res.sendStatus(204);
-  } catch (err) {
+  } catch (err: any) {
     console.error("Twilio recording webhook error:", err);
-    res.status(500).send("Internal Server Error"); // Send text to help debugging
+    // SEND THE ACTUAL ERROR BACK TO TWILIO LOGS SO WE CAN SEE IT
+    res.status(500).send(`CRITICAL ERROR: ${err.message || 'Unknown Error'}`);
   }
 });
 
