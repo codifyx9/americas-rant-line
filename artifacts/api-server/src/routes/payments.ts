@@ -14,9 +14,9 @@ function getStripe() {
 }
 
 const PRODUCTS = {
-  "leave-rant": { name: "Leave a Rant", amount: 199, description: "Leave your rant on America's Rant Line" },
-  "skip-line":  { name: "Skip the Line", amount: 500, description: "Jump to the front of the queue" },
-  "featured":   { name: "Featured Rant", amount: 2500, description: "Get your rant featured on the homepage" },
+  "leave-rant": { name: "Leave a Rant", amount: 299, description: "Leave your rant on America's Rant Line" },
+  "skip-line":  { name: "Skip the Line", amount: 1299, description: "Jump to the front of the queue" },
+  "featured":   { name: "Featured Rant", amount: 3999, description: "Get your rant featured on the homepage" },
 } as const;
 
 type ProductKey = keyof typeof PRODUCTS;
@@ -122,7 +122,7 @@ router.post("/payments/webhook", async (req, res) => {
       expiresAt,
     });
 
-    const PRICES: Record<string, number> = { "leave-rant": 1.99, "skip-line": 5.0, "featured": 25.0 };
+    const PRICES: Record<string, number> = { "leave-rant": 2.99, "skip-line": 12.99, "featured": 39.99 };
     await logActivity("payment_received", `Payment $${PRICES[product] ?? 0} received for ${product}`, {
       sessionId: session.id,
       product,

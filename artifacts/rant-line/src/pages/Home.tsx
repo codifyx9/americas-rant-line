@@ -105,23 +105,23 @@ export default function Home() {
           <p className="text-[11px] text-gray-500 uppercase tracking-[0.2em] font-bold mb-4">&mdash; Choose a Line &mdash;</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-5">
             <div className="flex flex-col items-center gap-1">
-              <Link href="/leave-a-rant"><Button size="lg" className="w-full bg-[#cc0000] hover:bg-red-700 text-white font-black text-base h-13 px-8 shadow-[0_0_25px_rgba(204,0,0,0.35)] rounded-full">{"\uD83D\uDD34"} MAGA Line &mdash; $1.99</Button></Link>
+              <Link href="/leave-a-rant"><Button size="lg" className="w-full bg-[#cc0000] hover:bg-red-700 text-white font-black text-base h-13 px-8 shadow-[0_0_25px_rgba(204,0,0,0.35)] rounded-full">{"\uD83D\uDD34"} MAGA Line &mdash; $2.99</Button></Link>
               <span className="text-[11px] text-red-400 font-black uppercase tracking-wide mt-1">Right / Conservative / Republican</span>
             </div>
             <div className="text-gray-700 font-black text-xl hidden sm:block">VS</div>
             <div className="flex flex-col items-center gap-1">
-              <Link href="/leave-a-rant"><Button size="lg" className="w-full bg-blue-700 hover:bg-blue-600 text-white font-black text-base h-13 px-8 shadow-[0_0_25px_rgba(30,64,175,0.35)] rounded-full">{"\uD83D\uDD35"} Blue Line &mdash; $1.99</Button></Link>
+              <Link href="/leave-a-rant"><Button size="lg" className="w-full bg-blue-700 hover:bg-blue-600 text-white font-black text-base h-13 px-8 shadow-[0_0_25px_rgba(30,64,175,0.35)] rounded-full">{"\uD83D\uDD35"} Blue Line &mdash; $2.99</Button></Link>
               <span className="text-[11px] text-blue-400 font-black uppercase tracking-wide mt-1">Left / Democrat / Progressive</span>
             </div>
             <div className="text-gray-700 font-black text-xl hidden sm:block">VS</div>
             <div className="flex flex-col items-center gap-1">
-              <Link href="/leave-a-rant"><Button size="lg" className="w-full bg-gray-700 hover:bg-gray-600 text-white font-black text-base h-13 px-8 rounded-full">{"\u26AA"} Neutral Line &mdash; $1.99</Button></Link>
+              <Link href="/leave-a-rant"><Button size="lg" className="w-full bg-gray-700 hover:bg-gray-600 text-white font-black text-base h-13 px-8 rounded-full">{"\u26AA"} Neutral Line &mdash; $2.99</Button></Link>
               <span className="text-[11px] text-gray-400 font-black uppercase tracking-wide mt-1">Independent / Open Rant</span>
             </div>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link href="/leave-a-rant"><Button variant="outline" className="bg-transparent hover:bg-white/5 text-white border border-white/20 font-bold text-sm h-10 px-5 rounded-full"><Zap className="w-3.5 h-3.5 mr-1.5 fill-white" /> Skip the Line &mdash; $5</Button></Link>
-            <Link href="/leave-a-rant"><Button variant="outline" className="bg-transparent hover:bg-white/5 text-white border border-white/20 font-bold text-sm h-10 px-5 rounded-full"><Star className="w-3.5 h-3.5 mr-1.5" /> Featured Rant &mdash; $25</Button></Link>
+            <Link href="/leave-a-rant"><Button variant="outline" className="bg-transparent hover:bg-white/5 text-white border border-white/20 font-bold text-sm h-10 px-5 rounded-full"><Zap className="w-3.5 h-3.5 mr-1.5 fill-white" /> Skip the Line &mdash; $12.99</Button></Link>
+            <Link href="/leave-a-rant"><Button variant="outline" className="bg-transparent hover:bg-white/5 text-white border border-white/20 font-bold text-sm h-10 px-5 rounded-full"><Star className="w-3.5 h-3.5 mr-1.5" /> Featured Rant &mdash; $39.99</Button></Link>
           </div>
           <p className="mt-5 text-gray-600 text-xs">{(globalStats?.totalRants ?? 0).toLocaleString()} total rants &middot; {(globalStats?.totalPlays ?? 0).toLocaleString()} listeners &middot; No censorship</p>
         </div>
@@ -318,7 +318,7 @@ export default function Home() {
             <div className="relative z-10">
               <h2 className="text-3xl font-black text-white uppercase tracking-tight mb-2">Got Something To Say?</h2>
               <p className="text-red-200 text-sm mb-6 max-w-md mx-auto">Call the hotline, say your piece, and join thousands of Americans who are being heard.</p>
-              <Link href="/leave-a-rant"><Button size="lg" className="bg-white hover:bg-white/90 text-black font-black rounded-full px-10 text-lg shadow-md">Leave a Rant &mdash; $1.99</Button></Link>
+              <Link href="/leave-a-rant"><Button size="lg" className="bg-white hover:bg-white/90 text-black font-black rounded-full px-10 text-lg shadow-md">Leave a Rant &mdash; $2.99</Button></Link>
               <p className="text-red-200/50 text-xs mt-4">1-888-460-RANT &middot; Available 24/7</p>
             </div>
           </div>
