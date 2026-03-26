@@ -64,9 +64,10 @@ router.post("/code-check", async (req, res) => {
 // Full path: /api/twilio/record
 router.post("/record", (req, res) => {
   const twiml = new twilio.twiml.VoiceResponse();
-  const digit = req.query.digits as string;
-  const plan = req.query.plan as string || "leave-rant";
-  const code = req.query.code as string || "";
+  const d = req.query.digits;
+  const digit = typeof d === 'string' ? d : "3";
+  const plan = (req.query.plan as string) || "leave-rant";
+  const code = (req.query.code as string) || "";
 
   const lineNames: Record<string, string> = { "1": "MAGA", "2": "Blue", "3": "Neutral" };
   const lineName = lineNames[digit] ?? "Neutral";
@@ -95,30 +96,42 @@ router.post("/recording", async (req, res) => {
     const categoryMap: any = { "1": "maga", "2": "blue", "3": "neutral" };
     const category = categoryMap[digit] ?? "neutral";
     const recordingUrl = (req.body.RecordingUrl as string) + ".mp3";
-    const callerPhone = req.body.From as string;
+    const callerPhone = (req.body.From as string) || "Unknown"; // Robust fallback
     const duration = parseInt(req.body.RecordingDuration ?? "0", 10);
 
     let callerId: string;
-    const [existing] = await db.select().from(callersTable).where(eq(callersTable.phone, callerPhone)).limit(1);
+    const existingResult = await db.select().from(callersTable).where(eq(callersTable.phone, callerPhone)).limit(1);
+    const existing = existingResult[0];
 
     if (existing) {
       callerId = existing.id;
     } else {
-      const [newCaller] = await db.insert(callersTable).values({ phone: callerPhone }).returning({ id: callersTable.id });
-      callerId = newCaller.id;
+      const insertedCallers = await db.insert(callersTable).values({ 
+        phone: callerPhone,
+        nickname: "New caller"
+      }).returning({ id: callersTable.id });
+      callerId = insertedCallers[0].id;
     }
 
     if (code) {
       await db.update(callCodesTable).set({ used: true }).where(eq(callCodesTable.code, code));
     }
 
-    const [rant] = await db.insert(rantsTable).values({
+    const insertedRants = await db.insert(rantsTable).values({
       callerId,
       category,
       audioUrl: recordingUrl,
       duration,
       approved: false,
+      featured: (plan === 'featured'),
+      title: `${category.toUpperCase()} Rant`,
+      topic: "General",
+      votes: 0,
+      downvotes: 0,
+      plays: 0,
+      tips: 0
     }).returning();
+    const rant = insertedRants[0];
 
     await logActivity("rant_received", `New rant #${rant.rantNumber} received from ${callerPhone.slice(0, 6)}***`, {
       rantId: rant.id,
@@ -130,7 +143,7 @@ router.post("/recording", async (req, res) => {
     res.sendStatus(204);
   } catch (err) {
     console.error("Twilio recording webhook error:", err);
-    res.sendStatus(500);
+    res.status(500).send("Internal Server Error"); // Send text to help debugging
   }
 });
 
