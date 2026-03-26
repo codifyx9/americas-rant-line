@@ -119,8 +119,18 @@ export default function AdminDashboard() {
   const invalidateAll = () => {
     queryClient.invalidateQueries({ queryKey: ["adminRants"] });
     queryClient.invalidateQueries({ queryKey: ["adminPending"] });
-    queryClient.invalidateQueries({ queryKey: ["globalStats"] });
     queryClient.invalidateQueries({ queryKey: ["adminActivity"] });
+    queryClient.invalidateQueries({ queryKey: ["globalStats"] });
+    queryClient.invalidateQueries({ queryKey: ["rants"] });
+    queryClient.invalidateQueries({ queryKey: ["featured"] });
+    queryClient.invalidateQueries({ queryKey: ["trending"] });
+    queryClient.invalidateQueries({ queryKey: ["leaderboard"] });
+    queryClient.invalidateQueries({ queryKey: ["topRanters"] });
+    queryClient.invalidateQueries({ queryKey: ["topics"] });
+    queryClient.invalidateQueries({ queryKey: ["categoryBreakdown"] });
+    queryClient.invalidateQueries({ queryKey: ["rantsByLine"] });
+    queryClient.invalidateQueries({ queryKey: ["topByLine"] });
+    queryClient.invalidateQueries({ queryKey: ["callsToday"] });
   };
 
   const [mutatingId, setMutatingId] = useState<string | null>(null);
