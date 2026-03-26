@@ -55,6 +55,7 @@ router.post("/code-check", async (req, res) => {
       return res.type("text/xml").send(twiml.toString());
     }
     twiml.say({ voice: "alice" }, "Invalid or expired code.");
+    return res.type("text/xml").send(twiml.toString());
   }
   twiml.redirect({ method: "POST" }, `/api/twilio/record?digits=${digit}&plan=leave-rant`);
   res.type("text/xml").send(twiml.toString());
