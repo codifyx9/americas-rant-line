@@ -11,17 +11,18 @@ import { requireAdminKey } from "../lib/adminAuth.js";
 
 const router: IRouter = Router();
 
-// Applying Rate Limiting first to PROTECT the server
+// Health check always open
+router.use(healthRouter);
+
+// TWILIO ROUTES - NO RATE LIMIT (Must always stay open for calls)
+router.use("/twilio", twilioRouter);
+
+// PUBLIC SITE & ADMIN - PROTECTED BY RATE LIMIT
 router.use(apiLimiter);
 
-router.use(healthRouter);
 router.use(rantsRouter);
-
-// ALL admin actions now REQUIRE a valid secret key
-router.use("/admin", requireAdminKey, adminRouter); 
-
+router.use("/admin", requireAdminKey, adminRouter);
 router.use(paymentsRouter);
-router.use(twilioRouter);
 router.use(statsRouter);
 router.use(callCodesRouter);
 
