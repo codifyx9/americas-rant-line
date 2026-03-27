@@ -200,7 +200,7 @@ router.get("/stats/revenue", async (req, res) => {
 
     for (const r of rows) {
       if (!r.date) continue;
-      const dateStr = (r.date as Date).toISOString().split("T")[0];
+      const dateStr = new Date(r.date as any).toISOString().split("T")[0];
       const price = PRICES[r.plan] ?? 0;
       const countNum = Number(r.count);
       const rev = countNum * price;
