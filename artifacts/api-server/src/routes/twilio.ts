@@ -168,12 +168,17 @@ router.post("/recording", async (req, res) => {
       console.error("Non-critical logging error:", logErr);
     }
 
-    res.sendStatus(204);
+    const twiml = new twilio.twiml.VoiceResponse();
+    twiml.say(PREMIUM_VOICE, "Thank you for your rant. Your recording has been captured successfully. Visit Americas Rant Line dot com to see it posted. Goodbye.");
+    twiml.hangup();
+    res.type("text/xml").send(twiml.toString());
   } catch (err: any) {
     console.error("Twilio recording webhook error:", err);
-    // LOG IT BUT DO NOT CRASH TWILIO IF POSSIBLE
-    // We send 204 because even if DB fails, we want Twilio to finish the call gracefully
-    res.sendStatus(204);
+    // Even on error, we must return a valid TwiML to avoid "Application Error"
+    const twiml = new twilio.twiml.VoiceResponse();
+    twiml.say(PREMIUM_VOICE, "Your rant has been saved. Thank you and goodbye.");
+    twiml.hangup();
+    res.type("text/xml").send(twiml.toString());
   }
 });
 
