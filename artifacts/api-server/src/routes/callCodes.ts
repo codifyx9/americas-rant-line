@@ -106,4 +106,34 @@ router.post("/call-codes/:code/use", async (req, res) => {
   }
 });
 
+router.get("/call-codes/by-session/:id", async (req, res) => {
+  try {
+    const [row] = await db
+      .select()
+      .from(callCodesTable)
+      .where(eq(callCodesTable.stripeSessionId, req.params.id))
+      .limit(1);
+
+    if (!row) {
+      res.status(404).json({ error: "Code not found for this session" });
+      return;
+    }
+
+    const expired = new Date(row.expiresAt) < new Date();
+    res.json({
+      code: row.code,
+      plan: row.plan,
+      category: row.category,
+      used: row.used,
+      expired,
+      valid: !row.used && !expired,
+      expiresAt: row.expiresAt,
+      createdAt: row.createdAt,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 export default router;

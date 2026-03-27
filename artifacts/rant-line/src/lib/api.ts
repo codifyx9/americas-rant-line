@@ -46,12 +46,13 @@ export const api = {
         body: JSON.stringify({ plan, category }),
       }),
     lookup: (code: string) => request<CallCodeInfo>(`/call-codes/${code}`),
+    getBySession: (sessionId: string) => request<CallCodeInfo>(`/call-codes/by-session/${sessionId}`),
   },
   payments: {
-    createSession: (product: string, category?: string) =>
+    createSession: (plan: string, category?: string) =>
       request<{ url: string; sessionId: string }>("/payments/create-session", {
         method: "POST",
-        body: JSON.stringify({ product, category }),
+        body: JSON.stringify({ plan, category }),
       }),
   },
   admin: {

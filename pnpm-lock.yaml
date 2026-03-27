@@ -556,6 +556,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 25.3.5
+      stripe:
+        specifier: ^14.25.0
+        version: 14.25.0
       tsx:
         specifier: 'catalog:'
         version: 4.21.0
@@ -3601,6 +3604,10 @@ packages:
   strip-final-newline@4.0.0:
     resolution: {integrity: sha512-aulFJcD6YK8V1G7iRB5tigAP4TsHBZZrOV8pjV++zdUwmeV8uzbY7yn6h9MswN62adStNZFuCIx4haBnRuMDaw==}
     engines: {node: '>=18'}
+
+  stripe@14.25.0:
+    resolution: {integrity: sha512-wQS3GNMofCXwH8TSje8E1SE8zr6ODiGtHQgPtO95p9Mb4FhKC9jvXR2NUTpZ9ZINlckJcFidCmaTFV4P6vsb9g==}
+    engines: {node: '>=12.*'}
 
   stripe@20.4.1:
     resolution: {integrity: sha512-axCguHItc8Sxt0HC6aSkdVRPffjYPV7EQqZRb2GkIa8FzWDycE7nHJM19C6xAIynH1Qp1/BHiopSi96jGBxT0w==}
@@ -6715,6 +6722,11 @@ snapshots:
       ansi-regex: 5.0.1
 
   strip-final-newline@4.0.0: {}
+
+  stripe@14.25.0:
+    dependencies:
+      '@types/node': 25.3.5
+      qs: 6.15.0
 
   stripe@20.4.1(@types/node@25.3.5):
     optionalDependencies:

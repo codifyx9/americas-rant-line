@@ -75,11 +75,35 @@ const TESTIMONIALS = [
 export default function LeaveARant() {
   const [payment, setPayment] = useState<"idle" | "processing" | "confirmed">("idle");
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<"maga" | "blue" | "neutral">("neutral");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [email, setEmail] = useState("");
 
   const [callCode, setCallCode] = useState<string | null>(null);
   const [payError, setPayError] = useState<string | null>(null);
+
+  // Handle Return from Stripe
+  useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    const success = params.get("success");
+    const sessionId = params.get("session_id");
+
+    if (success && sessionId) {
+      setPayment("processing");
+      // Poll for code (sometimes webhook takes a second)
+      const fetchCode = async () => {
+        try {
+          const res = await api.callCodes.getBySession(sessionId);
+          setCallCode(res.code);
+          setSelectedPlan(res.plan);
+          setPayment("confirmed");
+        } catch (e) {
+          setTimeout(fetchCode, 2000); // Retry in 2s
+        }
+      };
+      fetchCode();
+    }
+  });
 
   const handlePay = async (id: string) => {
     setSelectedPlan(id);
@@ -87,10 +111,10 @@ export default function LeaveARant() {
     setPayError(null);
     try {
       const productMap: Record<string, string> = { standard: "leave-rant", skip: "skip-line", featured: "featured" };
-      const product = productMap[id] || "leave-rant";
-      const codeResult = await api.callCodes.generate(product);
-      setCallCode(codeResult.code);
-      setPayment("confirmed");
+      const planKey = productMap[id] || "leave-rant";
+      
+      const { url } = await api.payments.createSession(planKey, selectedCategory);
+      window.location.href = url; // GO TO STRIPE!
     } catch (err: any) {
       setPayError(err.message || "Payment failed. Please try again.");
       setPayment("idle");
@@ -114,6 +138,28 @@ export default function LeaveARant() {
             <span className="flex items-center gap-2"><Clock className="w-4 h-4 text-blue-400" /> Live within hours</span>
             <span className="flex items-center gap-2"><Mic className="w-4 h-4 text-red-400" /> Fully anonymous</span>
           </div>
+        </div>
+
+        {/* LINE PICKER */}
+        <div className="max-w-xl mx-auto mb-12 bg-[#0f1423] border border-white/5 p-2 rounded-2xl flex gap-1">
+          {[
+            { id: "maga", label: "MAGA Line", color: "bg-[#cc0000]", icon: "R" },
+            { id: "blue", label: "Blue Line", color: "bg-[#1e40af]", icon: "D" },
+            { id: "neutral", label: "Neutral Line", color: "bg-gray-600", icon: "I" },
+          ].map((line) => (
+            <button
+              key={line.id}
+              onClick={() => setSelectedCategory(line.id as any)}
+              className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold transition-all ${
+                selectedCategory === line.id 
+                ? `${line.color} text-white shadow-lg` 
+                : "text-gray-500 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              <span className={`w-2 h-2 rounded-full ${selectedCategory === line.id ? 'bg-white' : line.color}`}></span>
+              {line.label}
+            </button>
+          ))}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20 max-w-5xl mx-auto items-start">

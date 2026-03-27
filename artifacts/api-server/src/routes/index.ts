@@ -20,7 +20,7 @@ router.use("/twilio", twilioRouter);
 // ALL OTHER ROUTES
 router.use("/rants", rantsRouter);
 router.use("/admin", requireAdminKey, adminRouter);
-router.use(paymentsRouter);
+router.use("/payments", paymentsRouter);
 router.use("/stats", statsRouter);
 router.use(callCodesRouter);
 
