@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "wouter";
 import {
@@ -38,6 +38,9 @@ function timeAgo(dateStr: string) {
 
 export default function Home() {
   const [isPlayingFeatured, setIsPlayingFeatured] = useState(false);
+  const [isPlayingTrending, setIsPlayingTrending] = useState(false);
+  const featuredAudioRef = useRef<HTMLAudioElement | null>(null);
+  const trendingAudioRef = useRef<HTMLAudioElement | null>(null);
   const queryClient = useQueryClient();
 
   const { data: callStats } = useQuery({ queryKey: ["callsToday"], queryFn: api.stats.callsToday });
@@ -62,6 +65,49 @@ export default function Home() {
   const medals = ["\uD83E\uDD47", "\uD83E\uDD48", "\uD83E\uDD49"];
   const trendingRant = trending?.[0];
   const topCategories = (topics ?? []).slice(0, 6);
+
+  const toggleFeatured = () => {
+    if (!featured) return;
+    if (!featuredAudioRef.current) {
+      featuredAudioRef.current = new Audio(featured.audioUrl);
+      featuredAudioRef.current.onended = () => setIsPlayingFeatured(false);
+    }
+    if (isPlayingFeatured) {
+      featuredAudioRef.current.pause();
+    } else {
+      featuredAudioRef.current.play().catch(console.error);
+      if (isPlayingTrending && trendingAudioRef.current) {
+        trendingAudioRef.current.pause();
+        setIsPlayingTrending(false);
+      }
+    }
+    setIsPlayingFeatured(!isPlayingFeatured);
+  };
+
+  const toggleTrending = () => {
+    if (!trendingRant) return;
+    if (!trendingAudioRef.current) {
+      trendingAudioRef.current = new Audio(trendingRant.audioUrl);
+      trendingAudioRef.current.onended = () => setIsPlayingTrending(false);
+    }
+    if (isPlayingTrending) {
+      trendingAudioRef.current.pause();
+    } else {
+      trendingAudioRef.current.play().catch(console.error);
+      if (isPlayingFeatured && featuredAudioRef.current) {
+        featuredAudioRef.current.pause();
+        setIsPlayingFeatured(false);
+      }
+    }
+    setIsPlayingTrending(!isPlayingTrending);
+  };
+
+  useEffect(() => {
+    return () => {
+      featuredAudioRef.current?.pause();
+      trendingAudioRef.current?.pause();
+    };
+  }, []);
 
   return (
     <div className="bg-[#0a0e1a] text-white font-sans selection:bg-[#cc0000] selection:text-white">
@@ -187,7 +233,7 @@ export default function Home() {
               </CardHeader>
               <CardContent className="pt-6 pb-6">
                 <div className="flex items-center gap-5">
-                  <button onClick={() => setIsPlayingFeatured(!isPlayingFeatured)} className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-black hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.25)] flex-shrink-0">
+                  <button onClick={toggleFeatured} className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-black hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.25)] flex-shrink-0">
                     {isPlayingFeatured ? <Pause className="w-7 h-7 fill-black" /> : <Play className="w-7 h-7 fill-black ml-1" />}
                   </button>
                   <div className="flex-1">
@@ -230,7 +276,9 @@ export default function Home() {
                   <h3 className="text-xl font-black text-white leading-tight mb-2">&ldquo;{trendingRant.title || trendingRant.topic || "Untitled"}&rdquo;</h3>
                   <p className="text-gray-500 italic text-sm mb-3">&mdash; {trendingRant.callerNickname || "Anonymous"}, {trendingRant.callerState || "US"} &middot; {timeAgo(trendingRant.createdAt)} &middot; {formatDuration(trendingRant.duration)}</p>
                   <div className="flex items-center gap-4">
-                    <button className="w-10 h-10 rounded-full bg-orange-600 hover:bg-orange-500 flex items-center justify-center shrink-0 transition-all hover:scale-105"><Play className="w-4 h-4 fill-white ml-0.5" /></button>
+                    <button onClick={toggleTrending} className="w-10 h-10 rounded-full bg-orange-600 hover:bg-orange-500 flex items-center justify-center shrink-0 transition-all hover:scale-105">
+                      {isPlayingTrending ? <Pause className="w-4 h-4 fill-white" /> : <Play className="w-4 h-4 fill-white ml-0.5" />}
+                    </button>
                     <div className="flex items-center gap-3 text-sm">
                       <span className="text-orange-400 font-black flex items-center gap-1"><Flame className="w-4 h-4 fill-orange-400" />{trendingRant.votes.toLocaleString()} votes</span>
                       <span className="text-gray-600">&middot;</span>
