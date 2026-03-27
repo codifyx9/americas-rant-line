@@ -47,15 +47,16 @@ router.post("/gather", (req, res) => {
   const lineNames: Record<string, string> = { "1": "MAGA Line", "2": "Blue Line", "3": "Neutral Line" };
   const lineName = lineNames[digit] ?? "Neutral Line";
   
-  twiml.say(PREMIUM_VOICE, `You selected the ${lineName}. If you have a 6-digit call code from our website, enter it now followed by pound. Otherwise, just press pound to continue.`);
+  twiml.say(PREMIUM_VOICE, `You selected the ${lineName}. A 6-digit call code from our website is required to leave a rant. Please enter your code now followed by pound.`);
   twiml.gather({
     numDigits: "6",
     action: `/api/twilio/code-check?digits=${digit}`,
     method: "POST",
     finishOnKey: "#",
-    timeout: 7
+    timeout: 10
   });
-  twiml.redirect({ method: "POST" }, `/api/twilio/record?digits=${digit}&plan=leave-rant`);
+  twiml.say(PREMIUM_VOICE, "We did not receive your code. Visit Americas Rant Line dot com to get a code. Goodbye.");
+  twiml.hangup();
   res.type("text/xml").send(twiml.toString());
 });
 
@@ -76,10 +77,12 @@ router.post("/code-check", async (req, res) => {
       twiml.redirect({ method: "POST" }, `/api/twilio/record?digits=${digit}&plan=${row.plan}&code=${code}`);
       return res.type("text/xml").send(twiml.toString());
     }
-    twiml.say(PREMIUM_VOICE, "Invalid or expired code. Continuing with a standard session.");
+    twiml.say(PREMIUM_VOICE, "The code you entered is invalid or has already been used. Goodbye.");
+    twiml.hangup();
     return res.type("text/xml").send(twiml.toString());
   }
-  twiml.redirect({ method: "POST" }, `/api/twilio/record?digits=${digit}&plan=leave-rant`);
+  twiml.say(PREMIUM_VOICE, "No code was entered. Goodbye.");
+  twiml.hangup();
   res.type("text/xml").send(twiml.toString());
 });
 
