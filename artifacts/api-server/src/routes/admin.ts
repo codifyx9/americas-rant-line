@@ -173,16 +173,16 @@ router.post("/rants/:id/title", async (req, res) => {
 router.get("/stats/revenue", async (req, res) => {
   try {
     const period = (req.query.period as string) || "week";
-    let interval = "7 days";
-    if (period === "month") interval = "30 days";
-    else if (period === "year") interval = "365 days";
+    let days = 7;
+    if (period === "month") days = 30;
+    else if (period === "year") days = 365;
 
     const PRICES: Record<string, number> = { "leave-rant": 2.99, "skip-line": 12.99, "featured": 39.99 };
 
     const rows = await db
       .select({ plan: callCodesTable.plan, total: count() })
       .from(callCodesTable)
-      .where(sql`${callCodesTable.createdAt} > now() - interval '1 ${sql.raw(interval)}'`)
+      .where(sql`${callCodesTable.createdAt} > now() - interval '${sql.raw(String(days))} days'`)
       .groupBy(callCodesTable.plan);
 
     let totalRevenue = 0;
