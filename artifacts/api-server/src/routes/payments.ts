@@ -71,8 +71,8 @@ router.post("/webhook", async (req, res) => {
       const plan = session.metadata?.plan || "leave-rant";
       const category = session.metadata?.category || "neutral";
       
-      // GENERATE THE UNIQUE CALL CODE!
-      const code = `RNT-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+      // GENERATE THE UNIQUE CALL CODE (NUMERIC ONLY FOR PHONE KEYPADS)
+      const code = Math.floor(100000 + Math.random() * 900000).toString();
       
       // VALID UNTIL 30 DAYS FROM NOW
       const expiresAt = new Date();

@@ -47,13 +47,13 @@ router.post("/gather", (req, res) => {
   const lineNames: Record<string, string> = { "1": "MAGA Line", "2": "Blue Line", "3": "Neutral Line" };
   const lineName = lineNames[digit] ?? "Neutral Line";
   
-  twiml.say(PREMIUM_VOICE, `You selected the ${lineName}. If you have a call code, enter it now followed by pound. Otherwise, just press pound to continue.`);
+  twiml.say(PREMIUM_VOICE, `You selected the ${lineName}. If you have a 6-digit call code from our website, enter it now followed by pound. Otherwise, just press pound to continue.`);
   twiml.gather({
-    numDigits: "8",
+    numDigits: "6",
     action: `/api/twilio/code-check?digits=${digit}`,
     method: "POST",
     finishOnKey: "#",
-    timeout: 5
+    timeout: 7
   });
   twiml.redirect({ method: "POST" }, `/api/twilio/record?digits=${digit}&plan=leave-rant`);
   res.type("text/xml").send(twiml.toString());
@@ -65,8 +65,8 @@ router.post("/code-check", async (req, res) => {
   const digit = req.query.digits || "3";
   const enteredCode = req.body.Digits;
 
-  if (enteredCode && enteredCode.length > 0) {
-    const code = `RNT-${enteredCode.slice(0, 4).toUpperCase()}`;
+  if (enteredCode && enteredCode.length === 6) {
+    const code = enteredCode;
     const [row] = await db.select().from(callCodesTable).where(
       and(eq(callCodesTable.code, code), eq(callCodesTable.used, false))
     ).limit(1);
