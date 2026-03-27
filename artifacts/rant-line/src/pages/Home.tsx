@@ -39,8 +39,10 @@ function timeAgo(dateStr: string) {
 export default function Home() {
   const [isPlayingFeatured, setIsPlayingFeatured] = useState(false);
   const [isPlayingTrending, setIsPlayingTrending] = useState(false);
+  const [playingLeaderboardId, setPlayingLeaderboardId] = useState<string | null>(null);
   const featuredAudioRef = useRef<HTMLAudioElement | null>(null);
   const trendingAudioRef = useRef<HTMLAudioElement | null>(null);
+  const leaderboardAudioRef = useRef<HTMLAudioElement | null>(null);
   const queryClient = useQueryClient();
 
   const { data: callStats } = useQuery({ queryKey: ["callsToday"], queryFn: api.stats.callsToday });
@@ -102,10 +104,30 @@ export default function Home() {
     setIsPlayingTrending(!isPlayingTrending);
   };
 
+  const toggleLeaderboard = (rant: any) => {
+    if (playingLeaderboardId === rant.id) {
+      leaderboardAudioRef.current?.pause();
+      setPlayingLeaderboardId(null);
+    } else {
+      leaderboardAudioRef.current?.pause();
+      leaderboardAudioRef.current = new Audio(rant.audioUrl);
+      leaderboardAudioRef.current.onended = () => setPlayingLeaderboardId(null);
+      leaderboardAudioRef.current.play().catch(console.error);
+      setPlayingLeaderboardId(rant.id);
+      
+      // Stop others
+      featuredAudioRef.current?.pause();
+      setIsPlayingFeatured(false);
+      trendingAudioRef.current?.pause();
+      setIsPlayingTrending(false);
+    }
+  };
+
   useEffect(() => {
     return () => {
       featuredAudioRef.current?.pause();
       trendingAudioRef.current?.pause();
+      leaderboardAudioRef.current?.pause();
     };
   }, []);
 
@@ -328,7 +350,12 @@ export default function Home() {
                   <p className="text-gray-600 text-xs mt-0.5">&mdash; {r.callerNickname || "Anonymous"}</p>
                 </div>
                 <div className="flex items-center gap-1 font-black text-sm shrink-0 text-red-400"><Flame className="w-4 h-4 fill-current" />{r.votes.toLocaleString()}</div>
-                <button className="w-9 h-9 rounded-full border border-gray-700/50 flex items-center justify-center text-white hover:bg-[#cc0000] hover:border-[#cc0000] transition-all"><Play className="w-3.5 h-3.5 fill-white ml-0.5" /></button>
+                <button 
+                  onClick={() => toggleLeaderboard(r)} 
+                  className={`w-9 h-9 rounded-full border border-gray-700/50 flex items-center justify-center text-white transition-all ${playingLeaderboardId === r.id ? "bg-[#cc0000] border-[#cc0000]" : "hover:bg-[#cc0000] hover:border-[#cc0000]"}`}
+                >
+                  {playingLeaderboardId === r.id ? <Pause className="w-3.5 h-3.5 fill-white" /> : <Play className="w-3.5 h-3.5 fill-white ml-0.5" />}
+                </button>
               </div>
             ))}
           </div>
