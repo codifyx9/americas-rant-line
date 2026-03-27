@@ -157,17 +157,23 @@ router.post("/recording", async (req, res) => {
     }).returning();
     const rant = insertedRants[0];
 
-    await logActivity("rant_received", `New rant #${rant.rantNumber} received from ${callerPhone.slice(0, 6)}***`, {
-      rantId: rant.id,
-      category,
-      plan,
-      duration
-    });
+    try {
+      await logActivity("rant_received", `New rant #${rant?.rantNumber || 'N/A'} received from ${callerPhone.slice(0, 6)}***`, {
+        rantId: rant?.id,
+        category,
+        plan,
+        duration
+      });
+    } catch (logErr) {
+      console.error("Non-critical logging error:", logErr);
+    }
 
     res.sendStatus(204);
   } catch (err: any) {
     console.error("Twilio recording webhook error:", err);
-    res.status(500).send(`CRITICAL ERROR (INTERNAL OVERRIDE): ${err.message || 'Unknown Error'}`);
+    // LOG IT BUT DO NOT CRASH TWILIO IF POSSIBLE
+    // We send 204 because even if DB fails, we want Twilio to finish the call gracefully
+    res.sendStatus(204);
   }
 });
 
