@@ -38,7 +38,7 @@ router.get("/rants/pending", async (_req, res) => {
     res.json(rows);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
@@ -53,7 +53,7 @@ router.get("/rants", async (_req, res) => {
     res.json(rows);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
@@ -66,10 +66,10 @@ router.post("/rants/:id/approve", async (req, res) => {
       .returning();
     if (!updated) return res.status(404).json({ error: "Rant not found" });
     await logActivity("rant_approved", `Rant #${updated.rantNumber} approved`, { rantId: updated.id });
-    res.json({ success: true, rant: updated });
+    return res.json({ success: true, rant: updated });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
@@ -82,10 +82,10 @@ router.post("/rants/:id/feature", async (req, res) => {
       .returning();
     if (!updated) return res.status(404).json({ error: "Rant not found" });
     await logActivity("rant_featured", `Rant #${updated.rantNumber} featured`, { rantId: updated.id, category: updated.category });
-    res.json({ success: true, rant: updated });
+    return res.json({ success: true, rant: updated });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
@@ -98,10 +98,10 @@ router.post("/rants/:id/unfeature", async (req, res) => {
       .returning();
     if (!updated) return res.status(404).json({ error: "Rant not found" });
     await logActivity("rant_unfeatured", `Rant #${updated.rantNumber} removed from featured`, { rantId: updated.id });
-    res.json({ success: true, rant: updated });
+    return res.json({ success: true, rant: updated });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
@@ -113,10 +113,10 @@ router.post("/rants/:id/reject", async (req, res) => {
       .returning();
     if (!deleted) return res.status(404).json({ error: "Rant not found" });
     await logActivity("rant_rejected", `Rant #${deleted.rantNumber} deleted`, { rantId: deleted.id });
-    res.json({ success: true, deleted: deleted.id });
+    return res.json({ success: true, deleted: deleted.id });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
@@ -128,10 +128,10 @@ router.post("/rants/bulk-approve", async (_req, res) => {
       .where(eq(rantsTable.approved, false))
       .returning();
     await logActivity("bulk_approve", `Bulk approved ${updated.length} rants`, { count: updated.length });
-    res.json({ success: true, approved: updated.length });
+    return res.json({ success: true, approved: updated.length });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
@@ -147,10 +147,10 @@ router.post("/rants/:id/category", async (req, res) => {
       .where(eq(rantsTable.id, req.params.id))
       .returning();
     if (!updated) return res.status(404).json({ error: "Rant not found" });
-    res.json({ success: true, rant: updated });
+    return res.json({ success: true, rant: updated });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
@@ -163,10 +163,10 @@ router.post("/rants/:id/title", async (req, res) => {
       .where(eq(rantsTable.id, req.params.id))
       .returning();
     if (!updated) return res.status(404).json({ error: "Rant not found" });
-    res.json({ success: true, rant: updated });
+    return res.json({ success: true, rant: updated });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
@@ -225,7 +225,7 @@ router.get("/stats/revenue", async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
