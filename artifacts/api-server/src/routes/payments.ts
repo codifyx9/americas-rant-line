@@ -5,19 +5,27 @@ import { callCodesTable } from "@workspace/db";
 import { logActivity } from "../lib/activityLogger.js";
 
 const router = Router();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 
-// THE PRICE MAP - Linked to Branden's Stripe Account
+function getStripe() {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) return null;
+  return new Stripe(key);
+}
+
 const PRICES: Record<string, string> = {
   "leave-rant": "price_1TFdGMSJTVRPQSRQMLm4NXE8",
   "skip-line": "price_1TFdGNSJTVRPQSRQwFlqIU2K",
   "featured": "price_1TFdGOSJTVRPQSRQbf0LthA2"
 };
 
-// Full path: /api/payments/create-session
 router.post("/create-session", async (req, res) => {
   try {
-    const { plan, category } = req.body; // e.g., plan: 'featured', category: 'maga'
+    const stripe = getStripe();
+    if (!stripe) {
+      return res.status(503).json({ error: "Payments are not configured yet" });
+    }
+
+    const { plan, category } = req.body;
     const priceId = PRICES[plan];
 
     if (!priceId) {
