@@ -173,28 +173,56 @@ router.post("/rants/:id/title", async (req, res) => {
 router.get("/stats/revenue", async (req, res) => {
   try {
     const period = (req.query.period as string) || "week";
-    let days = 7;
-    if (period === "month") days = 30;
-    else if (period === "year") days = 365;
+    let interval = "7 days";
+    if (period === "month") interval = "30 days";
+    else if (period === "year") interval = "365 days";
 
     const PRICES: Record<string, number> = { "leave-rant": 2.99, "skip-line": 12.99, "featured": 39.99 };
 
     const rows = await db
-      .select({ plan: callCodesTable.plan, total: count() })
+      .select({
+        date: sql`DATE_TRUNC('day', ${callCodesTable.createdAt})`.as("date"),
+        plan: callCodesTable.plan,
+        count: count(),
+      })
       .from(callCodesTable)
-      .where(sql`${callCodesTable.createdAt} > now() - interval '${sql.raw(String(days))} days'`)
-      .groupBy(callCodesTable.plan);
+      .where(
+        and(
+          sql`${callCodesTable.stripeSessionId} IS NOT NULL`,
+          sql`${callCodesTable.createdAt} > now() - interval ${sql.raw(`'${interval}'`)}`
+        )
+      )
+      .groupBy(sql`DATE_TRUNC('day', ${callCodesTable.createdAt})`, callCodesTable.plan);
 
+    const dailyMap: Record<string, { date: string; transactions: number; revenue: number }> = {};
     let totalRevenue = 0;
-    const breakdown: { plan: string; count: number; revenue: number }[] = [];
+    let totalTransactions = 0;
+
     for (const r of rows) {
+      if (!r.date) continue;
+      const dateStr = (r.date as Date).toISOString().split("T")[0];
       const price = PRICES[r.plan] ?? 0;
-      const rev = Number(r.total) * price;
+      const countNum = Number(r.count);
+      const rev = countNum * price;
+
+      if (!dailyMap[dateStr]) {
+        dailyMap[dateStr] = { date: dateStr, transactions: 0, revenue: 0 };
+      }
+      dailyMap[dateStr].transactions += countNum;
+      dailyMap[dateStr].revenue += rev;
+      
       totalRevenue += rev;
-      breakdown.push({ plan: r.plan, count: Number(r.total), revenue: rev });
+      totalTransactions += countNum;
     }
 
-    res.json({ totalRevenue, breakdown, period });
+    const dailyRevenue = Object.values(dailyMap).sort((a, b) => a.date.localeCompare(b.date));
+
+    res.json({
+      period,
+      totalRevenue,
+      totalTransactions,
+      dailyRevenue
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });

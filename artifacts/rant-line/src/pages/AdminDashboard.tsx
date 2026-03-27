@@ -299,7 +299,7 @@ export default function AdminDashboard() {
         {[
           { label: "Rants Today", val: String(totalToday), sub: "Total calls", icon: <Mic className="w-5 h-5" />, color: "text-blue-400 bg-blue-500/10" },
           { label: "Total Rants", val: (globalStats?.totalRants ?? 0).toLocaleString(), sub: `${globalStats?.approvedRants ?? 0} approved`, icon: <Hash className="w-5 h-5" />, color: "text-green-400 bg-green-500/10" },
-          { label: "Total Plays", val: (globalStats?.totalPlays ?? 0).toLocaleString(), sub: "All time", icon: <Eye className="w-5 h-5" />, color: "text-yellow-400 bg-yellow-500/10" },
+          { label: "Total Revenue", val: `$${(revenueData?.totalRevenue ?? 0).toFixed(2)}`, sub: "This week", icon: <DollarSign className="w-5 h-5" />, color: "text-green-400 bg-green-500/10" },
           { label: "Pending Review", val: String((pendingRants ?? []).length), sub: "Awaiting moderation", icon: <AlertCircle className="w-5 h-5" />, color: "text-orange-400 bg-orange-500/10" },
         ].map((s) => (
           <Card key={s.label} className="bg-gray-900/50 border-[#cc0000]/30">
